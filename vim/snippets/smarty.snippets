@@ -1,0 +1,43 @@
+# #!/usr/bin/smarty
+snippet {
+	{{${1:var}}}${2}
+snippet seo
+	{{wb_seo_link href=${1:url} class="fl"}}
+		<img src="{{wb_static_url folder='${2:quiz}'}}{{$image|replace:"[WBFORMAT]":"${3:70}x${4:70}"}}" height="${4}" width="${3}" alt="${5}">
+	{{/wb_seo_link}}${6}
+snippet label
+	{{#LABEL_${1}#}}${2}
+snippet foreach
+	{{foreach from=${1:$var} item=${2:item} key=${3:item_key} name=${4:for_name} }}
+		${5}
+	{{/foreach}}${6}
+snippet ife
+	{{ if ${1:test} }}
+		${2://code}
+	{{ else }}
+		${3://code}
+	{{/if}}${4}
+snippet if
+	{{ if ${1:test} }} ${2://code} {{/if}}${3}
+snippet first
+	$smarty.foreach.${1:name_for}.${2:first}${3}
+snippet count
+	{{${1:$var}|@count}}{$2}
+snippet assign
+	{{assign var=${1:pos} value=${2:0}}}${3}
+snippet date
+	{{${1:date_published}|strtotime|wb_date_format:'${2:cr-day-hour}'}}${3}
+snippet pr
+	<!-- DEBUG START
+	{{${1:$value}|@print_r}}${2}
+		DEBUG END -->
+snippet replace
+	{{${1:#LABEL_#}|replace:"${2:[ENTITY_NAME]}":${3:$entity->getName()}}}${4}
+snippet clear
+	<div class="wb_clear"></div>${1}
+snippet capture
+	{{capture assign="${1:value}"}}
+		${2:// note}
+	{{/capture}}${3}
+snippet die
+	{{php}}die('okidoki');{{/php}}${1}

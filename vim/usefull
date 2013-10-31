@@ -1,0 +1,230 @@
+[NOTE]
+usefull website for learn new language: http://learnxinyminutes.com/
+
+[COMMANDE]
+grep -Rin "ajax.php" ./
+ls -al | wc -l
+du -hs
+rename 's/^20100913150740-/2010-/' *.xml "rename several files
+cd /var/www/video.previsite.com/tmp/temp/video/ && find *.* -mtime  +7 | xargs rm
+sshfs <distant file> www/
+
+[GIT]
+git fetch origin
+git log HEAD..origin/master
+git checkout -f <commit>
+git log --graph --oneline --all
+
+[javascript]
+function objToStr( obj ) {
+    if ( typeof(obj) == 'object' ) {
+        var txt = "";
+        for( var p in obj ) {
+            txt  += p +  ": " + obj[p] + "\n";
+        }
+        return txt;
+    } else {
+        return obj;
+    }
+}
+
+[SMARTY]
+ 'base_url' => $this->view->getEngine()->get_config_vars('LABEL_ROUTE_TEST').'/p##page##'
+ $smarty->assign('url', $controller->getLabel('LABEL_ROUTE_TEST')."/p1");
+$this->config->site->site_url.$base_url
+
+                {{php}}die();{{/php}}
+[VIM]
+Réindentation:
+Maj + v
+$ (pour trouver accolade du if)
+% (aller à l'accolade fermante)
+=
+copier/coller global: 
+ - "+Y -> cp ligne to system
+ - "+p -> colle from system
+mode column: ctrl + V
+
+    Ctrl + V to go into column mode
+    Select the columns and rows where you want to enter your text
+    Shift + i to go into insert mode in column mode
+    Type in the text you want to enter. Dont be discouraged by the fact that only the first row is changed.
+    Esc to apply your change (or alternately Ctrl+c)
+
+:res 20
+:vertical resize 20
+CTRL + a | x (incrémenté et décrémenté)
+
+vi +caractère "<selectectionne le text entre guillement"
+gv ;dernière sélection
+
+[MySQL]
+-- show process list
+SHOW FULL PROCESSLIST
+-- kill a query
+KILL QUERY 594963
+
+[CURL]
+$ch = curl_init($url);
+curl_setopt_array($ch, array(
+    CURLOPT_RETURNTRANSFER => true,
+    CURLOPT_FOLLOWLOCATION => $follow,
+    CURLOPT_HEADER => true,
+    CURLOPT_CUSTOMREQUEST => $method,
+    CURLOPT_SSLVERSION => 3,
+));
+if ($debug) {
+    curl_setopt($ch, CURLOPT_STDERR, fopen('php://output', 'w+'));
+    curl_setopt($ch, CURLOPT_VERBOSE, $debug);
+}
+if (count($post) > 0) {
+    curl_setopt($ch, CURLOPT_POSTFIELDS, $post);
+}
+$content = curl_exec($ch);
+$headerSize = curl_getinfo( $ch, CURLINFO_HEADER_SIZE);
+$header = mb_substr($content, 0, $headerSize);
+$body = mb_substr($content, $headerSize);
+$code = curl_getinfo( $ch, CURLINFO_HTTP_CODE);
+$url = curl_getinfo($ch, CURLINFO_EFFECTIVE_URL);
+curl_close($ch);
+
+[PHP convert time for print]
+function convertDurationForPrint($duration, $separator = ""){
+    $return =  ($duration%60)."s";
+    $duration = floor($duration/60);
+    if($duration > 0){
+        $return =  ($duration%60)."m".$separator.$return;
+        $duration = floor($duration/60);
+        if($duration > 0){
+            $return =  ($duration%24)."h".$separator.$return;
+            $duration = floor($duration/24);
+            if($duration > 0){
+                $return =  $duration."d".$separator.$return;
+            }
+        }
+    }
+    return $return;
+}
+
+
+[PHP command line]
+;launch script without waiting the end
+pclose(popen($cmd, 'r'));
+;live echo in cli script
+
+echo date('Y-m-d H:i:s')."\n";
+ob_flush();
+
+;capture the output
+ob_start();
+include 'file.xml';
+$xml = ob_get_contents();
+ob_end_clean();
+
+;get args in cli
+$isCli = (php_sapi_name() == 'cli' && empty($_SERVER['REMOTE_ADDR']));
+if ($isCli) {
+    $args_without_values = array(
+        'debug',
+        'only_new',
+    );
+    $args_name = array(
+        'templates',
+        'lang',
+        'path',
+    );
+    if (1 >= count($argv)) {
+        echo("Missing arguments:\n");
+        echo(" -templates list of template separate by <,>\n");
+        echo(" -debug if presents the debug tour will be used\n");
+        echo(" -only_new only missing video will be generated\n");
+        echo(" -lang <lang of the tour demo>\n");
+        echo " -path <output path>\n";
+        echo("\n");
+        exit;
+    }
+    for ($i = 1, $unfound = array(); $i < count($argv); $i++) {
+        if (in_array(substr($argv[$i],1), $args_name) && $argv[$i+1] != "") {
+            $argv[$i] = substr($argv[$i],1);
+            $$argv[$i] = $argv[++$i];
+        } else if(in_array(substr($argv[$i],1), $args_without_values)) {
+            $argv[$i] = substr($argv[$i],1);
+            $$argv[$i] = true;
+        } else {
+            $unfound[] = $argv[$i];
+        }
+    }
+    if (0 < count($unfound)) {
+        die("Param not macthed: ".implode(', ', $unfound)."\n");
+    }
+}
+
+[WINDOWS]
+shutdown -r
+taskkill /f /im name.exe 
+
+[LOGO VIDEO]
+taille optimale 300*162px
+
+[Appli android]
+adb -s emulator-5554 shell
+sqlite3 /data/data/com.previsite.android.previsite/databases/previsite.db
+get debug key:
+keytool -exportcert -alias androiddebugkey -keystore ~/.android/debug.keystore | openssl sha1 -binary | openssl base64 (password: android)
+
+
+[conversion video]
+3GP standard + h263 + AMR
+MP4 + H264 + AACLC + Other Opps streamable!
+
+ffmpeg -y -i 977174b324088cc954.mpg -s qvga -vcodec libx264 test.mp4
+
+[SQL]
+#order request with a in
+ id IN (1,3,4,2)
+ORDER BY FIND_IN_SET(id,'1,3,4,2') << plus rapide 
+ORDER BY FIELD(ID,1,5,4,3)
+
+list column
+SELECT * FROM INFORMATION_SCHEMA.COLUMNS WHERE TABLE_NAME='<table name>'
+
+création table:
+
+USE [PREVISITE_IMPORT]
+GO
+/****** Objet :  Table [dbo].[Table_1]    Date de génération du script : 06/03/2009 10:00:21 ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+CREATE TABLE [dbo].[Table_1](
+	[test] [nchar](10) NULL
+) ON [PRIMARY]
+
+
+CONVERT(char(255), @myid)
+CONVERT(varchar(10), [MyDateTimecolumn], 20)
+
+alter:
+ALTER table <table> add|change def
+ALTER table import_tours ALTER COLUMN Url_annonce varchar(250)
+requête en cours (se connecter en admin)
+
+[Apache]
+sf2
+<VirtualHost *:80>
+    ServerName test.local
+
+    DocumentRoot /var/www/test/web
+    <Directory /var/www/test/web>
+        Options Indexes FollowSymLinks MultiViews
+        AllowOverride None
+        Order allow,deny
+        allow from all
+        <IfModule mod_rewrite.c>
+            RewriteEngine On
+            RewriteCond %{REQUEST_FILENAME} !-f
+            RewriteRule ^(.*)$ /app_dev.php/$1 [QSA,L]
+        </IfModule>
+    </Directory>
+</VirtualHost>
