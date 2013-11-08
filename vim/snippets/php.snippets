@@ -266,3 +266,7 @@ snippet ecd
 snippet flush
 	echo ${1:print_r}(${2:var}) . "\n";
 	ob_flush();
+snippet empty
+	if (empty($${1:var})) {
+		${2://code}
+	}${3}

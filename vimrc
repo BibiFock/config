@@ -52,7 +52,6 @@ Bundle 'smarty-syntax'
 Bundle 'lunaru/vim-less'
 Bundle 'matchit.zip'
 
-"Bundle 'jszakmeister/vim-togglecursor'
 
 Bundle 'kien/ctrlp.vim'
 let g:ctrlp_working_path_mode = 'ra'
@@ -62,7 +61,6 @@ let g:ctrlp_custom_ignore = {
   \ 'file': '\.exe$\|\.so$\|\.dat\|\.jpg\|\.png$'
   \ }
 let g:ctrlp_clear_cache_on_exit=0
-map <leader>b :CtrlPBuffer<cr>
 
 
 "au BufRead,BufNewFile *.tpl set filetype=smarty
@@ -106,7 +104,7 @@ set statusline+=%=%-14.(%l,%c%V%)\ %p%% " Right aligned file nav info
 " Only define it when not defined already.
 if !exists(":DiffOrig")
   command DiffOrig vert new | set bt=nofile | r ++edit # | 0d_ | diffthis
-		  \ | wincmd p | diffthis
+          \ | wincmd p | diffthis
 endif
 
 " SEARCH"
@@ -147,17 +145,17 @@ if has("gui_running")
     colorscheme solarized
     set guitablabel=%M\ %t
 else
-	set t_Co=256
-	set background=dark
-	"let g:solarized_termcolors=256
-	"colorscheme solarized
-	colorscheme xoria256
+    set t_Co=256
+    set background=dark
+    "let g:solarized_termcolors=256
+    "colorscheme solarized
+    colorscheme xoria256
     highlight ColorColumn ctermbg=darkgrey guibg=#666666
 
-	au InsertEnter * silent execute "!gconftool-2 --type string --set /apps/gnome-terminal/profiles/Default/cursor_shape ibeam"
-	au InsertLeave * silent execute "!gconftool-2 --type string --set /apps/gnome-terminal/profiles/Default/cursor_shape block"
-	au VimLeave * silent execute "!gconftool-2 --type string --set /apps/gnome-terminal/profiles/Default/cursor_shape block"
-	au VimEnter * silent execute "!gconftool-2 --type string --set /apps/gnome-terminal/profiles/Default/cursor_shape block"
+    "au InsertEnter * silent execute "!gconftool-2 --type string --set /apps/gnome-terminal/profiles/Default/cursor_shape ibeam"
+    "au InsertLeave * silent execute "!gconftool-2 --type string --set /apps/gnome-terminal/profiles/Default/cursor_shape block"
+    "au VimLeave * silent execute "!gconftool-2 --type string --set /apps/gnome-terminal/profiles/Default/cursor_shape block"
+    "au VimEnter * silent execute "!gconftool-2 --type string --set /apps/gnome-terminal/profiles/Default/cursor_shape block"
 endif
 
 " DISPLAY"
@@ -214,8 +212,11 @@ let g:mapleader = ","
 " Fast saving
 nmap <leader>w :w!<cr>
 
+" fast buffers opening
+map <leader>b :CtrlPBuffer<cr>
+
 " Toggle list
-map	<leader><Space> :set list!<CR>
+map <leader><Space> :set list!<CR>
 
 " Useful mappings for managing tabs
 map <leader>tn :tabnew<cr>
@@ -308,10 +309,14 @@ function! CleanCode()
     "silent! %s#\(foreach\|if\)(#\1 (#g
     "silent! %s#\()\|else\|if\){#\1 {#g
     " retab
-    silent! %retab " Replace tabs with spaces
-    silent! %s/\r//eg " Turn DOS returns ^M into real returns
-    silent! %s= *$==e " Delete end of line blanks
-    silent! %s/\%u00a0/ /g
+    if &expandtab
+        silent! %retab " Replace tabs with spaces
+        silent! %s/\r//eg " Turn DOS returns ^M into real returns
+        silent! %s= *$==e " Delete end of line blanks
+        silent! %s/\%u00a0/ /g
+    else
+        silent! %s/\s\+$\| \+\ze\t//g
+    endif
     echo "Cleaned up this mess."
 endfunction
 nmap <silent> <F7> :call CleanCode()<CR>
