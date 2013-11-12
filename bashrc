@@ -1,4 +1,4 @@
-# ~/.bashrc: executed by bash(1) for non-login shells.
+#.bashrc: executed by bash(1) for non-login shells.
 # see /usr/share/doc/bash/examples/startup-files (in the package bash-doc)
 # for examples
 
@@ -92,6 +92,7 @@ alias tmux='TERM=xterm-256color tmux'
 alias grepr='grep -Rin'
 alias cron='ssh cron1'
 alias syslog='ssh syslog1'
+alias dev='ssh dev1.internal -t TERM=xterm-256color tmux a'
 
 # Alias definitions.
 # You may want to put all your additions into a separate file like
