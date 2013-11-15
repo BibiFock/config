@@ -270,3 +270,5 @@ snippet empty
 	if (empty($${1:var})) {
 		${2://code}
 	}${3}
+snippet db_site
+	$db_site = Zend_Registry::get('db_site');${1}

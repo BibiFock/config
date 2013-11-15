@@ -62,6 +62,7 @@ let g:ctrlp_custom_ignore = {
   \ }
 let g:ctrlp_clear_cache_on_exit=0
 
+Bundle 'mattn/emmet-vim'
 
 "au BufRead,BufNewFile *.tpl set filetype=smarty
 
@@ -151,12 +152,19 @@ else
     "colorscheme solarized
     colorscheme xoria256
     highlight ColorColumn ctermbg=darkgrey guibg=#666666
-
     "au InsertEnter * silent execute "!gconftool-2 --type string --set /apps/gnome-terminal/profiles/Default/cursor_shape ibeam"
     "au InsertLeave * silent execute "!gconftool-2 --type string --set /apps/gnome-terminal/profiles/Default/cursor_shape block"
     "au VimLeave * silent execute "!gconftool-2 --type string --set /apps/gnome-terminal/profiles/Default/cursor_shape block"
     "au VimEnter * silent execute "!gconftool-2 --type string --set /apps/gnome-terminal/profiles/Default/cursor_shape block"
 endif
+
+"coloration command ligne for each mode
+au InsertEnter * hi StatusLine term=reverse ctermbg=4 gui=undercurl guisp=Magenta
+au InsertLeave * hi StatusLine term=reverse ctermfg=15 ctermbg=8 gui=bold,reverse
+"tab coloration
+hi TabLineFill ctermfg=0 ctermbg=0
+hi TabLineSel ctermfg=15 ctermbg=8
+hi TabLine ctermfg=lightGray ctermbg=0
 
 " DISPLAY"
 set foldenable                " set to display all folds open
