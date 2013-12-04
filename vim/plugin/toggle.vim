@@ -246,6 +246,27 @@ function! Toggle() "{{{
         elseif (s:wordUnderCursor ==? "undef")
             let s:wordUnderCursor_tmp = "define"
             let s:toggleDone = 1
+
+        elseif (s:wordUnderCursor ==? "relative")
+            let s:wordUnderCursor_tmp = "absolute"
+            let s:toggleDone = 1
+        elseif (s:wordUnderCursor ==? "absolute")
+            let s:wordUnderCursor_tmp = "relative"
+            let s:toggleDone = 1
+
+        elseif (s:wordUnderCursor ==? "top")
+            let s:wordUnderCursor_tmp = "right"
+            let s:toggleDone = 1
+        elseif (s:wordUnderCursor ==? "right")
+            let s:wordUnderCursor_tmp = "bottom"
+            let s:toggleDone = 1
+        elseif (s:wordUnderCursor ==? "bottom")
+            let s:wordUnderCursor_tmp = "left"
+            let s:toggleDone = 1
+        elseif (s:wordUnderCursor ==? "left")
+            let s:wordUnderCursor_tmp = "top"
+            let s:toggleDone = 1
+
         endif
 
          " preserve case (provided by Jan Christoph Ebersbach)

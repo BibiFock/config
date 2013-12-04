@@ -39,6 +39,7 @@ filetype plugin on
 filetype indent on
 "" syntax
 au BufNewFile,BufRead *.less set filetype=less
+au BufNewFile,BufRead *.conf set filetype=dosini
 
 "git clone https://github.com/gmarik/vundle.git ~/.vim/bundle/vundle
 set rtp+=~/.vim/bundle/vundle/
@@ -83,14 +84,13 @@ let g:netrw_liststyle=3
 "status line
 set laststatus=2
 set statusline+=%{SyntasticStatuslineFlag()}
-set statusline=%<%f\ " Filename
+set statusline=%f\ " Filename
 set statusline+=%w%h%m%r " Options
 set statusline+=\ [%{&ff}/%Y] " Show filetype in statusline
-set statusline+=\ [%{getcwd()}] " current dir
+set statusline+=\ [%<%{getcwd()}] " current dir
 set statusline+=%=%-14.(%l,%c%V%)\ %p%% " Right aligned file nav info
 
 "Editor
-"set list
 "
 " Tell vim to remember certain things when we exit
 "  '10  :  marks will be remembered for up to 10 previously edited files
@@ -115,11 +115,12 @@ set    hls                        " hlsearch : highlight all matches for the las
 set winminheight=0              " windows can be 0 line high
 
 "indentation
+set list
 set ai                        " autoindent : automatically set the indent of a new line
 set si                        " do clever autoindenting
 set softtabstop=4                       " tab = 4 space
 set shiftwidth=4
-"set expandtab                           " no more tabs, only spaces!
+set expandtab                           " no more tabs, only spaces!
 set shiftround                          " when at 3 spaces, and I hit > ... go to 4, not 7"
 set noswapfile                          " No more swap file!
 set colorcolumn=80,120                      " Highlight column 80
@@ -130,9 +131,6 @@ syntax enable
 let php_sql_query = 1                   " SQL queries
 let php_htmlInStrings = 1               " HTML
 "let php_folding = 1               " folding function and class
-
-"Enable syntax highlighting
-syntax enable
 
 " Set extra options when running in GUI mode
 if has("gui_running")
@@ -188,7 +186,6 @@ autocmd InsertEnter * match ExtraWhitespace /\s\+\%#\@<!$/
 autocmd InsertLeave * match ExtraWhitespace /\s\+$/
 autocmd BufWinLeave * call clearmatches()
 
-
 "switch dir to current open file
 autocmd BufEnter * silent! lcd %:p:h
 
@@ -209,29 +206,7 @@ else
 endif
 "set noswapfile
 
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" => Moving around, tabs, windows and buffers
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" With a map leader it's possible to do extra key combinations
-" like <leader>w saves the current file
-let mapleader = ","
-let g:mapleader = ","
 
-" Fast saving
-nmap <leader>w :w!<cr>
-
-" fast buffers opening
-map <leader>b :CtrlPBuffer<cr>
-
-" Toggle list
-map <leader><Space> :set list!<CR>
-
-" Useful mappings for managing tabs
-map <leader>tn :tabnew<cr>
-map <leader>to :tabonly<cr>
-map <leader>ts :tab split<cr>
-map <leader>tc :tabclose<cr>
-map <leader>tm :tabmove
 
 " NERDTree
 let g:NERDTreeWinPos = "right"
@@ -249,20 +224,11 @@ map <Down> gj
 map <C-Left> gT
 map <C-Right> gt
 
-
 " Smart way to move btw. windows
 map <C-j> <C-W>j
 map <C-k> <C-W>k
 map <C-h> <C-W>h
 map <C-l> <C-W>l"
-
-"resize vertical split
-map <leader>f :vertical resize 200<CR>
-map <leader>r :vertical resize 90<CR>
-map <leader>s :vertical resize 10<CR>
-
-"reload conf
-map <leader>c :so %<CR>
 
 "replace all tab
 cmap cst %s:\%V\t:    :g<CR>
@@ -311,23 +277,32 @@ if isdirectory(expand("~/www/library"))
 endif
 
 " Clean code function
-function! CleanCode()
+function! CleanCode(all)
     "silent! %s#}\(while\|else\)#} \1#g
     "silent! %s#else if#elseif#g
     "silent! %s#\(foreach\|if\)(#\1 (#g
     "silent! %s#\()\|else\|if\){#\1 {#g
     " retab
-    if &expandtab
+    "if &expandtab
+    "    silent! %retab " Replace tabs with spaces
+    "    silent! %s/\r//eg " Turn DOS returns ^M into real returns
+    "    silent! %s= *$==e " Delete end of line blanks
+    "    silent! %s/\%u00a0/ /g
+    "else
+    "    silent! %s/\s\+$\| \+\ze\t//g
+    "endif
+    if a:all
         silent! %retab " Replace tabs with spaces
-        silent! %s/\r//eg " Turn DOS returns ^M into real returns
-        silent! %s= *$==e " Delete end of line blanks
-        silent! %s/\%u00a0/ /g
-    else
-        silent! %s/\s\+$\| \+\ze\t//g
     endif
+
+    "delete end of line
+    silent! %s/\r//eg " Turn DOS returns ^M into real returns
+    silent! %s= *$==e " Delete end of line blanks
+    silent! %s/\%u00a0/ /g
+    silent! %s/\s\+$\| \+\ze\t//g
+
     echo "Cleaned up this mess."
 endfunction
-nmap <silent> <F7> :call CleanCode()<CR>
 
 "reload snippet
 function! SnippetsUpdate(snip_dir)
@@ -335,8 +310,6 @@ function! SnippetsUpdate(snip_dir)
   call GetSnippets(a:snip_dir, '_')
   call GetSnippets(a:snip_dir, &ft)
 endfunction
-" This command will cause SnippetsUpdate() with parameter <your_snip_dir>
-:map <leader>n :call SnippetsUpdate('~/.vim/snippets/')<CR>
 
 function! GoTo(site)
     let str = $HOME.'/www/'.a:site
@@ -352,4 +325,40 @@ if has("gui_running")
     "finally we launch nerdtree
     autocmd VimEnter * NERDTree
 endif
+
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" => Leader shortcut
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+let mapleader = ","
+let g:mapleader = ","
+
+" Fast saving
+nmap <leader>w :w!<cr>
+
+" fast buffers opening
+map <leader>b :CtrlPBuffer<cr>
+
+" Toggle list
+map <leader><Space> :set list!<CR>
+
+" Useful mappings for managing tabs
+map <leader>tn :tabnew<cr>
+map <leader>to :tabonly<cr>
+map <leader>ts :tab split<cr>
+map <leader>tc :tabclose<cr>
+map <leader>tm :tabmove
+
+" This command will cause SnippetsUpdate() with parameter <your_snip_dir>
+:map <leader>n :call SnippetsUpdate('~/.vim/snippets/')<CR>
+"resize vertical split
+map <leader>f :vertical resize 200<CR>
+map <leader>r :vertical resize 90<CR>
+map <leader>s :vertical resize 10<CR>
+
+"reload conf
+map <leader>c :so %<CR>
+
+" shortcut
+nmap <silent> <F7> :call CleanCode(0)<CR>
+nmap <silent> <F9> :call CleanCode(1)<CR>
 

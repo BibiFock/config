@@ -15,6 +15,16 @@ git log HEAD..origin/master
 git checkout -f <commit>
 git log --graph --oneline --all
 
+[Zend]
+#redirection si tablette
+$bootstrap=new Wb_Bootstrap();
+$bootstrap->initEnvironment();
+//
+// Si tablette, on envoie sur le web - GTL-291
+if(isset($bootstrap->ua) && $bootstrap->ua->isTablet()) Zend_Registry::set('sub_version', 'web');
+
+
+
 [javascript]
 function objToStr( obj ) {
     if ( typeof(obj) == 'object' ) {
