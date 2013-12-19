@@ -207,39 +207,9 @@ endif
 "set noswapfile
 
 
-
 " NERDTree
 let g:NERDTreeWinPos = "right"
 let NERDTreeMinimalUI = 1
-nnoremap <F2> :NERDTreeToggle<CR>
-nnoremap <F3> :NERDTreeFind<CR>
-
-" Treat long lines as break lines (useful when moving around in them)
-map k gk
-map <Up> gk
-map j gj
-map <Down> gj
-
-"Tab deal
-map <C-Left> gT
-map <C-Right> gt
-
-" Smart way to move btw. windows
-map <C-j> <C-W>j
-map <C-k> <C-W>k
-map <C-h> <C-W>h
-map <C-l> <C-W>l"
-
-"replace all tab
-cmap cst %s:\%V\t:    :g<CR>
-
-" Change Working Directory to that of the current file
-cmap cwd lcd %:p:h
-cmap cd. lcd %:p:h
-
-"functionlist
-"map <F2> :Flisttoggle<CR>
-map <F9> :TlistToggle<CR>
 let Tlist_Process_File_Always = 1
 " set the names of flags
 let tlist_php_settings = 'php;c:class;f:function;d:constant'
@@ -251,8 +221,6 @@ let Tlist_GainFocus_On_ToggleOpen = 1
 let Tlist_WinWidth = 40
 " close tlist when a selection is made
 let Tlist_Close_On_Select = 1
-
-map <F8> :TagbarToggle<CR>
 
 " HTML AUTO CLOSE TAG
 au FileType xhtml,xml so ~/.vim/ftplugin/html_autoclosetag.vim        " hmtl_autoclosetag.vim
@@ -327,6 +295,45 @@ if has("gui_running")
 endif
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" => shortcur
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+nnoremap <F2> :NERDTreeToggle<CR>
+nnoremap <F3> :NERDTreeFind<CR>
+
+" Treat long lines as break lines (useful when moving around in them)
+map k gk
+map <Up> gk
+map j gj
+map <Down> gj
+
+"Tab deal
+map <C-Left> gT
+map <C-Right> gt
+
+" Smart way to move btw. windows
+map <C-j> <C-W>j
+map <C-k> <C-W>k
+map <C-h> <C-W>h
+map <C-l> <C-W>l"
+
+"replace all tab
+cmap cst %s:\%V\t:    :g<CR>
+
+" Change Working Directory to that of the current file
+cmap cwd lcd %:p:h
+cmap cd. lcd %:p:h
+
+"functionlist
+"map <F2> :Flisttoggle<CR>
+map <F4> :TlistToggle<CR>
+
+map <F5> :TagbarToggle<CR>
+
+" cleanr code
+nmap <silent> <F8> :call CleanCode(0)<CR>
+nmap <silent> <F9> :call CleanCode(1)<CR>
+
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " => Leader shortcut
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 let mapleader = ","
@@ -349,16 +356,19 @@ map <leader>tc :tabclose<cr>
 map <leader>tm :tabmove
 
 " This command will cause SnippetsUpdate() with parameter <your_snip_dir>
-:map <leader>n :call SnippetsUpdate('~/.vim/snippets/')<CR>
+map <leader>n :call SnippetsUpdate('~/.vim/snippets/')<CR>
 "resize vertical split
 map <leader>f :vertical resize 200<CR>
 map <leader>r :vertical resize 90<CR>
 map <leader>s :vertical resize 10<CR>
 
+"clear search hl
+map <leader>h :noh<CR>
+
 "reload conf
 map <leader>c :so %<CR>
 
-" shortcut
-nmap <silent> <F7> :call CleanCode(0)<CR>
-nmap <silent> <F9> :call CleanCode(1)<CR>
+"retab selection
+map <leader>t :retab<CR>
+
 
