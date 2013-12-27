@@ -1,37 +1,3 @@
-" PLUGINS
-"smipMates : http://www.vim.org/scripts/script.php?script_id=2715 // snippets Ts languages
-"auto close hmtl tags : http://www.vim.org/scripts/script.php?script_id=2591 // html fermeture automatique des tags
-"matchit.vim : http://www.vim.org/scripts/script.php?script_id=39 // amelioration du racourci %
-"surround : http://www.vim.org/scripts/script.php?script_id=1697 // habillage d'une chaîne de caractére avec un tag html par exemple
-" syntax
-"php.wim : http://www.vim.org/scripts/script.php?script_id=1571 // amélioration de la prise en charge de la syntaxe php
-" colorscheme
-"solarized : http://www.vim.org/scripts/script.php?script_id=3520
-" refresh browser
-" https://github.com/mkitt/browser-refresh.vim
-" plugin toggle
-" http://www.vim.org/scripts/script.php?script_id=895
-
-" .vimrc des tones d'exemples en ligne ' ultimate vimrc ' notamment.
-" code to try for open big files
-" Files become read only
-"if !exists("my_auto_commands_loaded")
-  "let my_auto_commands_loaded = 1
-  "" Large files are > 10M
-  "" Set options:
-  "" eventignore+=FileType (no syntax highlighting etc
-  "" assumes FileType always on)
-  "" noswapfile (save copy of file)
-  "" bufhidden=unload (save memory when other file is viewed)
-  "" buftype=nowritefile (is read-only)
-  "" undolevels=-1 (no undo possible)
-  "let g:LargeFile = 1024 * 1024 * 10
-  "augroup LargeFile
-    "autocmd BufReadPre * let f=expand("<afile>") | if getfsize(f) > g:LargeFile | set eventignore+=FileType | setlocal noswapfile bufhidden=unload buftype=nowrite undolevels=-1 | else | set eventignore-=FileType | endif
-    "augroup END
-  "endif
-
-" vim bab: https://github.com/odolbeau/vim-config/blob/master/_vimrc#L69
 " mon vimrc
 " GLOBAL SETTINGS"
 filetype on              " filetype detection
@@ -53,7 +19,6 @@ Bundle 'smarty-syntax'
 Bundle 'lunaru/vim-less'
 Bundle 'matchit.zip'
 
-
 Bundle 'kien/ctrlp.vim'
 let g:ctrlp_working_path_mode = 'ra'
 let g:ctrlp_root_markers = ['html']
@@ -63,7 +28,21 @@ let g:ctrlp_custom_ignore = {
   \ }
 let g:ctrlp_clear_cache_on_exit=0
 
+"template HTML
 Bundle 'mattn/emmet-vim'
+
+Bundle 'The-NERD-Commenter'
+Bundle 'The-NERD-tree'
+
+Bundle 'taglist.vim'
+
+Bundle 'Toggle'
+
+Bundle 'snipMate'
+
+"colorscheme
+Bundle 'Solarized'
+Bundle 'xoria256.vim'
 
 "au BufRead,BufNewFile *.tpl set filetype=smarty
 
@@ -324,10 +303,7 @@ cmap cwd lcd %:p:h
 cmap cd. lcd %:p:h
 
 "functionlist
-"map <F2> :Flisttoggle<CR>
 map <F4> :TlistToggle<CR>
-
-map <F5> :TagbarToggle<CR>
 
 " cleanr code
 nmap <silent> <F8> :call CleanCode(0)<CR>
