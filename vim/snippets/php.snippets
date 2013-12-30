@@ -53,3 +53,26 @@ snippet db_site
 	$db_site = Zend_Registry::get('db_site');${1}
 snippet registry
 	$${1:config} = Zend_Registry::get('$1');${2}
+snippet cache
+	$controller = $common->getController();
+	if ($data = $controller->cache->loadWithKey($cacheKey, $cacheValues)) {
+		return $data;
+	}
+	//sql
+	$controller->cache->saveWithKey(
+		$data,
+		$cacheKey,
+		$cacheValues,
+		array(),
+		self::CACHE_PERIOD
+	);${1}
+snippet loadcache
+	$data = $controller->cache->loadWithKey($cacheKey, $cacheValues)${1}
+snippet savecache
+	$controller->cache->saveWithKey(
+		$data,
+		$cacheKey,
+		$cacheValues,
+		array(),
+		self::CACHE_PERIOD
+	);${1}
