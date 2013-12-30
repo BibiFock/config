@@ -85,16 +85,9 @@ if [ -x /usr/bin/dircolors ]; then
 fi
 
 # some more ls aliases
-alias ll='ls -l'
+alias ll='ls -alF'
 alias la='ls -A'
-#alias l='ls -CF'
-alias tmux='TERM=xterm-256color tmux'
-alias grepr='grep -Rin'
-alias cron='ssh cron1'
-alias syslog='ssh syslog1'
-alias dev='ssh dev1.internal -t TERM=xterm-256color tmux a'
-alias mdev='sshfs bbr@dev1.internal:/home/bbr/www /home/bbr/www'
-alias umdev='sudo umount -l /home/bbr/www'
+alias l='ls -CF'
 
 # Alias definitions.
 # You may want to put all your additions into a separate file like
@@ -103,6 +96,10 @@ alias umdev='sudo umount -l /home/bbr/www'
 
 if [ -f ~/.bash_aliases ]; then
     . ~/.bash_aliases
+fi
+
+if [ -f ~/.bash_prompt ]; then
+  . ~/.bash_prompt;
 fi
 
 # enable programmable completion features (you don't need to enable
