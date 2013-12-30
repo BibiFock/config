@@ -40,3 +40,8 @@
     lol = log --graph --decorate --pretty=oneline --abbrev-commit
     lola = log --graph --decorate --pretty=oneline --abbrev-commit --all
     ls = ls-files
+	d = difftool
+[diff]
+	tool = vimdiff
+[difftool]
+	prompt = false
