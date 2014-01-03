@@ -13,9 +13,9 @@ LIGHT_GRAY="\[\033[0;37m\]"
 COLOR_NONE="\[\e[0m\]"
 
 if [ "`id -u`" -eq 0 ]; then
-  PS1="${LIGHT_RED}\u${LIGHT_BLUE}::${YELLOW}$(hostname	-f) ${LIGHT_BLUE}\w\n${LIGHT_RED}\342\224\224>${COLOR_NONE} "
+  PS1="${LIGHT_RED}\u${LIGHT_BLUE}::${YELLOW}\H ${LIGHT_BLUE}\w\n${LIGHT_RED}\342\224\224>${COLOR_NONE} "
 else
-  PS1="${GREEN}\u${LIGHT_BLUE}::${YELLOW}$(hostname	-f) ${LIGHT_BLUE}\w\n${GREEN}\342\224\224>${COLOR_NONE} "
+  PS1="${GREEN}\u${LIGHT_BLUE}::${YELLOW}\H ${LIGHT_BLUE}\w\n${GREEN}\342\224\224>${COLOR_NONE} "
 fi
 
 

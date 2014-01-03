@@ -20,7 +20,7 @@ Bundle 'matchit.zip'
 
 Bundle 'kien/ctrlp.vim'
 let g:ctrlp_working_path_mode = 'ra'
-let g:ctrlp_root_markers = ['html']
+let g:ctrlp_root_markers = ['html', '.ctrlp']
 let g:ctrlp_custom_ignore = {
   \ 'dir':  '\.git$\|\.svn$\|_cache|_config\|branches\|tags$',
   \ 'file': '\.exe$\|\.so$\|\.dat\|\.jpg\|\.png$'
@@ -35,6 +35,8 @@ Bundle 'The-NERD-tree'
 " NERDTree
 let g:NERDTreeWinPos = "right"
 let NERDTreeMinimalUI = 1
+let NERDTreeShowHidden = 1
+let NERDTreeIgnore=['\.svn$']
 
 Bundle 'taglist.vim'
 let Tlist_Process_File_Always = 1

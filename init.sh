@@ -3,6 +3,7 @@
 ln -sf "$PWD"/bashrc ~/.bashrc
 ln -sf "$PWD"/bash_aliases ~/.bash_aliases
 ln -sf "$PWD"/bash_prompt ~/.bash_prompt
+ln -sf "$PWD"/bash_functions ~/.bash_functions
 
 #vim
 ln -sf "$PWD"/vimrc ~/.vimrc
