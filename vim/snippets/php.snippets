@@ -54,7 +54,14 @@ snippet db_site
 snippet registry
 	$${1:config} = Zend_Registry::get('$1');${2}
 snippet cache
+	$common = Wb_Common::getInstance();
 	$controller = $common->getController();
+
+	$cacheKey = "${1:cache_key}";
+	$cacheValues = array(
+		"${2:id}" => ${3:$value}
+	);
+
 	if ($data = $controller->cache->loadWithKey($cacheKey, $cacheValues)) {
 		return $data;
 	}
@@ -65,7 +72,7 @@ snippet cache
 		$cacheValues,
 		array(),
 		self::CACHE_PERIOD
-	);${1}
+	);${4}
 snippet loadcache
 	$data = $controller->cache->loadWithKey($cacheKey, $cacheValues)${1}
 snippet savecache
@@ -78,3 +85,7 @@ snippet savecache
 	);${1}
 snippet oki
 	die('oki');${1}
+snippet controller
+	$common		= Wb_Common::getInstance();
+	$controller	= $common->getController();
+

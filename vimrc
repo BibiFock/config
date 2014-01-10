@@ -27,8 +27,7 @@ let g:ctrlp_custom_ignore = {
   \ }
 let g:ctrlp_clear_cache_on_exit=0
 
-"template HTML
-Bundle 'mattn/emmet-vim'
+Bundle 'bufexplorer.zip'
 
 Bundle 'The-NERD-Commenter'
 Bundle 'The-NERD-tree'
