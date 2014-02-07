@@ -7,14 +7,14 @@ snippet pr
 snippet ex
 	exit;${1}
 snippet pe
-	echo "<pre>";
+	echo "<xmp>";
 	print_r($${1:string});${2}
-	echo "</pre>";
+	echo "</xmp>";
 	exit;${3}
 snippet ve
-	echo "<pre>";
+	echo "<xmp>";
 	var_dump($${1:string});${2}
-	echo "</pre>";
+	echo "</xmp>";
 	exit;${3}
 snippet re
 	$replace = array(
@@ -50,7 +50,9 @@ snippet empty
 		${2://code}
 	}${3}
 snippet db_site
-	$db_site = Zend_Registry::get('db_site');${1}
+	$db${1:Site} = Zend_Registry::get('db_${2:site}');${3}
+snippet config
+	$${1:config} = Zend_Registry::get('$1');${2}
 snippet registry
 	$${1:config} = Zend_Registry::get('$1');${2}
 snippet cache
@@ -88,4 +90,24 @@ snippet oki
 snippet controller
 	$common		= Wb_Common::getInstance();
 	$controller	= $common->getController();
+#SQL PARTS
+snippet db_query
+	$res = $${1:dbSite}->query($${2:sql});${3}
+snippet db_count
+	if ($res->rowCount() ${1:==} 0) {
+		${2}
+	}
+snippet label
+	${1:controller}->getLabel('LABEL_${2}');${3}
+snippet input_data
+	$data = $this->getRequest()->getParams();
+
+	$filters    = array('*' => 'StringTrim');
+	$validators = array( 'id' => array('allowEmpty' => false));
+	$options    = array('escapeFilter'  => 'StringTrim');
+
+	$input = new Zend_Filter_Input($filters, $validators, $data, $options);
+	if ($input->isValid()) {
+		//code
+	}${1}
 

@@ -23,7 +23,8 @@ function xsvndiff {
 
 function xsvnst {
 	#svn st -q -u
-	svn st -u | grep -v " _cache/" | grep -v "html/library" | grep -v ".ctrlp"
+	#svn st -u --ignore-externals | grep -v "_cache/" | grep -v "html/library" | grep -v ".ctrlp" | grep -v "^X"
+    svn st -u --ignore-externals | grep -vE "_cache/|html/library|.ctrlp|^X"
 }
 
 function xsvnstdiff {

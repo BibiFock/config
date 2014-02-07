@@ -35,6 +35,7 @@ Bundle 'The-NERD-tree'
 let g:NERDTreeWinPos = "right"
 let NERDTreeMinimalUI = 1
 let NERDTreeShowHidden = 1
+let NERDTreeShowBookmarks = 1
 let NERDTreeIgnore=['\.svn$']
 
 Bundle 'taglist.vim'
@@ -145,6 +146,7 @@ set showcmd                 " Affiche la commande en cours de saisie en bas à d
 set cursorline              "Soulignement de la ligne courante
 highlight Folded gui=bold   "Surligne la ligne courante en gris
 set complete=.,w,b,i        " default: .,w,b,u,t,i
+set mouse=a
 
 "show extra white space
 highlight ExtraWhitespace ctermbg=darkred guibg=darkred
@@ -286,6 +288,8 @@ map <leader>to :tabonly<cr>
 map <leader>ts :tab split<cr>
 map <leader>tc :tabclose<cr>
 map <leader>tm :tabmove
+
+map <leader>tb :tabnew +BufExplorer<cr>
 
 " This command will cause SnippetsUpdate() with parameter <your_snip_dir>
 map <leader>n :call SnippetsUpdate('~/.vim/snippets/')<CR>
