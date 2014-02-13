@@ -16,5 +16,5 @@ ln -sf "$PWD"/tmux.conf ~/.tmux.conf
 ln -sf "$PWD"/gitconfig ~/.gitconfig
 
 #svn
-ln -sf "$PWD"/svnconfig ~/.subversion/config
+#ln -sf "$PWD"/svnconfig ~/.subversion/config
 
