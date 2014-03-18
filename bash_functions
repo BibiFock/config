@@ -39,6 +39,6 @@ function xmail {
 
 function go {
     if [ -n "$1" ]; then
-    	cd ~/www/$1/trunk/
+    	cd ~/www/$1/
     fi
 }

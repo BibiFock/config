@@ -85,6 +85,12 @@ snippet savecache
 		array(),
 		self::CACHE_PERIOD
 	);${1}
+snippet delcache
+	$controller->cache->removeWithKey(
+		$cacheKey,
+		$cacheValues,
+		true //config from site
+	);
 snippet oki
 	die('oki');${1}
 snippet controller
@@ -110,4 +116,17 @@ snippet input_data
 	if ($input->isValid()) {
 		//code
 	}${1}
-
+snippet jsonerror
+	$this->errorJsonResponse(${1:null});${2}
+snippet jsonsuccess
+	$this->successJsonResponse(${1:null});${2}
+snippet tododel
+	////////////////////////////////
+	// TODO delete before prod!!
+	// ///////////////////////////
+snippet indexload
+	if($_SERVER['SERVER_ADDR'] == '10.0.1.201') {
+		$library_path = realpath(dirname(__FILE__) . '/../../library');
+	} else {
+		$library_path = realpath(dirname(__FILE__) . '/../../../library/trunk');
+	}

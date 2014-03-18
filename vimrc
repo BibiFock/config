@@ -36,7 +36,7 @@ let g:NERDTreeWinPos = "right"
 let NERDTreeMinimalUI = 1
 let NERDTreeShowHidden = 1
 let NERDTreeShowBookmarks = 1
-let NERDTreeIgnore=['\.svn$']
+let NERDTreeIgnore=['\.svn$','\.git$']
 
 Bundle 'taglist.vim'
 let Tlist_Process_File_Always = 1
@@ -63,6 +63,7 @@ set nocp                    " sets vi compatible mode : (nocp|cp)
 set wrap                    " long lines wrap : (nowrap|wrap)
 set nu                        " line numbering : (nu\nonu)
 set ru                        " ruler : show cursor position below each window (noru|ru)
+set lazyredraw          "optimize redrawing
 " Height of the command bar
 set cmdheight=2
 
@@ -89,6 +90,14 @@ if !exists(":DiffOrig")
   command DiffOrig vert new | set bt=nofile | r ++edit # | 0d_ | diffthis
           \ | wincmd p | diffthis
 endif
+
+" Tell vim to remember certain things when we exit
+"  '10  :  marks will be remembered for up to 10 previously edited files
+"  "11  :  will save up to 100 lines for each register
+"  :20  :  up to 20 lines of command-line history will be remembered
+"  %    :  saves and restores the buffer list
+"  n... :  where to save the viminfo files
+set viminfo='10,\"11,:20,%,n~/.viminfo
 
 " SEARCH"
 set ignorecase      " ignorecase : ignore case when using a search pattern (noic|ic)
@@ -146,7 +155,6 @@ set showcmd                 " Affiche la commande en cours de saisie en bas à d
 set cursorline              "Soulignement de la ligne courante
 highlight Folded gui=bold   "Surligne la ligne courante en gris
 set complete=.,w,b,i        " default: .,w,b,u,t,i
-set mouse=a
 
 "show extra white space
 highlight ExtraWhitespace ctermbg=darkred guibg=darkred
@@ -191,7 +199,7 @@ if filereadable(expand("~/usefull_var"))
 endif
 
 if isdirectory(expand("~/www/library"))
-    :command! Dbconf tabe $HOME/www/library/trunk/php/classes/Wb/Controller/Action.php
+    :command! Dbconf tabe $HOME/www/library/php/classes/Wb/Controller/Action.php
 endif
 
 " Clean code function
@@ -219,7 +227,7 @@ endfunction
 function! GoTo(site)
     let str = $HOME.'/www/'.a:site
     if isdirectory(str)
-         exe 'NERDTree '.str.'/trunk/'
+         exe 'NERDTree '.str
     else
         echoerr 'Directory not found: "'.str.'"'
     endif
@@ -277,7 +285,7 @@ let g:mapleader = ","
 nmap <leader>w :w!<cr>
 
 " fast buffers opening
-map <leader>b :CtrlPBuffer<cr>
+map <leader>bb :CtrlPBuffer<cr>
 
 " Toggle list
 map <leader><Space> :set list!<CR>
@@ -289,7 +297,9 @@ map <leader>ts :tab split<cr>
 map <leader>tc :tabclose<cr>
 map <leader>tm :tabmove
 
-map <leader>tb :tabnew +BufExplorer<cr>
+map <leader>bt :tabnew +BufExplorer<cr>
+map <leader>bb :BufExplorer<cr>
+"map <leader>bv :vs +BufExplorer<cr>
 
 " This command will cause SnippetsUpdate() with parameter <your_snip_dir>
 map <leader>n :call SnippetsUpdate('~/.vim/snippets/')<CR>
@@ -306,5 +316,3 @@ map <leader>c :so %<CR>
 
 "retab selection
 map <leader>t :retab<CR>
-
-

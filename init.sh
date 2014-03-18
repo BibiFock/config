@@ -14,6 +14,7 @@ ln -sf "$PWD"/tmux.conf ~/.tmux.conf
 
 #git
 ln -sf "$PWD"/gitconfig ~/.gitconfig
+ln -sf "$PWD"/gitignore_global ~/.gitignore_global
 
 #svn
 #ln -sf "$PWD"/svnconfig ~/.subversion/config
