@@ -3,10 +3,11 @@ usefull website for learn new language: http://learnxinyminutes.com/
 
 [COMMANDE]
 grep -Rin "ajax.php" ./
-ls -al | wc -l
+ls -al | wc -l // nb répertoire
 du -hs
 rename 's/^20100913150740-/2010-/' *.xml "rename several files
 cd /var/www/video.previsite.com/tmp/temp/video/ && find *.* -mtime  +7 | xargs rm
+find  ./ -name "section*ini" -print
 sshfs <distant file> www/
 
 [GIT]

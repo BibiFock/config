@@ -47,3 +47,7 @@ snippet truncate
 	truncate:${1:55}:${2:'...'}${3}
 snippet mailto
 	{{mailto address="${1:admin@webedia.fr}" encode="javascript"}}${2}
+snippet wbformat
+	{{${1:$media.default_picture}|replace:'[WBFORMAT]':'${2:200x200}'}}${3}
+snippet strip
+	{{${1:/}strip}}${2}
