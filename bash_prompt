@@ -12,10 +12,19 @@ WHITE="\[\033[1;37m\]"
 LIGHT_GRAY="\[\033[0;37m\]"
 COLOR_NONE="\[\e[0m\]"
 
+#for show staged an unstaged
+export GIT_PS1_SHOWDIRTYSTATE=true
+export GIT_PS1_SHOWUNTRACKEDFILES=true
+export GIT_PS1_SHOWSTASHSTATE=true
+#show status for head
+export GIT_PS1_SHOWUPSTREAM="auto"
+
+GIT_BRANCH='$(__git_ps1 "(%s)")'
+
 if [ "`id -u`" -eq 0 ]; then
-  PS1="${LIGHT_RED}\u${LIGHT_BLUE}::${YELLOW}\H ${LIGHT_BLUE}\w\n${LIGHT_RED}\342\224\224>${COLOR_NONE} "
+  PS1="${LIGHT_RED}\u${LIGHT_BLUE}::${YELLOW}\H ${LIGHT_BLUE}\w${LIGHT_PURPLE} ${GIT_BRANCH}\n${LIGHT_RED}\342\224\224>${COLOR_NONE} "
 else
-  PS1="${GREEN}\u${LIGHT_BLUE}::${YELLOW}\H ${LIGHT_BLUE}\w\n${GREEN}\342\224\224>${COLOR_NONE} "
+  PS1="${GREEN}\u${LIGHT_BLUE}::${YELLOW}\H ${LIGHT_BLUE}\w${LIGHT_PURPLE} ${GIT_BRANCH}\n${GREEN}\342\224\224>${COLOR_NONE}"
 fi
 
 

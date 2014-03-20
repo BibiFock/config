@@ -125,8 +125,15 @@ snippet tododel
 	// TODO delete before prod!!
 	// ///////////////////////////
 snippet indexload
-	if($_SERVER['SERVER_ADDR'] == '10.0.1.201') {
+	if(preg_match('/^10.0.1.20[13]$/i', $_SERVER['SERVER_ADDR']) > 0) {
 		$library_path = realpath(dirname(__FILE__) . '/../../library');
 	} else {
 		$library_path = realpath(dirname(__FILE__) . '/../../../library/trunk');
 	}
+snippet devurl
+	dev.url="/\w+(\.fr)?\..+?\.devwebedia\.com/"
+snippet getenv
+	if ( Zend_Registry::get('env') == 'dev'){
+		${1://code}
+	}
+

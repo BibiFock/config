@@ -8,6 +8,8 @@ du -hs
 rename 's/^20100913150740-/2010-/' *.xml "rename several files
 cd /var/www/video.previsite.com/tmp/temp/video/ && find *.* -mtime  +7 | xargs rm
 find  ./ -name "section*ini" -print
+//replace string in files
+find . -name "*.php" -print0 | xargs -0 sed -i 's/titi/tata/g'
 sshfs <distant file> www/
 
 [GIT]

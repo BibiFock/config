@@ -55,6 +55,12 @@ Bundle 'Toggle'
 
 Bundle 'snipMate'
 
+"git tool for vim
+Bundle 'fugitive.vim'
+
+"Fast inner selector
+Bundle 'gcmt/wildfire.vim'
+
 "colorscheme
 Bundle 'Solarized'
 Bundle 'xoria256.vim'
@@ -221,6 +227,7 @@ endfunction
 function! SnippetsUpdate(snip_dir)
   call ResetSnippets()
   call GetSnippets(a:snip_dir, '_')
+  call GetSnippets(g:snippets_dir, &ft)
   call GetSnippets(a:snip_dir, &ft)
 endfunction
 
@@ -285,7 +292,7 @@ let g:mapleader = ","
 nmap <leader>w :w!<cr>
 
 " fast buffers opening
-map <leader>bb :CtrlPBuffer<cr>
+map <leader>cb :CtrlPBuffer<cr>
 
 " Toggle list
 map <leader><Space> :set list!<CR>
