@@ -37,7 +37,8 @@
     loa = log --pretty=format:\"%C(green)%cd %C(red bold)%an%Creset %C(yellow)%h %C(white)%s %C(cyan)%d\" --graph --date=relative --all
     ls = ls-files
     d = difftool
-    uncommit = reset --soft 'HEAD^'
+#uncommit
+    unci = reset --soft 'HEAD^'
 
 [mergetool "fugitive"]
     cmd = vim -f -c \"Gdiff\" \"$MERGED\"

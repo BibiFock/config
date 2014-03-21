@@ -79,6 +79,8 @@ KILL QUERY 594963
 -- insert on duplicate
 INSERT INTO table (a,b,c) VALUES (1,2,3)
   ON DUPLICATE KEY UPDATE c=c+1;
+-- difference entre 2 dates
+DATEDIFF(NOW(), date_publication) < 7
 
 [CURL]
 $ch = curl_init($url);
