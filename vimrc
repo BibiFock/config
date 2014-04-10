@@ -242,6 +242,13 @@ function! GoTo(site)
 endfunction
 :command! -nargs=1 Go call GoTo(<f-args>)
 
+command! -nargs=1 -complete=customlist,GoComplete Go <args>
+
+fun! GoComplete(A,L,P)
+    let path = expand('~/www/')
+    return split(substitute(globpath(path, a:A."*"), path, "", "g"), "\n")
+endfun
+
 if has("gui_running")
     "finally we launch nerdtree
     autocmd VimEnter * NERDTree
@@ -324,3 +331,5 @@ map <leader>c :so %<CR>
 
 "retab selection
 map <leader>t :retab<CR>
+
+
