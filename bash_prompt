@@ -26,5 +26,3 @@ if [ "`id -u`" -eq 0 ]; then
 else
   PS1="${GREEN}\u${LIGHT_BLUE}::${YELLOW}\H ${LIGHT_BLUE}\w${LIGHT_PURPLE} ${GIT_BRANCH}\n${GREEN}\342\224\224>${COLOR_NONE}"
 fi
-
-

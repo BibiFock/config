@@ -57,6 +57,7 @@ Bundle 'snipMate'
 
 "git tool for vim
 Bundle 'fugitive.vim'
+Bundle 'gitv'
 
 "Fast inner selector
 Bundle 'gcmt/wildfire.vim'
