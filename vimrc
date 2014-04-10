@@ -240,14 +240,14 @@ function! GoTo(site)
         echoerr 'Directory not found: "'.str.'"'
     endif
 endfunction
-:command! -nargs=1 Go call GoTo(<f-args>)
 
-command! -nargs=1 -complete=customlist,GoComplete Go <args>
-
-fun! GoComplete(A,L,P)
+fun! GoToComplete(A,L,P)
     let path = expand('~/www/')
     return split(substitute(globpath(path, a:A."*"), path, "", "g"), "\n")
 endfun
+
+command! -nargs=1 -complete=customlist,GoToComplete Go call GoTo(<f-args>)
+
 
 if has("gui_running")
     "finally we launch nerdtree
