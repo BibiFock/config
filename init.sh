@@ -8,6 +8,7 @@ ln -sf "$PWD"/bash_functions ~/.bash_functions
 #vim
 ln -sf "$PWD"/vimrc ~/.vimrc
 ln -sf "$PWD"/vim ~/.vim
+git clone https://github.com/gmarik/vundle.git ~/.vim/bundle/vundle
 
 #tmux
 ln -sf "$PWD"/tmux.conf ~/.tmux.conf
@@ -16,6 +17,5 @@ ln -sf "$PWD"/tmux.conf ~/.tmux.conf
 ln -sf "$PWD"/gitconfig ~/.gitconfig
 ln -sf "$PWD"/gitignore_global ~/.gitignore_global
 
-#svn
-#ln -sf "$PWD"/svnconfig ~/.subversion/config
+
 
