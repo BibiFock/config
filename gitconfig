@@ -33,8 +33,9 @@
     lg = log -p
     unstage = reset HEAD --
     last = log -1 HEAD
-    lol = log --pretty=format:\"%C(green)%cd %C(red bold)%an%Creset %C(yellow)%h %C(white)%s %C(cyan)%d\" --graph --date=relative -20
-    loa = log --pretty=format:\"%C(green)%cd %C(red bold)%an%Creset %C(yellow)%h %C(white)%s %C(cyan)%d\" --graph --date=iso --all
+    lol = log --pretty=format:\"%C(green)%cd %C(red bold)%an%Creset %C(yellow)%h %C(white)%s %C(cyan)%d\" --graph --date-order --date=relative -20
+    loldf = log --pretty=format:\"%C(green)%cd %C(red bold)%an%Creset %C(yellow)%h %C(white)%s %C(cyan)%d\" --graph --date-order --date=relative -20 --decorate --numstat --shortstat
+    loa = log --pretty=format:\"%C(green)%cd %C(red bold)%an%Creset %C(yellow)%h %C(white)%s %C(cyan)%d\" --graph --date-order --date=iso --all
     ls = ls-files
     d = difftool
     hist = whatchanged -p 
