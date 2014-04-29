@@ -62,6 +62,15 @@ Bundle 'gitv'
 "Fast inner selector
 Bundle 'gcmt/wildfire.vim'
 
+Bundle 'scrooloose/syntastic'
+let g:syntastic_check_on_open=1
+let g:syntastic_enable_signs=1
+let g:syntastic_auto_jump = 1
+let g:syntastic_loc_list_height = 5
+" Better :sign interface symbols
+let g:syntastic_error_symbol = '✗'
+let g:syntastic_warning_symbol = '!'
+
 "colorscheme
 Bundle 'Solarized'
 Bundle 'xoria256.vim'
@@ -81,7 +90,7 @@ let g:netrw_liststyle=3
 
 "status line
 set laststatus=2
-set statusline+=%{SyntasticStatuslineFlag()}
+
 set statusline=%f\ " Filename
 set statusline+=%w%h%m%r " Options
 set statusline+=\ [%{&ff}/%Y] " Show filetype in statusline
@@ -331,5 +340,4 @@ map <leader>c :so %<CR>
 
 "retab selection
 map <leader>t :retab<CR>
-
 
