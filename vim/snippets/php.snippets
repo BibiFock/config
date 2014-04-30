@@ -120,10 +120,10 @@ snippet jsonerror
 	$this->errorJsonResponse(${1:null});${2}
 snippet jsonsuccess
 	$this->successJsonResponse(${1:null});${2}
-snippet tododel
+snippet todo
 	////////////////////////////////
-	// TODO delete before prod!!
-	// ///////////////////////////
+	// TODO ${1:delete before prod!!}
+	////////////////////////////////
 snippet indexload
 	if(preg_match('/^10.0.1.20[13]$/i', $_SERVER['SERVER_ADDR']) > 0) {
 		$library_path = realpath(dirname(__FILE__) . '/../../library');
@@ -136,4 +136,9 @@ snippet getenv
 	if ( Zend_Registry::get('env') == 'dev'){
 		${1://code}
 	}
-
+snippet array_map
+	$${1:rows} = array_map( function($$2) {
+			return ${$2:row};
+		},
+		$$1
+	);${3}

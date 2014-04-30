@@ -39,6 +39,7 @@
     ls = ls-files
     d = difftool
     hist = whatchanged -p 
+    dfl = diff --word-diff=porcelain
     #uncommit
     unci = reset --soft 'HEAD^'
 
