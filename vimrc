@@ -73,6 +73,7 @@ let g:syntastic_warning_symbol = '!'
 
 Bundle 'bling/vim-airline'
 let g:airline#extensions#syntastic#enabled = 1
+let g:airline_section_c = '%<%{getcwd()}/%f'
 
 "colorscheme
 Bundle 'Solarized'
