@@ -56,7 +56,7 @@ Bundle 'Toggle'
 Bundle 'snipMate'
 
 "git tool for vim
-Bundle 'fugitive.vim'
+Bundle 'tpope/vim-fugitive'
 Bundle 'gitv'
 
 "Fast inner selector
@@ -72,7 +72,10 @@ let g:syntastic_error_symbol = '✗'
 let g:syntastic_warning_symbol = '!'
 
 Bundle 'bling/vim-airline'
+let g:airline#extensions#branch#enabled = 1
 let g:airline#extensions#syntastic#enabled = 1
+let g:airline_left_sep=''
+let g:airline_right_sep=''
 let g:airline_section_c = '%<%{getcwd()}/%f'
 
 "colorscheme
