@@ -71,6 +71,9 @@ let g:syntastic_loc_list_height = 5
 let g:syntastic_error_symbol = '✗'
 let g:syntastic_warning_symbol = '!'
 
+Bundle 'bling/vim-airline'
+let g:airline#extensions#syntastic#enabled = 1
+
 "colorscheme
 Bundle 'Solarized'
 Bundle 'xoria256.vim'
@@ -91,11 +94,11 @@ let g:netrw_liststyle=3
 "status line
 set laststatus=2
 
-set statusline=%f\ " Filename
-set statusline+=%w%h%m%r " Options
-set statusline+=\ [%{&ff}/%Y] " Show filetype in statusline
-set statusline+=\ [%<%{getcwd()}] " current dir
-set statusline+=%=%-14.(%l,%c%V%)\ %p%% " Right aligned file nav info
+"set statusline=%f\ " Filename
+"set statusline+=%w%h%m%r " Options
+"set statusline+=\ [%{&ff}/%Y] " Show filetype in statusline
+"set statusline+=\ [%<%{getcwd()}] " current dir
+"set statusline+=%=%-14.(%l,%c%V%)\ %p%% " Right aligned file nav info
 
 "Editor
 "

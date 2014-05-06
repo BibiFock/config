@@ -81,6 +81,9 @@ INSERT INTO table (a,b,c) VALUES (1,2,3)
   ON DUPLICATE KEY UPDATE c=c+1;
 -- difference entre 2 dates
 DATEDIFF(NOW(), date_publication) < 7
+-- format date
+doc: http://dev.mysql.com/doc/refman/5.5/en/date-and-time-functions.html#function_date-format
+date_format(date_update, '%Y-%m-%d %k')  date
 
 [CURL]
 $ch = curl_init($url);
