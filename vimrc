@@ -88,7 +88,7 @@ set nu                        " line numbering : (nu\nonu)
 set ru                        " ruler : show cursor position below each window (noru|ru)
 set lazyredraw          "optimize redrawing
 " Height of the command bar
-set cmdheight=2
+"set cmdheight=1
 
 "Explore
 let g:netrw_liststyle=3
