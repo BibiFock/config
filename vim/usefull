@@ -18,6 +18,9 @@ git log HEAD..origin/master
 git checkout -f <commit>
 git log --graph --oneline --all
 
+git branch --set-upstream my_branch origin/my_branch
+or git push -u origin mybranch
+
 [Zend]
 #redirection si tablette
 $bootstrap=new Wb_Bootstrap();
@@ -249,3 +252,17 @@ sf2
         </IfModule>
     </Directory>
 </VirtualHost>
+
+[explore dir images]
+if ($_REQUEST['image']) {
+    $images = glob($_REQUEST['image']."*");
+    foreach ($images as $image) {
+        if (preg_match('#(png|jpe?g|gif)$#i', $image) > 0) {
+            echo '<img src="'.$image.'" title="'.$image.'" /><br />';
+        }
+    }
+    die('end');
+}
+
+test.log | sed -e "s/[0-9]\{1,3\}\.[0-9]\{1,3\}.[0-9]\{1,3\}.[0-9]\{1,3\}/\x1b[1;34m&\x1b[0m/g" -e "s/\[ERROR [^]]*]/\x1b[1;31m&\x1b[0m/;" -e "s/http_host:[^,]*/\x1b[1;32m&\x1b[0m/;" -e "s/Type:[^,]*/\x1b[1;33m&\x1b[0m/;"
+
