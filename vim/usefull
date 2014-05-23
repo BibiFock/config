@@ -17,6 +17,9 @@ git fetch origin
 git log HEAD..origin/master
 git checkout -f <commit>
 git log --graph --oneline --all
+//suppression branche distante
+git push origin :MEN-4
+
 
 git branch --set-upstream my_branch origin/my_branch
 or git push -u origin mybranch
