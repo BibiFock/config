@@ -155,6 +155,8 @@ else
     set t_Co=256
     colorscheme xoria256
     highlight ColorColumn ctermbg=darkgrey guibg=#666666
+    "redef des msg de warning car trop discret par défaut
+    hi WarningMsg ctermfg=15  guifg=#ffffff ctermbg=166   guibg=#800000
 endif
 
 "coloration command ligne for each mode

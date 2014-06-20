@@ -109,7 +109,7 @@ snippet input_data
 	$data = $this->getRequest()->getParams();
 
 	$filters    = array('*' => 'StringTrim');
-	$validators = array( 'id' => array('allowEmpty' => false));
+	$validators = array( 'id' => array('allowEmpty' => false, 'presence' => 'required'));
 	$options    = array('escapeFilter'  => 'StringTrim');
 
 	$input = new Zend_Filter_Input($filters, $validators, $data, $options);
@@ -123,6 +123,8 @@ snippet jsonsuccess
 snippet todo
 	////////////////////////////////
 	// TODO ${1:delete before prod!!}
+	${2://code}
+	// TODO $1
 	////////////////////////////////
 snippet indexload
 	if(preg_match('/^10.0.1.20[13]$/i', $_SERVER['SERVER_ADDR']) > 0) {

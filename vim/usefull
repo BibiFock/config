@@ -19,6 +19,12 @@ git checkout -f <commit>
 git log --graph --oneline --all
 //suppression branche distante
 git push origin :MEN-4
+//search
+git lol --grep=
+//rename last commit
+git ci --amend -m
+//rename branch
+git br -m old new
 
 
 git branch --set-upstream my_branch origin/my_branch
