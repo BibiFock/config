@@ -46,7 +46,7 @@ snippet flush
 	echo ${1:print_r}(${2:var}) . "\n";
 	ob_flush();
 snippet empty
-	if (empty($${1:var})) {
+	if (!empty($${1:var})) {
 		${2://code}
 	}${3}
 snippet db_site

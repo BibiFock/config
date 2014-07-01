@@ -56,6 +56,7 @@ function _go_complete() {
 complete -F _go_complete go
 
 complete -F _go_complete publish
+complete -F _go_complete publishns
 
 
 function seelog {

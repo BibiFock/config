@@ -235,7 +235,7 @@ function! CleanCode(all)
 
     "delete end of line
     silent! %s/\r//eg " Turn DOS returns ^M into real returns
-    silent! %s= *$==e " Delete end of line blanks
+    silent! %s/ *$//eg " Delete end of line blanks
     silent! %s/\%u00a0/ /g
     silent! %s/\s\+$\| \+\ze\t//g
 
