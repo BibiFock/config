@@ -15,3 +15,5 @@ alias publish='cron sudo /var/shared4/scripts/publish $1'
 alias publishns='cron sudo /var/shared4/scripts/publish --ns $1'
 ##git
 alias gitlist='ssh git@server-git'
+#makelibrary link
+alias linklib='ln -s ~/www/library/html/ html/library'

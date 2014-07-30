@@ -295,11 +295,13 @@ map <C-h> <C-W>h
 map <C-l> <C-W>l"
 
 "replace all tab
+cmap csp %s:\%V *$::eg<CR>
 cmap cst %s:\%V\t:    :g<CR>
 
 " Change Working Directory to that of the current file
 cmap cwd lcd %:p:h
 cmap cd. lcd %:p:h
+
 
 "functionlist
 map <F4> :TlistToggle<CR>

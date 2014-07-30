@@ -10,6 +10,7 @@ cd /var/www/video.previsite.com/tmp/temp/video/ && find *.* -mtime  +7 | xargs r
 find  ./ -name "section*ini" -print
 //replace string in files
 find . -name "*.php" -print0 | xargs -0 sed -i 's/titi/tata/g'
+grep -Rnl " Brand(" * | xargs -i@ sed -i 's/ Brand(/Shopping_&/g' @
 sshfs <distant file> www/
 
 [GIT]
@@ -59,6 +60,18 @@ function objToStr( obj ) {
 $this->config->site->site_url.$base_url
 
                 {{php}}die();{{/php}}
+
+[CSS]
+/* Clear-fix */
+.wb_cf:before, .wb_cf:after{
+	content:"";
+	display:table;
+}
+.wb_cf:after{
+	clear:both;
+}
+
+
 [VIM]
 Réindentation:
 Maj + v

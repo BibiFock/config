@@ -34,7 +34,7 @@
     unstage = reset HEAD --
     last = log -1 HEAD
     lol = log --pretty=format:\"%C(green)%cd %C(red bold)%an%Creset %C(yellow)%h %C(white)%s %C(cyan)%d\" --graph --date-order --date=relative -20
-    loldf = log --pretty=format:\"%C(green)%cd %C(red bold)%an%Creset %C(yellow)%h %C(white)%s %C(cyan)%d\" --graph --date-order --date=relative -20 --decorate --numstat --shortstat
+    loldf = log --pretty=format:\"%C(green)%cd %C(red bold)%an%Creset %C(yellow)%h %C(white)%s %C(cyan)%d\" --graph --date-order --date=relative -10 --decorate --numstat --shortstat
     loa = log --pretty=format:\"%C(green)%cd %C(red bold)%an%Creset %C(yellow)%h %C(white)%s %C(cyan)%d\" --graph --date-order --date=iso --all
     ls = ls-files
     d = difftool
@@ -47,3 +47,5 @@
     cmd = vim -f -c \"Gdiff\" \"$MERGED\"
 [merge]
     tool = fugitive
+[push]
+	default = current

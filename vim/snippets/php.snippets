@@ -49,7 +49,7 @@ snippet empty
 	if (!empty($${1:var})) {
 		${2://code}
 	}${3}
-snippet db_site
+snippet dbsite
 	$db${1:Site} = Zend_Registry::get('db_${2:site}');${3}
 snippet config
 	$${1:config} = Zend_Registry::get('$1');${2}
@@ -107,11 +107,9 @@ snippet label
 	${1:controller}->getLabel('LABEL_${2}');${3}
 snippet input_data
 	$data = $this->getRequest()->getParams();
-
 	$filters    = array('*' => 'StringTrim');
 	$validators = array( 'id' => array('allowEmpty' => false, 'presence' => 'required'));
 	$options    = array('escapeFilter'  => 'StringTrim');
-
 	$input = new Zend_Filter_Input($filters, $validators, $data, $options);
 	if ($input->isValid()) {
 		//code
@@ -144,3 +142,8 @@ snippet array_map
 		},
 		$$1
 	);${3}
+snippet fetchall
+	$${1:res} = $${2:dbSite}->query($sql);
+	$${3:rows} = $$1->fetchAll();
+snippet common
+	$common = Wb_Common::getInstance();
