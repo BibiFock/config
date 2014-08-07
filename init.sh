@@ -13,6 +13,10 @@ git clone https://github.com/gmarik/vundle.git ~/.vim/bundle/vundle
 #tmux
 ln -sf "$PWD"/tmux.conf ~/.tmux.conf
 
+#bash
+ln -sf "$PWD"/inputrc ~/.inputrc
+
+
 #git
 ln -sf "$PWD"/gitconfig ~/.gitconfig
 ln -sf "$PWD"/gitignore_global ~/.gitignore_global

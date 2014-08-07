@@ -147,3 +147,10 @@ snippet fetchall
 	$${3:rows} = $$1->fetchAll();
 snippet common
 	$common = Wb_Common::getInstance();
+snippet catch
+	} catch(Exception $e) {
+		echo "<xmp>";
+		print_r($${1:string});${2}
+		echo "</xmp>";
+		exit;${3}
+	}
