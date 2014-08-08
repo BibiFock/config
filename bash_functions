@@ -71,10 +71,10 @@ function _go_complete() {
     COMPREPLY=( $(compgen -W "$COMPLETES" -- ${COMP_WORDS[COMP_CWORD]}) )
     return 0
 }
-complete -F _go_complete go
+#complete -F _go_complete go
 
-complete -F _go_complete publish
-complete -F _go_complete publishns
+#complete -F _go_complete publish
+#complete -F _go_complete publishns
 
 
 function seelog {
