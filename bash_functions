@@ -38,8 +38,14 @@ function xmail {
 
 
 function go {
+    dir=~
+    if [ -n "$2" ]; then
+        dir=/home/$2
+    fi
     if [ -n "$1" ]; then
-    	cd ~/www/$1/
+        cd $dir/www/$1/
+    else
+        ls $dir/www/
     fi
 }
 
@@ -47,7 +53,11 @@ function go {
 # and tab key is pressed twice
 function _go_complete() {
     # fill local variable with a list of completions
-    local COMPLETES=$(ls ~/www/)
+     if [ $COMP_CWORD -eq 1 ]; then
+         local COMPLETES=$(ls ~/www/)
+     elif [ $COMP_CWORD -eq 2 ]; then
+         local COMPLETES=$(ls /home/)
+     fi
 
     # we put the completions into $COMPREPLY using compgen
     COMPREPLY=( $(compgen -W "$COMPLETES" -- ${COMP_WORDS[COMP_CWORD]}) )
