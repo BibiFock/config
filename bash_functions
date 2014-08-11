@@ -39,11 +39,19 @@ function xmail {
 
 function go {
     dir=~
+    subdir=
     if [ -n "$2" ]; then
         dir=/home/$2
+        if [[ $2 == "beta" ]]; then
+            subdir=site/
+        fi
     fi
     if [ -n "$1" ]; then
-        cd $dir/www/$1/
+        dir=$dir/www/$1/
+        if [ $subdir ]; then
+            dir=$dir$subdir
+        fi
+        cd $dir
     else
         ls $dir/www/
     fi
