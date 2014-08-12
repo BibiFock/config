@@ -38,18 +38,18 @@ let NERDTreeShowHidden = 1
 let NERDTreeShowBookmarks = 1
 let NERDTreeIgnore=['\.svn$','\.git$']
 
-Bundle 'taglist.vim'
-let Tlist_Process_File_Always = 1
-" set the names of flags
-let tlist_php_settings = 'php;c:class;f:function;d:constant'
-" close all folds except for current file
-let Tlist_File_Fold_Auto_Close = 1
-" make tlist pane active when opened
-let Tlist_GainFocus_On_ToggleOpen = 1
-" width of window
-let Tlist_WinWidth = 40
-" close tlist when a selection is made
-let Tlist_Close_On_Select = 1
+"Bundle 'taglist.vim'
+"let Tlist_Process_File_Always = 1
+"" set the names of flags
+"let tlist_php_settings = 'php;c:class;f:function;d:constant'
+"" close all folds except for current file
+"let Tlist_File_Fold_Auto_Close = 1
+"" make tlist pane active when opened
+"let Tlist_GainFocus_On_ToggleOpen = 1
+"" width of window
+"let Tlist_WinWidth = 40
+"" close tlist when a selection is made
+"let Tlist_Close_On_Select = 1
 
 Bundle 'Toggle'
 

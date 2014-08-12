@@ -13,6 +13,11 @@ find . -name "*.php" -print0 | xargs -0 sed -i 's/titi/tata/g'
 grep -Rnl " Brand(" * | xargs -i@ sed -i 's/ Brand(/Shopping_&/g' @
 sshfs <distant file> www/
 
+[ssh]
+connection sans mpd
+ssh-keygen -t rsa
+scp ~/.ssh/id_rsa.pub bibi@gandalf.tux:~bibi/.ssh/authorized_keys2
+
 [GIT]
 git fetch origin
 git log HEAD..origin/master
