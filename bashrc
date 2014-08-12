@@ -120,3 +120,6 @@ if [ -f $HOME/.bash_functions ]; then
   . $HOME/.bash_functions;
 fi
 
+#[ -z "$PS1" ] && return
+#exec zsh
+
