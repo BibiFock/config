@@ -16,6 +16,8 @@ ln -sf "$PWD"/tmux.conf ~/.tmux.conf
 #bash
 ln -sf "$PWD"/inputrc ~/.inputrc
 
+#bin
+ln -sf "$PWD"/bin ~/bin
 
 #git
 ln -sf "$PWD"/gitconfig ~/.gitconfig
