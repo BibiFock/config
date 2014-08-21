@@ -26,6 +26,9 @@ let g:ctrlp_custom_ignore = {
   \ 'file': '\.exe$\|\.so$\|\.dat\|\.jpg\|\.png$'
   \ }
 let g:ctrlp_clear_cache_on_exit=0
+Bundle 'tacahiroy/ctrlp-funky'
+let g:ctrlp_extensions = ['funky']
+let g:ctrlp_funky_syntax_highlight = 1
 
 Bundle 'bufexplorer.zip'
 
@@ -81,6 +84,23 @@ let g:airline_section_c = '%<%{getcwd()}/%f'
 "colorscheme
 Bundle 'Solarized'
 Bundle 'xoria256.vim'
+
+"php fixer
+Bundle 'php-cs-fixer'
+" If php-cs-fixer is in $PATH, you don't need to define line below
+let g:php_cs_fixer_path = "~/bin/php-cs-fixer.phar" " define the path to the
+" php-cs-fixer.phar
+ let g:php_cs_fixer_level = "all"                  " which level ?
+ let g:php_cs_fixer_config = "default"             " configuration
+ let g:php_cs_fixer_php_path = "php"               " Path to PHP
+" If you want to define specific fixers:
+"let g:php_cs_fixer_fixers_list = "linefeed,short_tag,indentation"
+ let g:php_cs_fixer_enable_default_mapping = 1     " Enable the mapping by
+" default (<leader>pc + d for dir or f for file)
+let g:php_cs_fixer_dry_run = 0                    " Call command with
+" dry-run option
+let g:php_cs_fixer_verbose = 0                    " Return the output of
+" command if 1, else an inline information.
 
 set nocp                    " sets vi compatible mode : (nocp|cp)
 set wrap                    " long lines wrap : (nowrap|wrap)
@@ -320,6 +340,7 @@ let g:mapleader = ","
 nmap <leader>w :w!<cr>
 
 " fast buffers opening
+map <leader>cp :CtrlP<cr>
 map <leader>cb :CtrlPBuffer<cr>
 
 " Toggle list
@@ -352,3 +373,7 @@ map <leader>c :so %<CR>
 "retab selection
 map <leader>t :retab<CR>
 
+" list of functions
+nnoremap <Leader>fu :CtrlPFunky<Cr>
+" narrow the list down with a word under cursor
+nnoremap <Leader>fun :execute 'CtrlPFunky ' . expand('<cword>')<Cr>
