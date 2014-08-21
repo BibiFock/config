@@ -86,6 +86,12 @@ lines=(${(f)$(ls ~/www/)})
 echo "Length of lines is " ${#lines[@]} " value is " ${lines}
 
 function _go_complete() {
+    local arg
+    if (( CURRENT == 3 )); then
+        reply=(${$(ls /home/)})
+        return 0;
+    fi
+
     reply=(${$(ls ~/www/)})
 }
 compctl -K _go_complete go
