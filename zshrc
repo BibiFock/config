@@ -78,3 +78,14 @@ export PATH="/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/g
 # Example aliases
 # alias zshconfig="mate ~/.zshrc"
 # alias ohmyzsh="mate ~/.oh-my-zsh"
+
+local lines
+
+lines=(${(f)$(ls ~/www/)})
+
+echo "Length of lines is " ${#lines[@]} " value is " ${lines}
+
+function _go_complete() {
+    reply=(${$(ls ~/www/)})
+}
+compctl -K _go_complete go
