@@ -71,11 +71,12 @@ function _go() {
     COMPREPLY=( $(compgen -W "$COMPLETES" -- ${COMP_WORDS[COMP_CWORD]}) )
     return 0
 }
+if [ -n "$BASH_VERSION" ]; then
+    complete -F _go go
 
-complete -F _go go
-
-complete -F _go publish
-complete -F _go publishns
+    complete -F _go publish
+    complete -F _go publishns
+fi
 
 
 function seelog {

@@ -95,3 +95,5 @@ function _go_complete() {
     reply=(${$(ls ~/www/)})
 }
 compctl -K _go_complete go
+compctl -K _go_complete publish
+compctl -K _go_complete publishns
