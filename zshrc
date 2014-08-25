@@ -79,12 +79,6 @@ export PATH="/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/g
 # alias zshconfig="mate ~/.zshrc"
 # alias ohmyzsh="mate ~/.oh-my-zsh"
 
-local lines
-
-lines=(${(f)$(ls ~/www/)})
-
-echo "Length of lines is " ${#lines[@]} " value is " ${lines}
-
 function _go_complete() {
     local arg
     if (( CURRENT == 3 )); then

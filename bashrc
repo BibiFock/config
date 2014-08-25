@@ -121,5 +121,5 @@ if [ -f $HOME/.bash_functions ]; then
 fi
 
 #[ -z "$PS1" ] && return
-#exec zsh
+exec zsh
 
