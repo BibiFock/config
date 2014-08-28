@@ -120,3 +120,5 @@ if [ -f ~/.bash_functions ]; then
   . ~/.bash_functions;
 fi
 
+#adding vi edition style to bashrc
+set -o vi
