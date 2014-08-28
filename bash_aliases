@@ -3,7 +3,11 @@ alias tmux='TERM=xterm-256color tmux'
 alias grepr='grep -Rin --exclude-dir=library'
 
 #bash
-alias bash='. ~/.bashrc'
+if [ -n "$BASH_VERSION" ]; then
+    alias bash='. ~/.bashrc'
+else
+    alias bash='. ~/.zshrc'
+fi
 
 #connection
 alias cron='ssh cron1.internal'

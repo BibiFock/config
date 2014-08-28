@@ -78,16 +78,3 @@ export PATH="/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/g
 # Example aliases
 # alias zshconfig="mate ~/.zshrc"
 # alias ohmyzsh="mate ~/.oh-my-zsh"
-
-function _go_complete() {
-    local arg
-    if (( CURRENT == 3 )); then
-        reply=(${$(ls /home/)})
-        return 0;
-    fi
-
-    reply=(${$(ls ~/www/)})
-}
-compctl -K _go_complete go
-compctl -K _go_complete publish
-compctl -K _go_complete publishns
