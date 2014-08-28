@@ -63,6 +63,8 @@ function objToStr( obj ) {
  'base_url' => $this->view->getEngine()->get_config_vars('LABEL_ROUTE_TEST').'/p##page##'
  $smarty->assign('url', $controller->getLabel('LABEL_ROUTE_TEST')."/p1");
 $this->config->site->site_url.$base_url
+#assign array
+{{assign var='myArray' value=','|explode:"cat,dog,rabbit"}}
 
                 {{php}}die();{{/php}}
 
