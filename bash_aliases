@@ -1,6 +1,6 @@
 #usefull
 alias tmux='TERM=xterm-256color tmux'
-alias grepr='grep -Rin'
+alias grepr='grep -Rin --exclude-dir=library'
 
 #bash
 alias bash='. ~/.bashrc'
@@ -19,6 +19,8 @@ alias www-php='sudo -u www-data /usr/bin/php'
 #publish
 alias publish='sudo publish $1'
 alias publishns='sudo publish --ns $1'
+alias publishcron='sudo publish_crons'
+
 ##git
 alias gitlist='ssh git@server-git'
 #makelibrary link
