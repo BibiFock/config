@@ -74,7 +74,7 @@ esac
 
 # enable color support of ls and also add handy aliases
 if [ -x /usr/bin/dircolors ]; then
-    test -r ~/.dircolors && eval "$(dircolors -b ~/.dircolors)" || eval "$(dircolors -b)"
+    test -r $HOME/.dircolors && eval "$(dircolors -b $HOME/.dircolors)" || eval "$(dircolors -b)"
     alias ls='ls --color=auto'
     #alias dir='dir --color=auto'
     #alias vdir='vdir --color=auto'
@@ -91,15 +91,15 @@ alias l='ls -CF'
 
 # Alias definitions.
 # You may want to put all your additions into a separate file like
-# ~/.bash_aliases, instead of adding them here directly.
+# $HOME/.bash_aliases, instead of adding them here directly.
 # See /usr/share/doc/bash-doc/examples in the bash-doc package.
 
-if [ -f ~/.bash_aliases ]; then
-    . ~/.bash_aliases
+if [ -f $HOME/.bash_aliases ]; then
+    . $HOME/.bash_aliases
 fi
 
-if [ -f ~/.bash_prompt ]; then
-  . ~/.bash_prompt;
+if [ -f $HOME/.bash_prompt ]; then
+  . $HOME/.bash_prompt;
 fi
 
 # enable programmable completion features (you don't need to enable
@@ -116,9 +116,15 @@ fi
 export GREP_OPTIONS="--exclude-dir=\.svn --exclude-dir=_cache"
 
 
-if [ -f ~/.bash_functions ]; then
-  . ~/.bash_functions;
+if [ -f $HOME/.bash_functions ]; then
+  . $HOME/.bash_functions;
 fi
+
 
 #adding vi edition style to bashrc
 set -o vi
+
+#[ -z "$PS1" ] && return
+#exec zsh
+
+

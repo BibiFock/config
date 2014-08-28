@@ -59,7 +59,7 @@ function go {
 
 # Create function that will run when a certain phrase is typed in terminal
 # and tab key is pressed twice
-function _go_complete() {
+function _go() {
     # fill local variable with a list of completions
      if [ $COMP_CWORD -eq 1 ]; then
          local COMPLETES=$(ls ~/www/)
@@ -71,10 +71,12 @@ function _go_complete() {
     COMPREPLY=( $(compgen -W "$COMPLETES" -- ${COMP_WORDS[COMP_CWORD]}) )
     return 0
 }
-complete -F _go_complete go
+if [ -n "$BASH_VERSION" ]; then
+    complete -F _go go
 
-complete -F _go_complete publish
-complete -F _go_complete publishns
+    complete -F _go publish
+    complete -F _go publishns
+fi
 
 
 function seelog {
