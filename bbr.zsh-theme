@@ -11,7 +11,7 @@ PROMPT='${vim_mode}%{$reset_color%}$(_user_host) ${_current_dir}%{$fg_bold[magen
 PROMPT2=''
 RPROMPT=''
 
-local _current_dir="%{$fg[cyan]%}%3~%{$reset_color%}"
+local _current_dir="%{$fg[cyan]%}%d%{$reset_color%}"
 
 function _user_host() {
     me="%n::%m"
@@ -37,7 +37,7 @@ export GIT_PS1_SHOWUPSTREAM="auto"
 bindkey -v
 
 vim_ins_mode=""
-vim_cmd_mode="%{$fg_bold[red]%}vi|"
+vim_cmd_mode="%{$fg_bold[red]%}+"
 vim_mode=$vim_ins_mode
 
 function zle-keymap-select {
@@ -68,3 +68,32 @@ function _go_complete() {
 compctl -K _go_complete go
 compctl -K _go_complete publish
 compctl -K _go_complete publishns
+
+#for manual title
+DISABLE_AUTO_TITLE=true
+
+# key bindings
+#bindkey "e[1~" beginning-of-line
+#bindkey "e[4~" end-of-line
+#bindkey "e[5~" beginning-of-history
+#bindkey "e[6~" end-of-history
+bindkey "e[3~" delete-char
+#bindkey "e[2~" quoted-insert
+#bindkey "e[5C" forward-word
+#bindkey "eOc" emacs-forward-word
+#bindkey "e[5D" backward-word
+#bindkey "eOd" emacs-backward-word
+#bindkey "ee[C" forward-word
+#bindkey "ee[D" backward-word
+#bindkey "^H" backward-delete-word
+## for rxvt
+#bindkey "e[8~" end-of-line
+#bindkey "e[7~" beginning-of-line
+# for non RH/Debian xterm, can't hurt for RH/DEbian xterm
+#bindkey "eOH" beginning-of-line
+#bindkey "eOF" end-of-line
+# for freebsd console
+#bindkey "e[H" beginning-of-line
+#bindkey "e[F" end-of-line
+# completion in the middle of a line
+#bindkey '^i' expand-or-complete-prefix

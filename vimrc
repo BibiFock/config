@@ -41,19 +41,6 @@ let NERDTreeShowHidden = 1
 let NERDTreeShowBookmarks = 1
 let NERDTreeIgnore=['\.svn$','\.git$']
 
-"Bundle 'taglist.vim'
-"let Tlist_Process_File_Always = 1
-"" set the names of flags
-"let tlist_php_settings = 'php;c:class;f:function;d:constant'
-"" close all folds except for current file
-"let Tlist_File_Fold_Auto_Close = 1
-"" make tlist pane active when opened
-"let Tlist_GainFocus_On_ToggleOpen = 1
-"" width of window
-"let Tlist_WinWidth = 40
-"" close tlist when a selection is made
-"let Tlist_Close_On_Select = 1
-
 Bundle 'Toggle'
 
 Bundle 'snipMate'
@@ -73,6 +60,10 @@ let g:syntastic_loc_list_height = 5
 " Better :sign interface symbols
 let g:syntastic_error_symbol = '✗'
 let g:syntastic_warning_symbol = '!'
+
+Bundle 'othree/javascript-libraries-syntax.vim'
+let g:used_javascript_libs = 'jquery'
+autocmd BufReadPre *.js let b:javascript_lib_use_jquery = 1
 
 Bundle 'bling/vim-airline'
 let g:airline#extensions#branch#enabled = 1
@@ -305,6 +296,8 @@ map j gj
 map <Down> gj
 
 "Tab deal
+map ez gT
+map ze gt
 map <C-Left> gT
 map <C-Right> gt
 
