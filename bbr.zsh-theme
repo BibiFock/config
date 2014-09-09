@@ -34,7 +34,7 @@ export GIT_PS1_SHOWSTASHSTATE=true
 export GIT_PS1_SHOWUPSTREAM="auto"
 
 #VIM mode
-bindkey -v
+#bindkey -v
 
 vim_ins_mode=""
 vim_cmd_mode="%{$fg_bold[red]%}+"

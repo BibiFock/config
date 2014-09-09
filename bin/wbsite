@@ -20,9 +20,9 @@ if ($argc > 1) {
         usage();
 
     if (in_array($argv[1],array('--site-id', '-s'))) {
-        $sql = 'SELECT * FROM sites WHERE id = '.$argv[2];
+        $sql = 'SELECT * FROM sites WHERE id IN (' . $argv[2] . ')';
     }elseif (in_array($argv[1], array('--group-id','-g'))) {
-        $sql = 'SELECT * FROM sites WHERE site_group_id = '.$argv[2];
+        $sql = 'SELECT * FROM sites WHERE site_group_id IN ('.$argv[2].')';
     }elseif (in_array($argv[1], array('--find', '-f'))) {
         $sql = "SELECT * FROM sites WHERE LOWER(title) LIKE '%".strtolower($argv[2])."%'";
     }

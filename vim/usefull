@@ -67,6 +67,28 @@ $this->config->site->site_url.$base_url
 {{assign var='myArray' value=','|explode:"cat,dog,rabbit"}}
 
                 {{php}}die();{{/php}}
+[extjs]
+//permet d'annuler la propagation d'un évènement dans les actions column
+//quand l'évènement retourne false
+Ext.override(Ext.grid.ActionColumn, {
+    processEvent : function(name, e, grid, rowIndex, colIndex){
+        var m = e.getTarget().className.match(this.actionIdRe),
+        item, fn;
+        if (m && (item = this.items[parseInt(m[1], 10)])) {
+            if (name == 'click') {
+                fn = item.handler || this.handler;
+                if(fn){
+                    if(fn.call(item.scope || this.scope || this, grid, rowIndex, colIndex, item, e) === false){
+                        return false;
+                    }
+                }
+            } else if ((name == 'mousedown') && (item.stopSelection !== false)) {
+                return false;
+            }
+        }
+        return Ext.grid.ActionColumn.superclass.processEvent.apply(this, arguments);
+    }
+});
 
 [CSS]
 /* Clear-fix */
@@ -140,6 +162,10 @@ $body = mb_substr($content, $headerSize);
 $code = curl_getinfo( $ch, CURLINFO_HTTP_CODE);
 $url = curl_getinfo($ch, CURLINFO_EFFECTIVE_URL);
 curl_close($ch);
+
+[php preg]
+preg_match('!^(?P<site_name>.*?)/(?P<path>.*)!', $labels_file['file'],$match)
+
 
 [PHP convert time for print]
 function convertDurationForPrint($duration, $separator = ""){

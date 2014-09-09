@@ -333,8 +333,8 @@ let g:mapleader = ","
 nmap <leader>w :w!<cr>
 
 " fast buffers opening
-map <leader>cp :CtrlP<cr>
-map <leader>cb :CtrlPBuffer<cr>
+nmap <leader>pc :CtrlP<cr>
+nmap <leader>bc :CtrlPBuffer<cr>
 
 " Toggle list
 map <leader><Space> :set list!<CR>
