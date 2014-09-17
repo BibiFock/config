@@ -9,6 +9,7 @@
         current = yellow reverse
         local = yellow
         remote = green
+	upstream = cyan
     [color "diff"]
         meta = yellow bold
         frag = magenta bold
@@ -29,6 +30,7 @@
     st = status
     ci = commit
     br = branch
+    brl = branch -vv
     co = checkout
     df = diff
     lg = log -p
@@ -41,9 +43,12 @@
     ls = ls-files
     d = difftool
     hist = whatchanged -p 
-    dfl = diff --word-diff=porcelain
+    dfw = diff --color-words
+    #add forgeted files to last commit
+    oops = git commit --amend --no-edit
     #uncommit
     unci = reset --soft 'HEAD^'
+    stave = stash save -u 
 
 [mergetool "fugitive"]
     cmd = vim -f -c \"Gdiff\" \"$MERGED\"

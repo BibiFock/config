@@ -61,9 +61,15 @@ let g:syntastic_loc_list_height = 5
 let g:syntastic_error_symbol = '✗'
 let g:syntastic_warning_symbol = '!'
 
+"javascript
 Bundle 'othree/javascript-libraries-syntax.vim'
 let g:used_javascript_libs = 'jquery'
 autocmd BufReadPre *.js let b:javascript_lib_use_jquery = 1
+
+Bundle 'jelera/vim-javascript-syntax'
+Bundle 'pangloss/vim-javascript'
+let g:javascript_enable_domhtmlcss=1
+Bundle 'nathanaelkane/vim-indent-guides'
 
 Bundle 'bling/vim-airline'
 let g:airline#extensions#branch#enabled = 1

@@ -27,5 +27,6 @@ alias publishcron='sudo publish_crons'
 
 ##git
 alias gitlist='ssh git@server-git'
+alias gitrb='git co $1 && git rebase master && git co master && git merge $1'
 #makelibrary link
 alias linklib='ln -s ~/www/library/html/ html/library'
