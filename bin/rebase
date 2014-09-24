@@ -1,0 +1,46 @@
+#!/bin/bash
+
+RESET="\\033[0m"
+YELLOW="\\033[33m"
+GREEN="\\033[32m"
+RED="\\033[31m"
+
+function isOk {
+    [ $? -ne 0 ] && echo -e "$RED$1\n\n==> FAILED" && exit
+}
+
+function step {
+    echo -e $YELLOW-------------------------------------------------------- [$1]
+}
+
+step "find current branch"
+currentBranch="$(git symbolic-ref --short -q HEAD)"
+isOk "current branch not found"
+
+if [[ $currentBranch == "master" ]]; then
+    echo -e $RED "can't merge master with himself,\n\n DUMBASS!!" && exit
+fi
+
+step "update master"
+git co master
+isOk "checkout to master"
+
+git pull
+isOk "master pull"
+
+step "rebase $currentBranch"
+git co $currentBranch
+isOk "checkout to $currentBranch"
+
+git rebase master
+isOk "rebase"
+
+step "merge $currentBranch in master"
+git co master
+isOk "Checkout to master"
+
+git "merge $currentBranch"
+isOk "merge $currentBranch"
+
+echo -e "\n\n"$GREEN"==> ready to push"
+

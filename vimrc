@@ -15,7 +15,8 @@ call vundle#rc()
 Bundle 'gmarik/vundle'
 
 Bundle 'smarty-syntax'
-Bundle 'lunaru/vim-less'
+"Bundle 'lunaru/vim-less'
+Bundle 'groenewege/vim-less'
 Bundle 'matchit.zip'
 
 Bundle 'kien/ctrlp.vim'

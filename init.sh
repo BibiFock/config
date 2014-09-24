@@ -28,5 +28,7 @@ ln -sf "$PWD"/bin ~/bin
 ln -sf "$PWD"/gitconfig ~/.gitconfig
 ln -sf "$PWD"/gitignore_global ~/.gitignore_global
 
+#composer
+php -r "readfile('https://getcomposer.org/installer');" | php -- --install-dir="$PWD"/bin
 
 

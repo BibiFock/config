@@ -45,7 +45,7 @@
     hist = whatchanged -p 
     dfw = diff --color-words
     #add forgeted files to last commit
-    oops = git commit --amend --no-edit
+    oops = commit --amend --no-edit
     #uncommit
     unci = reset --soft 'HEAD^'
     stave = stash save -u 

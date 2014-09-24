@@ -2,3 +2,4 @@ vim/backup/*
 vim/.netrwhist
 vim/bundle/*
 vim/swap/*
+bin/composer.phar

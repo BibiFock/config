@@ -23,6 +23,8 @@ git fetch origin
 git log HEAD..origin/master
 git checkout -f <commit>
 git log --graph --oneline --all
+//push distant branch
+git push -u origin <branch name>
 //suppression branche distante
 git push origin :MEN-4
 //search

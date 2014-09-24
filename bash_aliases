@@ -1,6 +1,6 @@
 #usefull
 alias tmux='TERM=xterm-256color tmux'
-alias grepr='grep -Rin --exclude-dir=library'
+alias grepr='grep -Rin --exclude-dir=library --exclude-dir=_cache'
 
 #bash
 if [ -n "$BASH_VERSION" ]; then
@@ -27,6 +27,5 @@ alias publishcron='sudo publish_crons'
 
 ##git
 alias gitlist='ssh git@server-git'
-alias gitrb='git co $1 && git rebase master && git co master && git merge $1'
 #makelibrary link
 alias linklib='ln -s ~/www/library/html/ html/library'
