@@ -6,11 +6,11 @@ GREEN="\\033[32m"
 RED="\\033[31m"
 
 function isOk {
-    [ $? -ne 0 ] && echo -e "$RED$1\n\n==> FAILED" && exit
+    [ $? -ne 0 ] && echo -e "$RED$1\n\n==> FAILED$RESET" && exit
 }
 
 function step {
-    echo -e $YELLOW-------------------------------------------------------- [$1]
+    echo -e $YELLOW-------------------------------------------------------- [$1]$RESET
 }
 
 step "find current branch"
@@ -39,7 +39,7 @@ step "merge $currentBranch in master"
 git co master
 isOk "Checkout to master"
 
-git "merge $currentBranch"
+git merge $currentBranch
 isOk "merge $currentBranch"
 
 echo -e "\n\n"$GREEN"==> ready to push"
