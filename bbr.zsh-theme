@@ -56,6 +56,10 @@ zle -N zle-line-finish
 #export LS_COLORS='di=34;40:ln=35;40:so=32;40:pi=33;40:ex=31;40:bd=34;46:cd=34;43:su=0;41:sg=0;46:tw=0;42:ow=0;43:'
 #export GREP_COLOR='1;33'
 
+function _www_path_content() {
+    reply=(${$(ls ~/www/)})
+}
+
 function _go_complete() {
     local arg
     if (( CURRENT == 3 )); then
@@ -63,11 +67,12 @@ function _go_complete() {
         return 0;
     fi
 
-    reply=(${$(ls ~/www/)})
+    _www_path_content
 }
+
 compctl -K _go_complete go
-compctl -K _go_complete publish
-compctl -K _go_complete publishns
+compctl -K _www_path_content publish
+compctl -K _www_path_content publishns
 
 #for manual title
 DISABLE_AUTO_TITLE=true

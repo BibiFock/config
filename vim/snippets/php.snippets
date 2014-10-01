@@ -157,3 +157,12 @@ snippet catch
 		echo "</xmp>";
 		exit;${3}
 	}
+snippet confirmation
+	$message   =  "Are you sure you want to do this [y/N]";
+	print $message;
+	flush();
+	$confirmation  =  trim( fgets( STDIN ) );
+	if ( $confirmation !== 'y' ) {
+	   // The user did not say 'y'.
+	   exit (0);
+	}
