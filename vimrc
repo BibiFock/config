@@ -30,8 +30,10 @@ let g:ctrlp_clear_cache_on_exit=0
 Bundle 'tacahiroy/ctrlp-funky'
 let g:ctrlp_extensions = ['funky']
 let g:ctrlp_funky_syntax_highlight = 1
+Bundle 'd11wtq/ctrlp_bdelete.vim'
+call ctrlp_bdelete#init()
 
-Bundle 'bufexplorer.zip'
+"Bundle 'bufexplorer.zip'
 
 Bundle 'The-NERD-Commenter'
 Bundle 'The-NERD-tree'
@@ -72,6 +74,7 @@ Bundle 'pangloss/vim-javascript'
 let g:javascript_enable_domhtmlcss=1
 Bundle 'nathanaelkane/vim-indent-guides'
 
+"bottom bar
 Bundle 'bling/vim-airline'
 let g:airline#extensions#branch#enabled = 1
 let g:airline#extensions#syntastic#enabled = 1
@@ -268,12 +271,17 @@ function! SnippetsUpdate(snip_dir)
   call GetSnippets(a:snip_dir, &ft)
 endfunction
 
-function! GoTo(site)
-    let str = $HOME.'/www/'.a:site
-    if isdirectory(str)
-         exe 'NERDTree '.str
-    else
+function! GoTo(site, ...)
+    let str = $HOME.'/www/'.a:site.'/'
+    if !isdirectory(str)
         echoerr 'Directory not found: "'.str.'"'
+        return
+    endif
+
+    if (a:0 > 0)
+        exe 'NERDTree '.str
+    else
+        exe 'CtrlP '.str
     endif
 endfunction
 
@@ -282,7 +290,7 @@ fun! GoToComplete(A,L,P)
     return split(substitute(globpath(path, a:A."*"), path, "", "g"), "\n")
 endfun
 
-command! -nargs=1 -complete=customlist,GoToComplete Go call GoTo(<f-args>)
+command! -nargs=+ -complete=customlist,GoToComplete Go call GoTo(<f-args>)
 
 
 if has("gui_running")
@@ -314,10 +322,6 @@ map <C-k> <C-W>k
 map <C-h> <C-W>h
 map <C-l> <C-W>l"
 
-"replace all tab
-cmap csp %s:\%V *$::eg<CR>
-cmap cst %s:\%V\t:    :g<CR>
-
 " Change Working Directory to that of the current file
 cmap cwd lcd %:p:h
 cmap cd. lcd %:p:h
@@ -325,7 +329,8 @@ cmap cd. lcd %:p:h
 "functionlist
 map <F4> :TlistToggle<CR>
 
-" cleanr code
+" clean code
+map <silent> <F7> :s:\t:    :eg<Bar>:%s:\%V[\t ]*$::eg<Bar>noh<cr>
 nmap <silent> <F8> :call CleanCode(0)<CR>
 nmap <silent> <F9> :call CleanCode(1)<CR>
 

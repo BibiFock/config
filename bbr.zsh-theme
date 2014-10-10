@@ -102,3 +102,17 @@ bindkey "e[3~" delete-char
 #bindkey "e[F" end-of-line
 # completion in the middle of a line
 #bindkey '^i' expand-or-complete-prefix
+#
+# define widget function
+function cursor-after-first-word {
+    zle up-history
+        zle beginning-of-line
+        zle forward-word
+        RBUFFER=" $RBUFFER"
+}
+
+# create widget from function
+zle -N cursor-after-first-word
+
+# bind widget to ESC-o
+bindkey '^[o' cursor-after-first-word
