@@ -1,0 +1,58 @@
+#!/bin/bash
+
+RESET="\\033[0m"
+YELLOW="\\033[33m"
+GREEN="\\033[32m"
+RED="\\033[31m"
+
+WORKDIR="${HOME}${LIBPATH}"
+AdminFile="${WORKDIR}AdminAction.php"
+SitesFile="${WORKDIR}Action.php"
+
+if [[ $1 == "-h" ]]; then
+    echo -e "---------------------------------"
+    echo -e "-s/a   site or admin"
+    echo -e "-p     use prod (dev by default)"
+    echo -e "---------------------------------"
+fi
+
+
+function useDbProd() {
+    replace="' . \\\$environment . '"
+    if [[ $2 == "-p" ]]; then
+        replace="www"
+    fi
+    sed -i "s:/[^/]\+/databases.ini:/${replace}/databases.ini:g" $1
+}
+
+function checkStates() {
+    AdminState="${GREEN}[dev]${RESET}"
+    SitesState="${GREEN}[dev]${RESET}"
+
+    files=( $(grep -Rinl "www/databases.ini" $WORKDIR ) )
+
+    for i in "${files[@]}"
+    do
+        if [[ $i == $AdminFile ]]; then
+            AdminState="${RED}[PROD]${RESET}"
+        elif [[ $i == $SitesFile ]]; then
+            SitesState="${RED}[PROD]${RESET}"
+        fi
+    done
+
+    echo -e "================================="
+    echo -e "${YELLOW}Sites ${SitesState}"
+    echo -e "${YELLOW}Admin ${AdminState}"
+    echo -e "================================="
+}
+
+if [[ $1 == "-s" ]]; then
+    useDbProd $SitesFile $2
+fi
+
+if [[ $1 == "-a" ]]; then
+    useDbProd $AdminFile $2
+fi
+
+checkStates
+

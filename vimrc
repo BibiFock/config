@@ -33,7 +33,7 @@ let g:ctrlp_funky_syntax_highlight = 1
 Bundle 'd11wtq/ctrlp_bdelete.vim'
 call ctrlp_bdelete#init()
 
-"Bundle 'bufexplorer.zip'
+Bundle 'bufexplorer.zip'
 
 Bundle 'The-NERD-Commenter'
 Bundle 'The-NERD-tree'
@@ -330,7 +330,7 @@ cmap cd. lcd %:p:h
 map <F4> :TlistToggle<CR>
 
 " clean code
-map <silent> <F7> :s:\t:    :eg<Bar>:%s:\%V[\t ]*$::eg<Bar>noh<cr>
+map <silent> <F7> :s:\t:    :eg<Bar>:%s:\%V[\t ]*$::eg<Bar>:noh<cr>
 nmap <silent> <F8> :call CleanCode(0)<CR>
 nmap <silent> <F9> :call CleanCode(1)<CR>
 
