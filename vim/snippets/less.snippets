@@ -1,5 +1,27 @@
-snippet trigger pr
+snippet pr
 	position:relative;${1}
 snippet pa
-	position:absolute;${1}
+	position:absolute;
+	top:${1:0};
+	right:${2:0};
+	bottom:${3:0};
+	left:${4:0};${5}
+snippet pf
+	position:fixed;
+	${1:top}:${2:0};
+	${3:right}:${4:0};${5}
+snippet todo
+	/**************/
+	/*    TODO ${1:DELETE THIS CODE BEFORE PROD}    */
+	${2://code}
+	/*    TODO $1    */
+	/**************/
+snippet odd
+	&:nth-child(${1:odd}) {
+		${2}
+	}
+snippet first
+	&:${1:first}-child {
+		${2}
+	}
 

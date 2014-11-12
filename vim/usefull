@@ -69,8 +69,8 @@ function objToStr( obj ) {
 $this->config->site->site_url.$base_url
 #assign array
 {{assign var='myArray' value=','|explode:"cat,dog,rabbit"}}
+ {{php}}die();{{/php}}
 
-                {{php}}die();{{/php}}
 [extjs]
 //permet d'annuler la propagation d'un évènement dans les actions column
 //quand l'évènement retourne false

@@ -58,6 +58,7 @@ zle -N zle-line-finish
 
 function _www_path_content() {
     reply=(${$(ls ~/www/)})
+    return 0;
 }
 
 function _go_complete() {
@@ -71,8 +72,8 @@ function _go_complete() {
 }
 
 compctl -K _go_complete go
+
 compctl -K _www_path_content publish
-compctl -K _www_path_content publishns
 
 #for manual title
 DISABLE_AUTO_TITLE=true

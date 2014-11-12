@@ -50,6 +50,8 @@
     unci = reset --soft 'HEAD^'
     rull = pull --rebase
     stave = stash save -u
+    amend = commit --amend -m 
+    pop = stash pop
 
 [mergetool "fugitive"]
     cmd = vim -f -c \"Gdiff\" \"$MERGED\"

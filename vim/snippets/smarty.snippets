@@ -53,3 +53,19 @@ snippet strip
 	{{${1:/}strip}}${2}
 snippet concat
 	${1:/}|cat:${2:"value"}
+snippet todo
+	{{****************************************}}
+	{{** TODO ${1:DELETE THIS CODE BEFORE PROD}  **}}
+	${2:{{* code}
+	{{** TODO $1  **}}
+	{{****************************************}}
+snippet fblike
+	{{wb_fblike
+		data_href='http://www.facebook.com/'|cat:$config->topbar->socials->facebook->page
+		data_layout="button_count"
+		data_action="like"
+		data_show_faces="false"
+		data_share="false"
+		locale=$config->site->locale|default:'fr_FR'
+		font="arial"}}${1}
+

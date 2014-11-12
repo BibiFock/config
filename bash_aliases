@@ -21,9 +21,8 @@ alias umdev='sudo umount -l /home/bbr/www'
 alias www-php='sudo -u www-data /usr/bin/php'
 
 #publish
-alias publish='sudo publish $1'
-alias publishns='sudo publish --ns $1'
-alias publishcron='sudo publish_crons'
+alias pu='sudo publish $1'
+alias puns='sudo publish --ns $1'
 
 ##git
 alias gitlist='ssh git@server-git'
