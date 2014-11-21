@@ -28,3 +28,4 @@ alias puns='sudo publish --ns $1'
 alias gitlist='ssh git@server-git'
 #makelibrary link
 alias linklib='ln -s ~/www/library/html/ html/library'
+

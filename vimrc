@@ -240,6 +240,10 @@ if filereadable(expand("~/.vim/usefull"))
     :command! Myuse tabe $HOME/.vim/usefull
 endif
 
+if filereadable(expand("~/.vim/todo"))
+    :command! Mytodo tabe $HOME/.vim/todo
+endif
+
 if filereadable(expand("~/usefull_var"))
     :command! Myvar tabe $HOME/usefull_var
 endif

@@ -52,6 +52,7 @@
     stave = stash save -u
     amend = commit --amend -m 
     pop = stash pop
+    aa = !sh -c 'git add -- "$@" && git status' --
 
 [mergetool "fugitive"]
     cmd = vim -f -c \"Gdiff\" \"$MERGED\"

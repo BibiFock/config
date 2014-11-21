@@ -1,0 +1,12 @@
+#scripts
+wbdb -> check catalog db state
+
+#vim
+autocomplete with php doc or other language
+split function params when to long, automaticly go to next line (,,) = (,\n ,\n)
+
+#admin
+(mod199)handle product rank: alert message for product enrich, no enrich product on two first lines
+(mod100) msg prochain publish (list files) + explication délai de publication
+(mod100) files extract
+
