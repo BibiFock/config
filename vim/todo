@@ -1,5 +1,6 @@
 #scripts
 wbdb -> check catalog db state
+wbdb -> revise arguments method (impossible to push all in prod or dev today)
 
 #vim
 autocomplete with php doc or other language

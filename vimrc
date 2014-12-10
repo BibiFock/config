@@ -1,11 +1,35 @@
-" GLOBAL SETTINGS"
+""""""""""""""""""""""""""""""""""""""""""""""
+"    INDEX
+"        _GLOBAL_SETTINGS
+"        _SYNTAX
+"        _BUNDLES
+"        _BUNDLES_TEST
+"        _EDITOR
+"        _BACKUP
+"        _COLORSCHEME
+"        _FUNCTIONS
+"        _COMMANDS
+"        _COMMANDS_QUICK_FILES
+"        _SHORTCUTS
+"        _SHORTCUTS_LEADER
+""""""""""""""""""""""""""""""""""""""""""""""
+
+""""""""""""""""""""""""""""""""""""""""""""""
+" _GLOBAL_SETTINGS
+""""""""""""""""""""""""""""""""""""""""""""""
 filetype on              " filetype detection
 filetype plugin on
 filetype indent on
-"" syntax
+
+""""""""""""""""""""""""""""""""""""""""""""""
+" _SYNTAX
+""""""""""""""""""""""""""""""""""""""""""""""
 au BufNewFile,BufRead *.less set filetype=less
 au BufNewFile,BufRead *.conf set filetype=dosini
 
+""""""""""""""""""""""""""""""""""""""""""""""
+" _BUNDLES
+""""""""""""""""""""""""""""""""""""""""""""""
 "git clone https://github.com/gmarik/vundle.git ~/.vim/bundle/vundle
 set rtp+=~/.vim/bundle/vundle/
 call vundle#rc()
@@ -103,37 +127,25 @@ let g:php_cs_fixer_dry_run = 0                    " Call command with
 let g:php_cs_fixer_verbose = 0                    " Return the output of
 " command if 1, else an inline information.
 
-set nocp                    " sets vi compatible mode : (nocp|cp)
-set wrap                    " long lines wrap : (nowrap|wrap)
-set nu                        " line numbering : (nu\nonu)
-set ru                        " ruler : show cursor position below each window (noru|ru)
-set lazyredraw          "optimize redrawing
+""""""""""""""""""""""""""""""""""""""""""""""
+" _BUNDLES_TEST
+""""""""""""""""""""""""""""""""""""""""""""""
+Bundle 'mattn/emmet-vim'
+
+""""""""""""""""""""""""""""""""""""""""""""""
+" _EDITOR
+""""""""""""""""""""""""""""""""""""""""""""""
+set nocp  " sets vi compatible mode : (nocp|cp)
+set wrap  " long lines wrap : (nowrap|wrap)
+set nu    " line numbering : (nu\nonu)
+set ru    " ruler : show cursor position below each window (noru|ru)
+set lazyredraw "optimize redrawing
 " Height of the command bar
-"set cmdheight=1
 
 "Explore
 let g:netrw_liststyle=3
-"let g:netrw_browse_split = 2
-"let g:netrw_altv = 1
-
 "status line
 set laststatus=2
-
-"set statusline=%f\ " Filename
-"set statusline+=%w%h%m%r " Options
-"set statusline+=\ [%{&ff}/%Y] " Show filetype in statusline
-"set statusline+=\ [%<%{getcwd()}] " current dir
-"set statusline+=%=%-14.(%l,%c%V%)\ %p%% " Right aligned file nav info
-
-"Editor
-"
-" Convenient command to see the difference between the current buffer and the
-" file it was loaded from, thus the changes you made.
-" Only define it when not defined already.
-if !exists(":DiffOrig")
-  command DiffOrig vert new | set bt=nofile | r ++edit # | 0d_ | diffthis
-          \ | wincmd p | diffthis
-endif
 
 " Tell vim to remember certain things when we exit
 "  '10  :  marks will be remembered for up to 10 previously edited files
@@ -165,6 +177,42 @@ syntax on
 let php_sql_query = 1      " SQL queries
 let php_htmlInStrings = 1  " HTML
 
+" DISPLAY"
+set foldenable              " set to display all folds open
+set foldmethod=marker       " folding type: (manual|indent|expr|marker|syntax)
+set lsp=9                   " linespace : number of pixel lines to use between characters
+set ts=4                    " tabstop: number of spaces a <Tab> in the text stands for
+set sw=4                    " shiftwidth : number of spaces used for each step of (auto)indent
+set scrolloff=1000          " number of screen lines to show around the cursor
+set listchars=trail:¤,tab:>-,nbsp:•     " Show blank spaces and tabs at the end of a line
+set enc=utf-8
+set showcmd                 " Affiche la commande en cours de saisie en bas à droite
+set cursorline              "Soulignement de la ligne courante
+highlight Folded gui=bold   "Surligne la ligne courante en gris
+set complete=.,w,b,i        " default: .,w,b,u,t,i
+
+""""""""""""""""""""""""""""""""""""""""""""""
+" _BACKUP
+""""""""""""""""""""""""""""""""""""""""""""""
+" Activer la sauvegarde
+set backup
+" Backup dans ~/.vim/backup
+if filewritable("~/.vim/backup") == 2
+    " comme le répertoire est accessible en écriture,
+    " on va l'utiliser.
+    set backupdir=$HOME/.vim/backup
+else
+    if has("unix") || has("win32unix")
+        " C'est c'est un système compatible UNIX, on
+        " va créer le répertoire et l'utiliser.
+        call system("mkdir $HOME/.vim/backup -p")
+        set backupdir=$HOME/.vim/backup
+    endif
+endif
+
+""""""""""""""""""""""""""""""""""""""""""""""
+" _COLORSCHEME
+""""""""""""""""""""""""""""""""""""""""""""""
 " Set extra options when running in GUI mode
 set background=dark
 if has("gui_running")
@@ -188,20 +236,6 @@ hi TabLineFill ctermfg=0 ctermbg=0
 hi TabLineSel ctermfg=15 ctermbg=8
 hi TabLine ctermfg=lightGray ctermbg=0
 
-" DISPLAY"
-set foldenable              " set to display all folds open
-set foldmethod=marker       " folding type: (manual|indent|expr|marker|syntax)
-set lsp=9                   " linespace : number of pixel lines to use between characters
-set ts=4                    " tabstop: number of spaces a <Tab> in the text stands for
-set sw=4                    " shiftwidth : number of spaces used for each step of (auto)indent
-set scrolloff=1000          " number of screen lines to show around the cursor
-set listchars=trail:¤,tab:>-,nbsp:•     " Show blank spaces and tabs at the end of a line
-set enc=utf-8
-set showcmd                 " Affiche la commande en cours de saisie en bas à droite
-set cursorline              "Soulignement de la ligne courante
-highlight Folded gui=bold   "Surligne la ligne courante en gris
-set complete=.,w,b,i        " default: .,w,b,u,t,i
-
 "show extra white space
 highlight ExtraWhitespace ctermbg=darkred guibg=darkred
 match ExtraWhitespace /\s\+$\| \+\ze\t/
@@ -210,48 +244,10 @@ autocmd InsertEnter * match ExtraWhitespace /\s\+\%#\@<!$/
 autocmd InsertLeave * match ExtraWhitespace /\s\+$/
 autocmd BufWinLeave * call clearmatches()
 
-"switch dir to current open file
-autocmd BufEnter * silent! lcd %:p:h
 
-" Activer la sauvegarde
-set backup
-" Backup dans ~/.vim/backup
-if filewritable("~/.vim/backup") == 2
-    " comme le répertoire est accessible en écriture,
-    " on va l'utiliser.
-    set backupdir=$HOME/.vim/backup
-else
-    if has("unix") || has("win32unix")
-        " C'est c'est un système compatible UNIX, on
-        " va créer le répertoire et l'utiliser.
-        call system("mkdir $HOME/.vim/backup -p")
-        set backupdir=$HOME/.vim/backup
-    endif
-endif
-
-"use full file
-:command! Myconf tabe ~/.vimrc
-
-if isdirectory(expand("~/.vim/snippets/"))
-    :command! Mysnipp tabe $HOME/.vim/snippets/
-endif
-
-if filereadable(expand("~/.vim/usefull"))
-    :command! Myuse tabe $HOME/.vim/usefull
-endif
-
-if filereadable(expand("~/.vim/todo"))
-    :command! Mytodo tabe $HOME/.vim/todo
-endif
-
-if filereadable(expand("~/usefull_var"))
-    :command! Myvar tabe $HOME/usefull_var
-endif
-
-if isdirectory(expand("~/www/library"))
-    :command! Dbconf tabe $HOME/www/library/php/classes/Wb/Controller/Action.php
-endif
-
+""""""""""""""""""""""""""""""""""""""""""""""
+" _FUNCTIONS
+""""""""""""""""""""""""""""""""""""""""""""""
 " Clean code function
 function! CleanCode(all)
     if a:all
@@ -294,16 +290,56 @@ fun! GoToComplete(A,L,P)
     return split(substitute(globpath(path, a:A."*"), path, "", "g"), "\n")
 endfun
 
+""""""""""""""""""""""""""""""""""""""""""""""
+" _COMMANDS
+""""""""""""""""""""""""""""""""""""""""""""""
+"Go function
 command! -nargs=+ -complete=customlist,GoToComplete Go call GoTo(<f-args>)
 
+" file it was loaded from, thus the changes you made.
+" Only define it when not defined already.
+if !exists(":DiffOrig")
+  command DiffOrig vert new | set bt=nofile | r ++edit # | 0d_ | diffthis
+          \ | wincmd p | diffthis
+endif
+
+
+"switch dir to current open file
+autocmd BufEnter * silent! lcd %:p:h
 
 if has("gui_running")
     "finally we launch nerdtree
     autocmd VimEnter * NERDTree
 endif
 
+""""""""""""""""""""""""""""""""""""""""""""""
+" _COMMANDS_QUICK_FILES
+""""""""""""""""""""""""""""""""""""""""""""""
+"use full file
+:command! Myconf tabe ~/.vimrc
+
+if isdirectory(expand("~/.vim/snippets/"))
+    :command! Mysnipp tabe $HOME/.vim/snippets/
+endif
+
+if filereadable(expand("~/.vim/usefull"))
+    :command! Myuse tabe $HOME/.vim/usefull
+endif
+
+if filereadable(expand("~/.vim/todo"))
+    :command! Mytodo tabe $HOME/.vim/todo
+endif
+
+if filereadable(expand("~/usefull_var"))
+    :command! Myvar tabe $HOME/usefull_var
+endif
+
+if isdirectory(expand("~/www/library"))
+    :command! Dbconf tabe $HOME/www/library/php/classes/Wb/Controller/Action.php
+endif
+
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" => shortcur
+" _SHORTCUTS
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 nnoremap <F2> :NERDTreeToggle<CR>
 nnoremap <F3> :NERDTreeFind<CR>
@@ -339,7 +375,7 @@ nmap <silent> <F8> :call CleanCode(0)<CR>
 nmap <silent> <F9> :call CleanCode(1)<CR>
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" => Leader shortcut
+"  _SHORTCUTS_LEADER
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 let mapleader = ","
 let g:mapleader = ","
@@ -385,3 +421,4 @@ map <leader>t :retab<CR>
 nnoremap <Leader>fu :CtrlPFunky<Cr>
 " narrow the list down with a word under cursor
 nnoremap <Leader>fun :execute 'CtrlPFunky ' . expand('<cword>')<Cr>
+

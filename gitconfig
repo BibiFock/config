@@ -48,8 +48,8 @@
     oops = commit --amend --no-edit
     #uncommit
     unci = reset --soft 'HEAD^'
-    rull = pull --rebase
     stave = stash save -u
+    rull = pull --rebase
     amend = commit --amend -m 
     pop = stash pop
     aa = !sh -c 'git add -- "$@" && git status' --

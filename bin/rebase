@@ -22,6 +22,8 @@ if [[ $currentBranch == "master" ]]; then
     echo -e $RED "can't merge master with himself,\n\n DUMBASS!!" && exit
 fi
 
+step "stash unused files"
+git stash
 step "update master"
 git co master
 isOk "checkout to master"
@@ -44,4 +46,6 @@ git merge $currentBranch
 isOk "merge $currentBranch"
 
 echo -e "\n\n"$GREEN"==> ready to push"
+
+git pop
 
