@@ -22,8 +22,16 @@ if [[ $currentBranch == "master" ]]; then
     echo -e $RED "can't merge master with himself,\n\n DUMBASS!!" && exit
 fi
 
-step "stash unused files"
-git stash
+git diff-index HEAD --quiet --exit-code;
+NEEDS_STASH=$?;
+
+if [ $NEEDS_STASH -eq "1" ]; then
+    step "stash unused files"
+    git stave "** rebase-script **"
+else
+    echo "Nothing to stash."
+fi
+
 step "update master"
 git co master
 isOk "checkout to master"
@@ -45,7 +53,12 @@ isOk "Checkout to master"
 git merge $currentBranch
 isOk "merge $currentBranch"
 
-echo -e "\n\n"$GREEN"==> ready to push"
+if [ $NEEDS_STASH -eq "1" ]; then
+    step "recover stashed files"
+    git pop
+fi
 
-git pop
+step "Result"
+
+echo -e "\n"$GREEN"==> ready to push$RESET\n"
 

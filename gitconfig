@@ -52,7 +52,10 @@
     rull = pull --rebase
     amend = commit --amend -m 
     pop = stash pop
-    aa = !sh -c 'git add -- "$@" && git status' --
+    #extra cmd
+    srull = !git stash && git rull && git pop
+    aa = !git add -p && git status
+    sco = "!sh -c 'git diff-index HEAD --quiet --exit-code; NEEDS_STASH=$?; if [ \"$NEEDS_STASH\" -eq \"1\" ] ; then git stash; else echo \"Nothing to stash.\"; fi; git checkout \"$0\"; if [ \"$NEEDS_STASH\" -eq \"1\" ] ; then git stash pop; fi;'"
 
 [mergetool "fugitive"]
     cmd = vim -f -c \"Gdiff\" \"$MERGED\"

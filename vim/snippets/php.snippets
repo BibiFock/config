@@ -56,8 +56,7 @@ snippet config
 snippet registry
 	$${1:config} = Zend_Registry::get('$1');${2}
 snippet cache
-	$common = Wb_Common::getInstance();
-	$controller = $common->getController();
+	$controller = Wb_Common::getController();
 
 	$cacheKey = "${1:cache_key}";
 	$cacheValues = array(
@@ -94,8 +93,7 @@ snippet delcache
 snippet oki
 	die('oki');${1}
 snippet controller
-	$common		= Wb_Common::getInstance();
-	$controller	= $common->getController();
+	$controller	= Wb_Common::getController();
 #SQL PARTS
 snippet db_query
 	$res = $${1:dbSite}->query($${2:sql});${3}
@@ -145,6 +143,10 @@ snippet array_map
 		},
 		$$1
 	);${3}
+snippet array_walk
+	array_${1:walk}( $${2:rows}, function(&$${3:row}) {
+		${4://code};
+	});${5}
 snippet fetchall
 	$${1:res} = $${2:dbSite}->query($sql);
 	$${3:rows} = $$1->fetchAll();

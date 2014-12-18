@@ -3,13 +3,17 @@ wbdb -> check catalog db state
 wbdb -> revise arguments method (impossible to push all in prod or dev today)
 
 #vim
-autocomplete with php doc or other language
+autocomplete with php functions doc or other language
 split function params when to long, automaticly go to next line (,,) = (,\n ,\n)
+
+#git
+check zsh shortcut
+check how add autocomplete to sco
 
 #admin
 (mod199)handle product rank: alert message for product enrich, no enrich product on two first lines
 (mod100) msg prochain publish (list files) + explication délai de publication
-(mod100) files extract
+(mod100) possibility reset value of a field
 
 #fun
 car race
