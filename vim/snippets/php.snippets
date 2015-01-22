@@ -108,7 +108,7 @@ snippet input_data
 	$filters    = array('*' => 'StringTrim');
 	$validators = array( 'id' => array('allowEmpty' => false, 'presence' => 'required'));
 	$options    = array('escapeFilter'  => 'StringTrim');
-	$input = new Zend_Filter_Input($filters, $validators, $data, $options);
+	$input = new Wb_Filter_Input($filters, $validators, $data, $options);
 	if ($input->isValid()) {
 		//code
 	}${1}
@@ -147,6 +147,11 @@ snippet array_walk
 	array_${1:walk}( $${2:rows}, function(&$${3:row}) {
 		${4://code};
 	});${5}
+snippet array_filter
+	$${1:rows} = array_filter( $${1:rows}, function($${3:row}) {
+		return ${4://code};
+	});${5}
+	
 snippet fetchall
 	$${1:res} = $${2:dbSite}->query($sql);
 	$${3:rows} = $$1->fetchAll();
@@ -168,3 +173,7 @@ snippet confirmation
 	   // The user did not say 'y'.
 	   exit (0);
 	}
+snippet backoffice
+	Zend_Registry::get('back_office')${1}
+snippet applicationpath
+	Zend_Registry::get('application_path')${1}

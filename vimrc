@@ -20,12 +20,15 @@
 filetype on              " filetype detection
 filetype plugin on
 filetype indent on
+" K on php native function show man page of function
+autocmd FileType php set keywordprg=pman
 
 """"""""""""""""""""""""""""""""""""""""""""""
 " _SYNTAX
 """"""""""""""""""""""""""""""""""""""""""""""
 au BufNewFile,BufRead *.less set filetype=less
 au BufNewFile,BufRead *.conf set filetype=dosini
+
 
 """"""""""""""""""""""""""""""""""""""""""""""
 " _BUNDLES

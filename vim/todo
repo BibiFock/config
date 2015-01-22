@@ -1,5 +1,5 @@
 #scripts
-wbdb -> check catalog db state
+wbdb -> check catalog db state << IMPORTANT >>
 wbdb -> revise arguments method (impossible to push all in prod or dev today)
 
 #vim

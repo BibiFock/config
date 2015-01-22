@@ -69,3 +69,17 @@ snippet fblike
 		locale=$config->site->locale|default:'fr_FR'
 		font="arial"}}${1}
 
+###################
+# javascript part #
+###################
+snippet jstodo
+	////////////////////////////////
+	// TODO ${1:delete before prod!!}
+	${2://code}
+	// TODO $1
+	////////////////////////////////
+snippet jsstop
+	${1:event}.stopPropagation();${2}
+snippet jslog
+	console.log(${1:'oki'});${2}
+

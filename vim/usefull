@@ -36,7 +36,6 @@ git ci --amend -m
 //rename branch
 git br -m old new
 
-
 git branch --set-upstream my_branch origin/my_branch
 or git push -u origin mybranch
 

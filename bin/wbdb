@@ -28,6 +28,7 @@ function useDbProd() {
 function checkStates() {
     AdminState="${GREEN}[dev]${RESET}"
     SitesState="${GREEN}[dev]${RESET}"
+    PromptState=""
 
     files=( $(grep -Rinl "www/databases.ini" $WORKDIR ) )
 
@@ -35,15 +36,23 @@ function checkStates() {
     do
         if [[ $i == $AdminFile ]]; then
             AdminState="${RED}[PROD]${RESET}"
+            PromptState=$PromptState"A"
         elif [[ $i == $SitesFile ]]; then
             SitesState="${RED}[PROD]${RESET}"
+            PromptState=$PromptState"S"
         fi
     done
 
-    echo -e "================================="
-    echo -e "${YELLOW}Sites ${SitesState}"
-    echo -e "${YELLOW}Admin ${AdminState}"
-    echo -e "================================="
+    if [[ $1 == "-s" || $1 == "-a" ]]; then
+        echo -e "================================="
+        echo -e "${YELLOW}Sites ${SitesState}"
+        echo -e "${YELLOW}Admin ${AdminState}"
+        echo -e "================================="
+    else
+        if [[ $PromptState != "" ]]; then
+            echo -e " ${PromptState}"
+        fi
+    fi
 }
 
 if [[ $1 == "-s" ]]; then
@@ -54,5 +63,5 @@ if [[ $1 == "-a" ]]; then
     useDbProd $AdminFile $2
 fi
 
-checkStates
+checkStates $1
 
