@@ -109,7 +109,7 @@ snippet input_data
 	$validators = array( 'id' => array('allowEmpty' => false, 'presence' => 'required'));
 	$options    = array('escapeFilter'  => 'StringTrim');
 	$input = new Wb_Filter_Input($filters, $validators, $data, $options);
-	if ($input->isValid()) {
+	if (!$input->isValid()) {
 		//code
 	}${1}
 snippet jsonerror

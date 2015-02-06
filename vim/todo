@@ -3,7 +3,6 @@ wbdb -> check catalog db state << IMPORTANT >>
 wbdb -> revise arguments method (impossible to push all in prod or dev today)
 
 #vim
-autocomplete with php functions doc or other language
 split function params when to long, automaticly go to next line (,,) = (,\n ,\n)
 
 #git

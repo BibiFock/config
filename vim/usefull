@@ -92,6 +92,8 @@ Ext.override(Ext.grid.ActionColumn, {
         return Ext.grid.ActionColumn.superclass.processEvent.apply(this, arguments);
     }
 });
+//select checkbox
+ Ext.select('input[type=checkbox]').set({checked: false}, false);
 
 [CSS]
 /* Clear-fix */

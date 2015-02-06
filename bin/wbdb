@@ -36,10 +36,10 @@ function checkStates() {
     do
         if [[ $i == $AdminFile ]]; then
             AdminState="${RED}[PROD]${RESET}"
-            PromptState=$PromptState"A"
+            PromptState=$PromptState"a"
         elif [[ $i == $SitesFile ]]; then
             SitesState="${RED}[PROD]${RESET}"
-            PromptState=$PromptState"S"
+            PromptState=$PromptState"s"
         fi
     done
 
