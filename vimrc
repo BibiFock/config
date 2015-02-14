@@ -325,6 +325,15 @@ fun! GoToComplete(A,L,P)
     return split(substitute(globpath(path, a:A."*"), path, "", "g"), "\n")
 endfun
 
+function! SassToCss()
+  let current_file = shellescape(expand('%:p'))
+  let filename = shellescape(expand('%:r'))
+  let command = "silent !sass " . current_file . " " . filename . ".css"
+  execute command
+endfunction
+
+autocmd BufWritePost,FileWritePost *.scss call SassToCss()
+
 """"""""""""""""""""""""""""""""""""""""""""""
 " _COMMANDS
 """"""""""""""""""""""""""""""""""""""""""""""
