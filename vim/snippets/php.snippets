@@ -93,7 +93,7 @@ snippet delcache
 snippet oki
 	die('oki');${1}
 snippet controller
-	$controller	= Wb_Common::getController();
+	$controller = Wb_Common::getController();
 #SQL PARTS
 snippet db_query
 	$res = $${1:dbSite}->query($${2:sql});${3}
@@ -175,5 +175,5 @@ snippet confirmation
 	}
 snippet backoffice
 	Zend_Registry::get('back_office')${1}
-snippet applicationpath
-	Zend_Registry::get('application_path')${1}
+snippet path
+	Zend_Registry::get('${1:application}_path')${2}

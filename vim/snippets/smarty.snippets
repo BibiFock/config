@@ -68,7 +68,10 @@ snippet fblike
 		data_share="false"
 		locale=$config->site->locale|default:'fr_FR'
 		font="arial"}}${1}
-
+snippet path
+	{{$${1:_application_path}}}
+snippet adformat
+	{{wb_write_ad_format format=$config->ad->position->${1:bas_de_people}}}${2}
 ###################
 # javascript part #
 ###################
@@ -82,4 +85,3 @@ snippet jsstop
 	${1:event}.stopPropagation();${2}
 snippet jslog
 	console.log(${1:'oki'});${2}
-

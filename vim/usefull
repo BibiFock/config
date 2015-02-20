@@ -35,6 +35,9 @@ git lol --grep=
 git ci --amend -m
 //rename branch
 git br -m old new
+//git rebase  last 3 commits
+git rebase -i HEAD~3
+
 
 git branch --set-upstream my_branch origin/my_branch
 or git push -u origin mybranch

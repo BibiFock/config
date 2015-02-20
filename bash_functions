@@ -18,17 +18,17 @@ function xsvnrevert {
 }
 
 function xsvndiff {
-	svn diff $@ | colordiff | less -R
+    svn diff $@ | colordiff | less -R
 }
 
 function xsvnst {
-	#svn st -q -u
-	#svn st -u --ignore-externals | grep -v "_cache/" | grep -v "html/library" | grep -v ".ctrlp" | grep -v "^X"
+    #svn st -q -u
+    #svn st -u --ignore-externals | grep -v "_cache/" | grep -v "html/library" | grep -v ".ctrlp" | grep -v "^X"
     svn st -u --ignore-externals | grep -vE "_cache/|html/library|.ctrlp|^X"
 }
 
 function xsvnstdiff {
-	svn diff $@ -r BASE:HEAD | colordiff | less -R
+    svn diff $@ -r BASE:HEAD | colordiff | less -R
 }
 
 
@@ -38,23 +38,33 @@ function xmail {
 
 
 function go {
-    dir=~
+    home=~
+    dir=/www/
     subdir=
     if [ -n "$2" ]; then
-        dir=/home/$2
+        home=/home/$2
         if [[ $2 == "beta" ]]; then
             subdir=site/
         fi
     fi
     if [ -n "$1" ]; then
-        dir=$dir/www/$1/
+        dest=$home$dir$1/
         if [ $subdir ]; then
-            dir=$dir$subdir
+            dest=$dest$subdir
         fi
-        cd $dir
+        if [ -d "$dest" ] ; then
+            cd $dest
+        elif [ -z "$2" ]; then
+            echo -e "\e[33m$1 not found, if you want to clone a new repository, enter his name (or press enter to quit)\e[0m"
+            read reponame
+            if [ -n "$reponame" ] ; then
+                cd $home$dir && git clone git@server-git.webedia.fr:$reponame/$1.git && cd $dest
+            fi
+        fi
     else
         ls $dir/www/
     fi
+
 }
 
 # Create function that will run when a certain phrase is typed in terminal
