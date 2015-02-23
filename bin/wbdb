@@ -19,7 +19,7 @@ fi
 
 function useDbProd() {
     replace="' . \\\$environment . '"
-    if [[ $2 == "-p" ]]; then
+    if [[ $2 == "p" ]]; then
         replace="www"
     fi
     sed -i "s:/[^/]\+/databases.ini:/${replace}/databases.ini:g" $1
@@ -43,7 +43,7 @@ function checkStates() {
         fi
     done
 
-    if [[ $1 == "-s" || $1 == "-a" ]]; then
+    if [ -n "$1" ]; then
         echo -e "================================="
         echo -e "${YELLOW}Sites ${SitesState}"
         echo -e "${YELLOW}Admin ${AdminState}"
@@ -55,13 +55,18 @@ function checkStates() {
     fi
 }
 
-if [[ $1 == "-s" ]]; then
-    useDbProd $SitesFile $2
-fi
+affState=""
+for i; do
+    neededState=$(echo $i | sed -e 's/[^p]//g')
+    if [ -n "$(echo $i | sed -e 's/[^a]//g')" ]; then
+        useDbProd $AdminFile $neededState
+        affState="ok"
+    fi
+    if [ -n "$(echo $i | sed -e 's/[^s]//g')" ]; then
+        useDbProd $SitesFile $neededState
+        affState="ok"
+    fi
+done
 
-if [[ $1 == "-a" ]]; then
-    useDbProd $AdminFile $2
-fi
-
-checkStates $1
+checkStates $affState
 

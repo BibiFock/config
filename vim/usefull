@@ -42,6 +42,9 @@ git rebase -i HEAD~3
 git branch --set-upstream my_branch origin/my_branch
 or git push -u origin mybranch
 
+[ANGULARJS]
+angular.element(document).injector().get('ServiceName');
+
 [Zend]
 #redirection si tablette
 $bootstrap=new Wb_Bootstrap();
@@ -340,3 +343,4 @@ if ($_REQUEST['image']) {
 test.log | sed -e "s/[0-9]\{1,3\}\.[0-9]\{1,3\}.[0-9]\{1,3\}.[0-9]\{1,3\}/\x1b[1;34m&\x1b[0m/g" -e "s/\[ERROR [^]]*]/\x1b[1;31m&\x1b[0m/;" -e "s/http_host:[^,]*/\x1b[1;32m&\x1b[0m/;" -e "s/Type:[^,]*/\x1b[1;33m&\x1b[0m/;"
 
 "sudo service lightdm restart.
+
