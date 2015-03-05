@@ -38,12 +38,13 @@ git br -m old new
 //git rebase  last 3 commits
 git rebase -i HEAD~3
 
-
 git branch --set-upstream my_branch origin/my_branch
 or git push -u origin mybranch
 
 [ANGULARJS]
 angular.element(document).injector().get('ServiceName');
+var test = document.querySelector('[ng-app=adsAdmin]');test = angular.element(test).scope();
+
 
 [Zend]
 #redirection si tablette
