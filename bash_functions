@@ -58,7 +58,7 @@ function go {
             echo -e "\e[33m$1 not found, if you want to clone a new repository, enter his name (or press enter to quit)\e[0m"
             read reponame
             if [ -n "$reponame" ] ; then
-                cd $home$dir && git clone git@server-git.webedia.fr:$reponame/$1.git && cd $dest
+                cd $home$dir && git clone $reponame && cd $dest
             fi
         fi
     else

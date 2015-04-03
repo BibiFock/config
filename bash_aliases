@@ -24,7 +24,8 @@ alias www-php='sudo -u www-data /usr/bin/php'
 alias pu='sudo publish $1'
 alias puns='sudo publish --ns $1'
 
-alias adspu='sudo /var/shared4/scripts/tools/adsadmin/publish'
+alias apu='sudo /var/shared4/scripts/tools/ads/publish'
+alias aapu='sudo /var/shared4/scripts/tools/adsadmin/publish'
 
 ##git
 alias gitlist='ssh git@server-git'

@@ -164,6 +164,18 @@ snippet catch
 		echo "</xmp>";
 		exit;${3}
 	}
+snippet backoffice
+	Zend_Registry::get('back_office')${1}
+snippet path
+	Zend_Registry::get('${1:application}_path')${2}
+###################
+# CLI part
+###################
+snippet defcolor
+	$cReset="\033[0m";
+	$cYellow="\033[33m";
+	$cGreen="\033[32m";
+	$cRed="\033[31m";${1}
 snippet confirmation
 	$message   =  "Are you sure you want to do this [y/N]";
 	print $message;
@@ -173,7 +185,5 @@ snippet confirmation
 	   // The user did not say 'y'.
 	   exit (0);
 	}
-snippet backoffice
-	Zend_Registry::get('back_office')${1}
-snippet path
-	Zend_Registry::get('${1:application}_path')${2}
+
+

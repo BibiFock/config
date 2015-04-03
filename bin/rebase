@@ -58,6 +58,14 @@ if [ $NEEDS_STASH -eq "1" ]; then
     git pop
 fi
 
+step "delete branch $currentBranch"
+read -p "Do you want to delete branch $currentBranch ? " -n 1 -r
+echo    # (optional) move to a new line
+if [[ $REPLY =~ ^[Yy]$ ]]; then
+    git br -d $currentBranch
+    isOk "branch $currentBranch is deleted"
+fi
+
 step "Result"
 
 echo -e "\n"$GREEN"==> ready to push$RESET\n"
