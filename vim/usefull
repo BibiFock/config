@@ -14,6 +14,14 @@ grep -Rnl " Brand(" * | xargs -i@ sed -i 's/ Brand(/Shopping_&/g' @
 sshfs <distant file> www/
 # Log start and ending timestamps of a long running job.
 ate +"Start: %c" > timestamps ; runsomething ; date +"Ended: %c" >> timestamps
+##########
+# not enought space in boot
+#check current kernel
+uname -r
+#list old kernel
+dpkg -l | grep linux-image
+# purge kernel
+sudo apt-get purge linux-image-x.x.x-{xx,xx,xx,xx}-generic
 
 [ssh]
 connection sans mpd

@@ -18,8 +18,13 @@ currentBranch="$(git symbolic-ref --short -q HEAD)"
 echo $currentBranch
 isOk "current branch not found"
 
-if [[ $currentBranch == "master" ]]; then
-    echo -e $RED "can't merge master with himself,\n\n DUMBASS!!" && exit
+destBranch="master"
+if [[ $# == 1 ]]; then
+    destBranch=$1
+fi
+
+if [[ $currentBranch == $destBranch ]]; then
+    echo -e $RED "can't merge $destBranch with himself,\n\n DUMBASS!!" && exit
 fi
 
 git diff-index HEAD --quiet --exit-code;
@@ -32,23 +37,23 @@ else
     echo "Nothing to stash."
 fi
 
-step "update master"
-git co master
-isOk "checkout to master"
+step "update $destBranch"
+git co $destBranch
+isOk "checkout to $destBranch"
 
 git pull
-isOk "master pull"
+isOk "$destBranch pull"
 
 step "rebase $currentBranch"
 git co $currentBranch
 isOk "checkout to $currentBranch"
 
-git rebase master
+git rebase $destBranch
 isOk "rebase"
 
-step "merge $currentBranch in master"
-git co master
-isOk "Checkout to master"
+step "merge $currentBranch in $destBranch"
+git co $destBranch
+isOk "Checkout to $destBranch"
 
 git merge $currentBranch
 isOk "merge $currentBranch"

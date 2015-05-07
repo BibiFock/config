@@ -54,7 +54,7 @@
     pop = stash pop
     #extra cmd
     srull = !git stash && git rull && git pop
-    aa = !git add -p && git status
+    aa = "!sh -c 'git add -p $0 && git status;'"
     sco = "!sh -c 'git diff-index HEAD --quiet --exit-code; NEEDS_STASH=$?; if [ \"$NEEDS_STASH\" -eq \"1\" ] ; then git stash; else echo \"Nothing to stash.\"; fi; git checkout \"$0\"; if [ \"$NEEDS_STASH\" -eq \"1\" ] ; then git stash pop; fi;'"
 
 [mergetool "fugitive"]
