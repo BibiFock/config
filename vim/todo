@@ -1,9 +1,12 @@
 #scripts
 wbdb -> check catalog db state << IMPORTANT >>
-wbdb -> revise arguments method (impossible to push all in prod or dev today)
 
 #vim
 split function params when to long, automaticly go to next line (,,) = (,\n ,\n)
+
+#minux
+trouver nouveau wm i3wm
+trouver nouveau term
 
 #git
 check zsh shortcut
@@ -13,6 +16,7 @@ check how add autocomplete to sco
 (mod199)handle product rank: alert message for product enrich, no enrich product on two first lines
 (mod100) msg prochain publish (list files) + explication délai de publication
 (mod100) possibility reset value of a field
+(mod139) add type manager
 
 #fun
 car race

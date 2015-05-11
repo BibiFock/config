@@ -24,7 +24,10 @@ if ($argc > 1) {
     }elseif (in_array($argv[1], array('--group-id','-g'))) {
         $sql = 'SELECT * FROM sites WHERE site_group_id IN ('.$argv[2].')';
     }elseif (in_array($argv[1], array('--find', '-f'))) {
-        $sql = "SELECT * FROM sites WHERE LOWER(title) LIKE '%".strtolower($argv[2])."%'";
+        $sql = "SELECT * FROM sites
+            WHERE LOWER(title) LIKE '%".strtolower($argv[2])."%'
+             OR LOWER(url_www) LIKE '%".strtolower($argv[2])."%'
+             OR LOWER(svn_name_url) LIKE '%".strtolower($argv[2])."%'";
     }
 
 }else{

@@ -1,6 +1,6 @@
 #usefull
 alias tmux='TERM=xterm-256color tmux'
-alias grepr='grep -Rin --exclude-dir=library --exclude-dir=_cache'
+alias grepr='grep -Rin --exclude-dir=library --exclude-dir=_cache --exclude-dir=nodejs'
 
 #bash
 if [ -n "$BASH_VERSION" ]; then
@@ -24,7 +24,8 @@ alias www-php='sudo -u www-data /usr/bin/php'
 alias pu='sudo publish $1'
 alias puns='sudo publish --ns $1'
 
-alias adspu='sudo /var/shared4/scripts/tools/adsadmin/publish'
+alias apu='sudo /var/shared4/scripts/tools/ads/publish'
+alias aapu='sudo /var/shared4/scripts/tools/adsadmin/publish'
 
 ##git
 alias gitlist='ssh git@server-git'

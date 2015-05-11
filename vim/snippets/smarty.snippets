@@ -72,6 +72,8 @@ snippet path
 	{{$${1:_application_path}}}
 snippet adformat
 	{{wb_write_ad_format format=$config->ad->position->${1:bas_de_people}}}${2}
+snippet adpos
+	{{wb_webediads_display_script position='${1:position}'}}${2}
 ###################
 # javascript part #
 ###################
