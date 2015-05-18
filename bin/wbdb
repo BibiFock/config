@@ -10,9 +10,10 @@ WORKDIR="${HOME}${LIBPATH}"
 AdminFile="${WORKDIR}AdminAction.php"
 SitesFile="${WORKDIR}Action.php"
 
-if [ ! -c FILE ]; then
-    exit
-fi
+# if no need to check by cmd line
+#if [ ! -c FILE ]; then
+    #exit
+#fi
 
 if [[ $1 == "-h" ]]; then
     echo -e "---------------------------------"
