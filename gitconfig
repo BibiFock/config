@@ -52,6 +52,7 @@
     rull = pull --rebase
     amend = commit --amend -m 
     pop = stash pop
+    wip = commit -m "--WIP--"
     #extra cmd
     srull = !git stash && git rull && git pop
     aa = "!sh -c 'git add -p $0 && git status;'"

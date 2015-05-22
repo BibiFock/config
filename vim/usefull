@@ -145,6 +145,9 @@ CTRL + a | x (incrémenté et décrémenté)
 vi +caractère "<selectectionne le text entre guillement"
 gv ;dernière sélection
 
+#replace sqlkeyword for upper case
+:'<,'>s:\(inner\|left\| in \|join\| as \|between\| by \| asc\| on \| limit \|select\| order \| group  \| from \| and \| where \):\U&:g
+
 [MySQL]
 -- show process list
 SHOW FULL PROCESSLIST
