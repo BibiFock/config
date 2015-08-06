@@ -5,7 +5,7 @@ YELLOW="\\033[33m"
 GREEN="\\033[32m"
 RED="\\033[31m"
 
-LIBPATH="/www/library/php/_configs/"
+LIBPATH="/www/library/php/classes/Wb/Controller/"
 WORKDIR="${HOME}${LIBPATH}"
 AdminFile="${WORKDIR}AdminAction.php"
 SitesFile="${WORKDIR}Action.php"

@@ -90,6 +90,8 @@ let g:syntastic_loc_list_height = 5
 " Better :sign interface symbols
 let g:syntastic_error_symbol = '✗'
 let g:syntastic_warning_symbol = '!'
+" let g:syntastic_php_checkers = ['php', 'phpcs', 'phpmd']
+let g:syntastic_php_checkers = ['php']
 
 "javascript
 Bundle 'othree/javascript-libraries-syntax.vim'
@@ -185,6 +187,22 @@ function! g:committia_hooks.edit_open(info)
     imap <buffer><C-p> <Plug>(committia-scroll-diff-up-half)
 endfunction
 
+Bundle 'Shutnik/jshint2.vim'
+let jshint2_read = 1
+"Lint JavaScript files after saving it:
+let jshint2_save = 1
+"Do not automatically close orphaned error lists:
+let jshint2_close = 0
+"Skip lint confirmation for non JavaScript files:
+let jshint2_confirm = 0
+"Do not use colored messages:
+let jshint2_color = 0
+"Hide error codes in error list (if you don't use error ignoring or error codes
+"confuses you):
+let jshint2_error = 0
+"Set min and max height of error list:
+let jshint2_height = 3
+let jshint2_height = 12
 """"""""""""""""""""""""""""""""""""""""""""""
 " _EDITOR
 """"""""""""""""""""""""""""""""""""""""""""""
