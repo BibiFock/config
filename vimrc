@@ -29,7 +29,6 @@ autocmd FileType php set keywordprg=pman
 au BufNewFile,BufRead *.less set filetype=less
 au BufNewFile,BufRead *.conf set filetype=dosini
 
-
 """"""""""""""""""""""""""""""""""""""""""""""
 " _BUNDLES
 """"""""""""""""""""""""""""""""""""""""""""""
@@ -433,8 +432,11 @@ map <Down> gj
 "Tab deal
 map ez gT
 map ze gt
-map <C-Left> gT
-map <C-Right> gt
+
+"on copy/paste go to the end of text
+vnoremap <silent> y y`]
+vnoremap <silent> p p`]
+nnoremap <silent> p p`]
 
 " Smart way to move btw. windows
 map <C-j> <C-W>j
@@ -457,8 +459,8 @@ nmap <silent> <F9> :call CleanCode(1)<CR>
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 "  _SHORTCUTS_LEADER
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-let mapleader = ","
-let g:mapleader = ","
+let mapleader = " "
+let g:mapleader = " "
 
 " Fast saving
 nmap <leader>w :w!<cr>
@@ -490,9 +492,6 @@ map <leader>s :vertical resize 10<CR>
 
 "clear search hl
 map <leader>h :noh<CR>
-
-"reload conf
-map <leader>c :so %<CR>
 
 "retab selection
 map <leader>t :retab<CR>

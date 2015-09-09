@@ -148,7 +148,7 @@ snippet array_walk
 		${4://code};
 	});${5}
 snippet array_filter
-	$${1:rows} = array_filter( $${1:rows}, function($${3:row}) {
+	$${1:rows} = array_filter( $$1, function($${3:row}) {
 		return ${4://code};
 	});${5}
 	
@@ -185,5 +185,6 @@ snippet confirmation
 	   // The user did not say 'y'.
 	   exit (0);
 	}
-
+snippet eol
+	. PHP_EOL;
 

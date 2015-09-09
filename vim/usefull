@@ -10,7 +10,7 @@ cd /var/www/video.previsite.com/tmp/temp/video/ && find *.* -mtime  +7 | xargs r
 find  ./ -name "section*ini" -print
 //replace string in files
 find . -name "*.php" -print0 | xargs -0 sed -i 's/titi/tata/g'
-grep -Rnl " Brand(" * | xargs -i@ sed -i 's/ Brand(/Shopping_&/g' @
+grep -A 2 -B 2 -Rnl " Brand(" * | xargs -i@ sed -i 's/ Brand(/Shopping_&/g' @
 sshfs <distant file> www/
 # Log start and ending timestamps of a long running job.
 ate +"Start: %c" > timestamps ; runsomething ; date +"Ended: %c" >> timestamps

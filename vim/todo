@@ -1,5 +1,10 @@
 #scripts
-wbdb -> check catalog db state << IMPORTANT >>
+wbdb -> check ads stat and update it
+revoir installation script clairement incomplet...
+ -> posé des questions sur quoi utilisé
+ -> lancé les installations automatiquement
+ -> download tous les plugins vim
+ -> vérifier que vim est présent....
 
 #vim
 split function params when to long, automaticly go to next line (,,) = (,\n ,\n)

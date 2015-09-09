@@ -1,2 +1,6 @@
 snippet label
-	{{'${1:label}'|wbi18n}}${2}
+	 ng-bind="'${1:label}'|wbi18n"${2}
+snippet repeat
+	ng-repeat="${1:(key, value)} in ${2:rows}"${3}
+snippet number
+	{{ ${1:number} | numberFormat }}
