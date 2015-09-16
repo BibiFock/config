@@ -49,6 +49,9 @@ git rebase -i HEAD~3
 git branch --set-upstream my_branch origin/my_branch
 or git push -u origin mybranch
 
+//keep my modification or their
+git co --ours/theirs
+
 //nettoyer le repo local de toutes branches inexistantes
 git remote prune origin
 

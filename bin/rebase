@@ -4,6 +4,7 @@ RESET="\\033[0m"
 YELLOW="\\033[33m"
 GREEN="\\033[32m"
 RED="\\033[31m"
+MAGENTA="\\033[35m"
 
 function isOk {
     [ $? -ne 0 ] && echo -e "$RED$1\n\n==> FAILED$RESET" && exit
@@ -63,15 +64,21 @@ if [ $NEEDS_STASH -eq "1" ]; then
     git pop
 fi
 
-step "delete branch $currentBranch"
-read -p "Do you want to delete branch $currentBranch ? " -n 1 -r
-echo    # (optional) move to a new line
-if [[ $REPLY =~ ^[Yy]$ ]]; then
-    git br -d $currentBranch
-    isOk "branch $currentBranch is deleted"
+if [[ $currentBranch != "dev" && $currentBranch != "master" ]]; then
+    step "delete branch $currentBranch"
+    read -p "Do you want to delete branch $currentBranch ? " -n 1 -r
+    echo    # (optional) move to a new line
+    if [[ $REPLY =~ ^[Yy]$ ]]; then
+        git br -d $currentBranch
+        isOk "branch $currentBranch is deleted"
+    fi
 fi
 
 step "Result"
+
+if type "fortune" &> /dev/null; then
+    echo -e "\n"$MAGENTA $(fortune ~/config/fortune/quote) $RESET
+fi
 
 echo -e "\n"$GREEN"==> ready to push$RESET\n"
 

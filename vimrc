@@ -478,6 +478,7 @@ map <leader>to :tabonly<cr>
 map <leader>ts :tab split<cr>
 map <leader>tc :tabclose<cr>
 map <leader>tm :tabmove
+map <leader>te :tabedit! %<cr>
 
 map <leader>bt :tabnew +BufExplorer<cr>
 map <leader>bb :BufExplorer<cr>

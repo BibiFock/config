@@ -63,6 +63,8 @@
     #co to an old commit and keep unmerged files
     sco = "!sh -c 'git diff-index HEAD --quiet --exit-code; NEEDS_STASH=$?; if [ \"$NEEDS_STASH\" -eq \"1\" ] ; then git stash; else echo \"Nothing to stash.\"; fi; git checkout \"$0\"; if [ \"$NEEDS_STASH\" -eq \"1\" ] ; then git stash pop; fi;'"
     random= !"git commit -am \"$(echo $(curl -s http://whatthecommit.com/index.txt))\";"
+    # list des alias
+    alias= config --get-regexp alias
 
 [mergetool "fugitive"]
     cmd = vim -f -c \"Gdiff\" \"$MERGED\"
