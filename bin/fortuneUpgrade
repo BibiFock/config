@@ -1,0 +1,26 @@
+#!/bin/bash
+
+RESET="\\033[0m"
+YELLOW="\\033[33m"
+GREEN="\\033[32m"
+RED="\\033[31m"
+MAGENTA="\\033[35m"
+
+function step {
+    echo -e $YELLOW-------------------------------------------------------- [$1]$RESET
+}
+
+basePath=$HOME/config/fortune
+
+step "start concat"
+echo -e "$(ls -l| wc -l) files found"
+cat $basePath/src/* > $basePath/quotes
+
+echo $basePath/quotes create
+
+step "Generate database"
+strfile $basePath/quotes
+
+step "Have Fun"
+echo -e "\n$GREEN$(fortune $basePath/quotes)\n"
+

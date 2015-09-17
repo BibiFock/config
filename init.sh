@@ -14,7 +14,7 @@ git clone https://github.com/gmarik/vundle.git ~/.vim/bundle/vundle
 ln -sf "$PWD"/tmux.conf ~/.tmux.conf
 
 #zsh
-#curl -L http://install.ohmyz.sh | sh
+curl -L http://install.ohmyz.sh | sh
 ln -sf "$PWD"/zshrc ~/.zshrc
 ln -sf "$PWD"/bbr.zsh-theme ~/.oh-my-zsh/themes/bbr.zsh-theme
 

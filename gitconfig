@@ -55,6 +55,7 @@
     amend = commit --amend -m 
     pop = stash pop
     wip = !"git commit -m \"$(echo \"--WIP-- \"$(curl -s http://whatthecommit.com/index.txt))\";"
+    #wip = !"git commit -m \"$(echo \"--WIP-- \"$(fortune ~/config/fortune/quotes))\";"
     #nb ci diff avec le master
     nbci = rev-list --left-right --count master...
     #extra cmd
@@ -62,7 +63,8 @@
     aa = "!sh -c 'git add -p $0 && git status;'"
     #co to an old commit and keep unmerged files
     sco = "!sh -c 'git diff-index HEAD --quiet --exit-code; NEEDS_STASH=$?; if [ \"$NEEDS_STASH\" -eq \"1\" ] ; then git stash; else echo \"Nothing to stash.\"; fi; git checkout \"$0\"; if [ \"$NEEDS_STASH\" -eq \"1\" ] ; then git stash pop; fi;'"
-    random= !"git commit -am \"$(echo $(curl -s http://whatthecommit.com/index.txt))\";"
+    random= !"git commit -m \"$(echo $(curl -s http://whatthecommit.com/index.txt))\";"
+    #random = !"git commit -m \"$(echo \"$(fortune ~/config/fortune/quotes))\";"
     # list des alias
     alias= config --get-regexp alias
 
