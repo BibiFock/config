@@ -77,7 +77,7 @@ fi
 step "Result"
 
 if type "fortune" &> /dev/null; then
-    echo -e "\n"$MAGENTA $(fortune ~/config/fortune/quote) $RESET
+    echo -e "\n"$MAGENTA $(fortune ~/config/fortune/quotes) $RESET
 fi
 
 echo -e "\n"$GREEN"==> ready to push$RESET\n"

@@ -6,6 +6,13 @@ revoir installation script clairement incomplet...
  -> download tous les plugins vim
  -> vérifier que vim est présent....
 
+#fortune
+régler le problème des sauts à la ligne dans le commit
+quotes
+- les 3 frères
+- futurama
+- simpson
+
 #vim
 split function params when to long, automaticly go to next line (,,) = (,\n ,\n)
 
