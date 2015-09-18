@@ -30,13 +30,11 @@
     st = status
     ci = commit
     br = branch
-    brl = branch -vv
     co = checkout
     df = diff
-    lg = log -p
     unstage = reset HEAD --
     last = log -1 HEAD
-    lol = log --pretty=format:\"%C(green)%cd %C(red bold)%an%Creset %C(yellow)%h %C(white)%s %C(cyan)%d\" --graph --date-order --date=relative -20
+    lol = !"git --no-pager log --pretty=format:\"%C(green)%cd %C(red bold)%an%Creset %C(yellow)%h %C(white)%s %C(cyan)%d\" --graph --date-order --date=relative -20;"
     loldf = log --pretty=format:\"%C(green)%cd %C(red bold)%an%Creset %C(yellow)%h %C(white)%s %C(cyan)%d\" --graph --date-order --date=relative -10 --decorate --numstat --shortstat
     loa = log --pretty=format:\"%C(green)%cd %C(red bold)%an%Creset %C(yellow)%h %C(white)%s %C(cyan)%d\" --graph --date-order --date=iso --all
     loadf = log --pretty=format:\"%C(green)%cd %C(red bold)%an%Creset %C(yellow)%h %C(white)%s %C(cyan)%d\" --graph --date-order --date=iso --all --decorate --numstat --shortstat
@@ -63,8 +61,8 @@
     aa = "!sh -c 'git add -p $0 && git status;'"
     #co to an old commit and keep unmerged files
     sco = "!sh -c 'git diff-index HEAD --quiet --exit-code; NEEDS_STASH=$?; if [ \"$NEEDS_STASH\" -eq \"1\" ] ; then git stash; else echo \"Nothing to stash.\"; fi; git checkout \"$0\"; if [ \"$NEEDS_STASH\" -eq \"1\" ] ; then git stash pop; fi;'"
-    random= !"git commit -m \"$(echo $(curl -s http://whatthecommit.com/index.txt))\";"
-    #random = !"git commit -m \"$(echo \"$(fortune ~/config/fortune/quotes))\";"
+    random= !"git commit -m \"$(echo \"$1 - $(curl -s http://whatthecommit.com/index.txt))\";"
+    #random= !"git commit -m \"$(echo \"$1 - \"$(fortune ~/config/fortune/quotes))\";"
     # list des alias
     alias= config --get-regexp alias
 

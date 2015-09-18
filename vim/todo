@@ -9,9 +9,10 @@ revoir installation script clairement incomplet...
 #fortune
 régler le problème des sauts à la ligne dans le commit
 quotes
-- les 3 frères
+- kaamelott (finir les citations par persos: https://fr.wikiquote.org/wiki/Kaamelott)
 - futurama
 - simpson
+- american dad
 
 #vim
 split function params when to long, automaticly go to next line (,,) = (,\n ,\n)
