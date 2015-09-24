@@ -32,3 +32,6 @@ alias gitlist='ssh git@server-git'
 #makelibrary link
 alias linklib='ln -s ~/www/library/html/ html/library'
 
+#fortune
+alias myfort='fortune ~/config/fortune/quotes'
+

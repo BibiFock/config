@@ -76,12 +76,22 @@ isOk "checkout to $currentBranch"
 git rebase $destBranch
 isOk "rebase"
 
-step "merge $currentBranch in $destBranch"
-git co $destBranch
-isOk "Checkout to $destBranch"
 
-git merge $currentBranch
-isOk "merge $currentBranch"
+step "merge $currentBranch in $destBranch"
+
+merged=0
+echo -e $YELLOW
+read -p "Do you want to delete branch $currentBranch ? " -n 1 -r
+echo -e $RESET   # (optional) move to a new line
+echo    # (optional) move to a new line
+if [[ $REPLY =~ ^[Yy]$ ]]; then
+    git co $destBranch
+    isOk "Checkout to $destBranch"
+
+    git merge $currentBranch
+    isOk "merge $currentBranch"
+    merged=1
+fi
 
 if [ $NEEDS_STASH -eq "1" ]; then
     step "recover stashed files"
@@ -101,8 +111,12 @@ fi
 step "Result"
 
 if type "fortune" &> /dev/null; then
-    echo -e "\n"$MAGENTA $(fortune ~/config/fortune/quotes) $RESET
+    echo -e "\n"$MAGENTA "$(fortune ~/config/fortune/quotes)" $RESET
 fi
 
-echo -e "\n"$GREEN"==> ready to push$RESET\n"
+if [$merged -eq "1" ]; then
+    echo -e "\n"$GREEN"==> ready to push$RESET\n"
+else
+    echo -e "\n"$GREEN"==> $currentBranch up to date$RESET\n"
+fi
 
