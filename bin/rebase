@@ -1,10 +1,28 @@
 #!/bin/bash
+#
+# --------------------
+#
+#   STRUCTURE
+#       DETECT_BRANCH
+#       FUNCTIONS_DEFINITION
+#       WIP_DETECTION
+#       LOOKING_STASH
+#       UPDATE_TARGET
+#       START_REBASE
+#       START_MERGE
+#       UNSTASH_PART
+#       DELETE_PART
+#       RESULT_FINAL
+#
+# --------------------
 
+# FUNCTIONS_DEFINITION
 RESET="\\033[0m"
 YELLOW="\\033[33m"
 GREEN="\\033[32m"
 RED="\\033[31m"
 MAGENTA="\\033[35m"
+BOLD="\\e[1m"
 
 function confirmation {
     echo -e $YELLOW
@@ -30,6 +48,7 @@ function step {
     echo -e $YELLOW-------------------------------------------------------- [$1]$RESET
 }
 
+# DETECT_BRANCH
 step "find current branch"
 currentBranch="$(git symbolic-ref --short -q HEAD)"
 echo $currentBranch
@@ -44,6 +63,7 @@ if [[ $currentBranch == $destBranch ]]; then
     echo -e $RED "can't merge $destBranch with himself,\n\n DUMBASS!!" && exit
 fi
 
+# WIP_DETECTION
 gitlol="$(git --no-pager log --pretty=format:"%C(green)%cd %C(red bold)%an%Creset %C(yellow)%h %C(white)%s %C(cyan)%d" --graph --date-order --date=relative -20 --first-parent)"
 if [[ $gitlol =~ "WIP" ]]; then
     step "WIP detected"
@@ -52,6 +72,7 @@ if [[ $gitlol =~ "WIP" ]]; then
     confirmation "Do you really want to rebase with it?"
 fi
 
+# LOOKING_STASH
 git diff-index HEAD --quiet --exit-code;
 NEEDS_STASH=$?;
 
@@ -62,26 +83,28 @@ else
     echo "Nothing to stash."
 fi
 
-step "update $destBranch"
+# UPDATE_TARGET
+step "update $BOLD$destBranch"
 git co $destBranch
 isOk "checkout to $destBranch"
 
 git pull
 isOk "$destBranch pull"
 
-step "rebase $currentBranch"
+# START_REBASE
+step "rebase $BOLD$currentBranch"
 git co $currentBranch
 isOk "checkout to $currentBranch"
 
 git rebase $destBranch
 isOk "rebase"
 
-
-step "merge $currentBranch in $destBranch"
+# START_MERGE
+step "merge $BOLD$currentBranch$RESET$YELLOW in $BOLD$destBranch"
 
 merged=0
-echo -e $YELLOW
-read -p "Do you want to delete branch $currentBranch ? " -n 1 -r
+echo -e "${YELLOW}Do you want to merge branch $BOLD$currentBranch$RESET$YELLOW in $BOLD$destBranch$RESET$YELLOW ?$RESET"
+read -p "" -n 1 -r
 echo -e $RESET   # (optional) move to a new line
 echo    # (optional) move to a new line
 if [[ $REPLY =~ ^[Yy]$ ]]; then
@@ -93,14 +116,17 @@ if [[ $REPLY =~ ^[Yy]$ ]]; then
     merged=1
 fi
 
+# UNSTASH_PART
 if [ $NEEDS_STASH -eq "1" ]; then
     step "recover stashed files"
     git pop
 fi
 
-if [[ $currentBranch != "dev" && $currentBranch != "master" ]]; then
-    step "delete branch $currentBranch"
-    read -p "Do you want to delete branch $currentBranch ? " -n 1 -r
+# DELETE_PART
+if [[ $merged == "1" && $currentBranch != "dev" && $currentBranch != "master" ]]; then
+    step "delete branch $BOLD$currentBranch"
+    echo -e "${YELLOW}Do you want to delete branch $BOLD$currentBranch$RESET$YELLOW ?$RESET"
+    read -p "" -n 1 -r
     echo    # (optional) move to a new line
     if [[ $REPLY =~ ^[Yy]$ ]]; then
         git br -d $currentBranch
@@ -108,15 +134,16 @@ if [[ $currentBranch != "dev" && $currentBranch != "master" ]]; then
     fi
 fi
 
+# RESULT_FINAL
 step "Result"
 
 if type "fortune" &> /dev/null; then
     echo -e "\n"$MAGENTA "$(fortune ~/config/fortune/quotes)" $RESET
 fi
 
-if [$merged -eq "1" ]; then
+if [ $merged -eq "1" ]; then
     echo -e "\n"$GREEN"==> ready to push$RESET\n"
 else
-    echo -e "\n"$GREEN"==> $currentBranch up to date$RESET\n"
+    echo -e "\n"$GREEN"==> branch $BOLD$currentBranch$RESET$GREEN up to date$RESET\n"
 fi
 
