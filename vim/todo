@@ -7,6 +7,9 @@ revoir installation script clairement incomplet...
  -> vérifier que vim est présent....
  -> prompt configurable...
 
+#usefull
+ -> reprendre mes fichiers utils en markdown
+
 #fortune
 régler le problème des sauts à la ligne dans le commit
 quotes

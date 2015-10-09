@@ -83,6 +83,9 @@ function objToStr( obj ) {
     }
 }
 
+//define cookie
+var myDate = new Date(); myDate.setMonth(myDate.getMonth() + 12); document.cookie = "bbr=moi;expires=" + myDate + ";domain=.exemple.fr;path=/";
+
 [SMARTY]
  'base_url' => $this->view->getEngine()->get_config_vars('LABEL_ROUTE_TEST').'/p##page##'
  $smarty->assign('url', $controller->getLabel('LABEL_ROUTE_TEST')."/p1");
