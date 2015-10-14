@@ -330,6 +330,9 @@ alter:
 ALTER table <table> add|change def
 ALTER table import_tours ALTER COLUMN Url_annonce varchar(250)
 requête en cours (se connecter en admin)
+#dump
+mysqldump -u root -p<password> -p <database src> --no-data > dump.sql
+mysql -u root -p<password> -p <database target> < dump.sql
 
 [Apache]
 sf2
