@@ -40,3 +40,13 @@ uke online free editor (http://ukegeeks.com/)
 bd stream (poulpy)
 backpacktrip -> mapjs: http://leafletjs.com/
 
+#reader
+- add/update/delete rss list
+- save rss in db
+- read (live) rss / render infos
+- cron that save tickets
+- follow youtube channel activity
+- follow twitter activity
+- follow gmail activity
+- follow graylog
+

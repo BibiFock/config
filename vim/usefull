@@ -28,6 +28,10 @@ connection sans mpd
 ssh-keygen -t rsa
 scp ~/.ssh/id_rsa.pub bibi@gandalf.tux:~bibi/.ssh/authorized_keys2
 
+[IOS]
+penser à lancer le démon à la main
+killall usbmuxd | sudo usbmuxd -u -f -v
+
 [GIT]
 git fetch origin
 git log HEAD..origin/master
