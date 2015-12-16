@@ -34,10 +34,10 @@
     df = diff
     unstage = reset HEAD --
     last = log -1 HEAD
-    lol = !"git --no-pager log --pretty=format:\"%C(green)%cd %C(red bold)%an%Creset %C(yellow)%h %C(white)%s %C(cyan)%d\" --graph --date-order --date=relative -20;"
-    loldf = log --pretty=format:\"%C(green)%cd %C(red bold)%an%Creset %C(yellow)%h %C(white)%s %C(cyan)%d\" --graph --date-order --date=relative -10 --decorate --numstat --shortstat
-    loa = log --pretty=format:\"%C(green)%cd %C(red bold)%an%Creset %C(yellow)%h %C(white)%s %C(cyan)%d\" --graph --date-order --date=iso --all
-    loadf = log --pretty=format:\"%C(green)%cd %C(red bold)%an%Creset %C(yellow)%h %C(white)%s %C(cyan)%d\" --graph --date-order --date=iso --all --decorate --numstat --shortstat
+    lol = !"git --no-pager log --pretty=format:\"%C(green)%cd %C(red bold)%an%Creset %C(yellow)%h %C(white)%s %C(auto)%d\" --graph --date-order --date=relative -20;"
+    loldf = log --pretty=format:\"%C(green)%cd %C(red bold)%an%Creset %C(yellow)%h %C(white)%s %C(auto)%d\" --graph --date-order --date=relative -10 --decorate --numstat --shortstat
+    loa = log --pretty=format:\"%C(green)%cd %C(red bold)%an%Creset %C(yellow)%h %C(white)%s %C(auto)%d\" --graph --date-order --date=iso --all
+    loadf = log --pretty=format:\"%C(green)%cd %C(red bold)%an%Creset %C(yellow)%h %C(white)%s %C(auto)%d\" --graph --date-order --date=iso --all --decorate --numstat --shortstat
     ls = ls-files
     d = difftool
     hist = whatchanged -p
