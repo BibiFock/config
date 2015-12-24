@@ -131,6 +131,22 @@ let g:php_cs_fixer_dry_run = 0                    " Call command with
 let g:php_cs_fixer_verbose = 0                    " Return the output of
 " command if 1, else an inline information.
 
+Bundle 'Shutnik/jshint2.vim'
+let jshint2_read = 1
+"Lint JavaScript files after saving it:
+let jshint2_save = 1
+"Do not automatically close orphaned error lists:
+let jshint2_close = 0
+"Skip lint confirmation for non JavaScript files:
+let jshint2_confirm = 0
+"Do not use colored messages:
+let jshint2_color = 0
+"Hide error codes in error list (if you don't use error ignoring or error codes
+"confuses you):
+let jshint2_error = 0
+"Set min and max height of error list:
+let jshint2_height = 3
+let jshint2_height = 12
 """"""""""""""""""""""""""""""""""""""""""""""
 " _BUNDLES_TEST
 """"""""""""""""""""""""""""""""""""""""""""""
@@ -186,22 +202,8 @@ function! g:committia_hooks.edit_open(info)
     imap <buffer><C-p> <Plug>(committia-scroll-diff-up-half)
 endfunction
 
-Bundle 'Shutnik/jshint2.vim'
-let jshint2_read = 1
-"Lint JavaScript files after saving it:
-let jshint2_save = 1
-"Do not automatically close orphaned error lists:
-let jshint2_close = 0
-"Skip lint confirmation for non JavaScript files:
-let jshint2_confirm = 0
-"Do not use colored messages:
-let jshint2_color = 0
-"Hide error codes in error list (if you don't use error ignoring or error codes
-"confuses you):
-let jshint2_error = 0
-"Set min and max height of error list:
-let jshint2_height = 3
-let jshint2_height = 12
+"function list
+Bundle 'functionlist.vim'
 """"""""""""""""""""""""""""""""""""""""""""""
 " _EDITOR
 """"""""""""""""""""""""""""""""""""""""""""""
@@ -449,7 +451,7 @@ cmap cwd lcd %:p:h
 cmap cd. lcd %:p:h
 
 "functionlist
-map <F4> :TlistToggle<CR>
+map <F4> :Flisttoggle<CR>
 
 " clean code
 map <silent> <F7> :s:\t:    :eg<Bar>:%s:\%V[\t ]*$::eg<Bar>:noh<cr>
@@ -461,6 +463,9 @@ nmap <silent> <F9> :call CleanCode(1)<CR>
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 let mapleader = " "
 let g:mapleader = " "
+
+"relaod config
+nnoremap <leader>c :so %<cr>
 
 " Fast saving
 nmap <leader>w :w!<cr>

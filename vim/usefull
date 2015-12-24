@@ -62,6 +62,7 @@ git remote prune origin
 [ANGULARJS]
 angular.element(document).injector().get('ServiceName');
 var test = document.querySelector('[ng-app=adsAdmin]');test = angular.element(test).scope();
+angular.element($0).scope
 
 
 [Zend]

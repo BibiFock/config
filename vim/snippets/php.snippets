@@ -46,7 +46,7 @@ snippet flush
 	echo ${1:print_r}(${2:var}) . "\n";
 	ob_flush();
 snippet empty
-	if (!empty($${1:var})) {
+	if (empty($${1:var})) {
 		${2://code}
 	}${3}
 snippet dbsite
@@ -192,3 +192,22 @@ snippet eol
 ###################
 snippet app
 	Yii::app()->$1
+snippet function_writeln
+	private function writeln($msg = "", $color = "" )
+	{
+		$colors = array(
+				'success' => "\033[32m",
+				'fail' => "\033[31m",
+				'warning' => "\033[33m",
+				'note' => "\033[36m",
+				'reset' => "\033[0m"
+				);
+		if (empty($colors[$color])) {
+			$color = "reset";
+		}
+		echo $colors[$color] . $msg . $colors['reset'] . PHP_EOL;
+	}
+snippet writeln
+	$this->writeln('${1:-----------------}', '${2:white}');${3}
+snippet log
+	\Nf\Front\Response\Cli::writeln('${1:-----------------}', '${2:white}');${3}

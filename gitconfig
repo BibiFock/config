@@ -55,18 +55,18 @@
     wip = !"git commit -m \"$(echo \"--WIP-- \"$(curl -s http://whatthecommit.com/index.txt))\";"
     wip = !"git commit -m \"$(echo \"--WIP-- \"$(fortune ~/config/fortune/quotes))\";"
     #nb ci diff avec le master
-    nbci = rev-list --left-right --count master...
+    nbci = !"git rev-list --left-right --count ${1-master}..."
     #extra cmd
     srull = !git stash && git rull && git pop
     aa = "!sh -c 'git add -p $0 && git status;'"
     #co to an old commit and keep unmerged files
     sco = "!sh -c 'git diff-index HEAD --quiet --exit-code; NEEDS_STASH=$?; if [ \"$NEEDS_STASH\" -eq \"1\" ] ; then git stash; else echo \"Nothing to stash.\"; fi; git checkout \"$0\"; if [ \"$NEEDS_STASH\" -eq \"1\" ] ; then git stash pop; fi;'"
-    random= !"git commit -m \"$(echo \"$1 - \"$(curl -s http://whatthecommit.com/index.txt))\";"
+    #random= !"git commit -m \"$(echo \"$1 - \"$(curl -s http://whatthecommit.com/index.txt))\";"
     random= !"git commit -m \"$(echo \"$1 - \"$(fortune ~/config/fortune/quotes))\";"
-    # list des alias
-    random= !"git commit -am \"$(echo $(curl -s http://whatthecommit.com/index.txt))\";"
     #list des alias definie
     alias= config --get-regexp alias
+    #list branches sorted by last modified
+    lb = "!git for-each-ref --sort='-authordate' --format='%(authordate)%09%(objectname:short)%09%(refname)' refs/heads | sed -e 's-refs/heads/--'"
 
 [mergetool "fugitive"]
     cmd = vim -f -c \"Gdiff\" \"$MERGED\"
