@@ -67,7 +67,7 @@ fi
 gitlol="$(git --no-pager log --pretty=format:"%C(green)%cd %C(red bold)%an%Creset %C(yellow)%h %C(white)%s %C(cyan)%d" --graph --date-order --date=relative -20 --first-parent)"
 if [[ $gitlol =~ "WIP" ]]; then
     step "WIP detected"
-    echo "$gitlol"
+    echo -e "$(echo "$gitlol" | sed -e "s/WIP/\x1b[1;33mWIP\x1b[0m/g")"
     echo -e $RED"\n WIP presents in the history....\n"$RESET
     confirmation "Do you really want to rebase with it?"
 fi

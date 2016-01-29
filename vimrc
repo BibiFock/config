@@ -262,6 +262,8 @@ set showcmd                 " Affiche la commande en cours de saisie en bas à d
 set cursorline              "Soulignement de la ligne courante
 highlight Folded gui=bold   "Surligne la ligne courante en gris
 set complete=.,w,b,i        " default: .,w,b,u,t,i
+set splitbelow              " force split open below
+set splitright              " force vsplit open right
 
 """"""""""""""""""""""""""""""""""""""""""""""
 " _BACKUP
