@@ -185,6 +185,8 @@ DATEDIFF(NOW(), date_publication) < 7
 -- format date
 doc: http://dev.mysql.com/doc/refman/5.5/en/date-and-time-functions.html#function_date-format
 date_format(date_update, '%Y-%m-%d %k')  date
+-- copy table
+CREATE TABLE foo SELECT * FROM bar (LIMIT 0 for only structure)
 
 [CURL]
 $ch = curl_init($url);
@@ -336,8 +338,8 @@ ALTER table <table> add|change def
 ALTER table import_tours ALTER COLUMN Url_annonce varchar(250)
 requête en cours (se connecter en admin)
 #dump
-mysqldump -u root -p<password> -p <database src> --no-data > dump.sql
-mysql -u root -p<password> -p <database target> < dump.sql
+mysqldump -u root -p<password> -d <database src> --no-data > dump.sql
+mysql -u root -p<password> -d <database target> < dump.sql
 
 [Apache]
 sf2
