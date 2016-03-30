@@ -11,7 +11,7 @@ PROMPT='%{$reset_color%}$(_user_host) ${_current_dir}%{$fg_bold[magenta]%}$(__gi
 PROMPT2=''
 RPROMPT=''
 
-local _current_dir="%{$fg[cyan]%}%d%{$reset_color%}"
+local _current_dir="%{$fg[cyan]%}%~%{$reset_color%}"
 
 function _user_host() {
     me="%n::%m"

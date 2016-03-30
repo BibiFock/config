@@ -49,7 +49,7 @@ Bundle 'kien/ctrlp.vim'
 let g:ctrlp_working_path_mode = 'ra'
 let g:ctrlp_root_markers = ['html', '.ctrlp']
 let g:ctrlp_custom_ignore = {
-  \ 'dir':  '\.git$\|\.svn$\|_cache|_config\|branches\|tags\|nodejs$',
+  \ 'dir':  '\.git$\|\.svn$\|_cache|_config\|branches\|tags\|nodejs\|build\|node_modules$',
   \ 'file': '\.exe$\|\.so$\|\.dat\|\.jpg\|\.png$'
   \ }
 let g:ctrlp_clear_cache_on_exit=0

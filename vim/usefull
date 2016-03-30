@@ -23,6 +23,11 @@ dpkg -l | grep linux-image
 # purge kernel
 sudo apt-get purge linux-image-x.x.x-{xx,xx,xx,xx}-generic
 
+for i in {1..20}; do echo $i; done;
+
+#reload cron files
+systemctl reload cron.service
+
 [ssh]
 connection sans mpd
 ssh-keygen -t rsa
@@ -90,6 +95,7 @@ function objToStr( obj ) {
 
 //define cookie
 var myDate = new Date(); myDate.setMonth(myDate.getMonth() + 12); document.cookie = "bbr=moi;expires=" + myDate + ";domain=.exemple.fr;path=/";
+function getCookie(t){for(var n=t+"=",r=document.cookie.split(";"),e=0;e<r.length;e++){for(var i=r[e];" "==i.charAt(0);)i=i.substring(1);if(0==i.indexOf(n))return i.substring(n.length,i.length)}return""}
 
 [SMARTY]
  'base_url' => $this->view->getEngine()->get_config_vars('LABEL_ROUTE_TEST').'/p##page##'

@@ -168,6 +168,18 @@ snippet backoffice
 	Zend_Registry::get('back_office')${1}
 snippet path
 	Zend_Registry::get('${1:application}_path')${2}
+snippet aaggregate
+	$${1:results} = array();
+	foreach ($${2:rows} as $${3:row}) {
+		if ( empty($$1[$$3['${4:id}']]) ) {
+			$$1[$$3['$4']] = array(
+				'name' => $$3['$4'],
+				'${5:datas}' => array()
+			);
+		}
+
+		$$1[$$3['$4']]['$5'][] = $$3;
+	}
 ###################
 # CLI part
 ###################
@@ -208,6 +220,6 @@ snippet function_writeln
 		echo $colors[$color] . $msg . $colors['reset'] . PHP_EOL;
 	}
 snippet writeln
-	$this->writeln('${1:-----------------}', '${2:white}');${3}
+	$this->writeln('${1:-----------------}');${3}
 snippet log
-	\Nf\Front\Response\Cli::writeln('${1:-----------------}', '${2:white}');${3}
+	\Nf\Front\Response\Cli::writeln('${1:-----------------}');${3}

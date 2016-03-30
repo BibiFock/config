@@ -64,7 +64,6 @@ function go {
     else
         ls $dir/www/
     fi
-
 }
 
 # Create function that will run when a certain phrase is typed in terminal
@@ -87,7 +86,6 @@ if [ -n "$BASH_VERSION" ]; then
     complete -F _go publish
     complete -F _go publishns
 fi
-
 
 function seelog {
     tail "$1" | sed -e "s/[0-9]\{1,3\}\.[0-9]\{1,3\}\.[0-9]\{1,3\}\.[0-9]\{1,3\}/\x1b[1;36m&\x1b[0m/g" \

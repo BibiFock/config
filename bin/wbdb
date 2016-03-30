@@ -17,7 +17,8 @@ SitesFile="${WORKDIR}Action.php"
 
 if [[ $1 == "-h" ]]; then
     echo -e "---------------------------------"
-    echo -e "-s/a   site or admin"
+    echo -e "-si/sa  site or admin"
+    echo -e "-ad/aa ads or adsadmin"
     echo -e "-p     use prod (dev by default)"
     echo -e "---------------------------------"
 fi
@@ -32,8 +33,12 @@ function useDbProd() {
 }
 
 function checkStates() {
-    AdminState="${GREEN}[dev]${RESET}"
-    SitesState="${GREEN}[dev]${RESET}"
+    dev="${GREEN}[dev]${RESET}"
+    prod="${RED}[dev]${RESET}"
+    AdminState=$dev
+    SitesState=$dev
+    AdsAdminState=$dev
+    AdsState=$dev
     PromptState=""
 
     files=( $(grep -Rinl "www/databases.ini" $WORKDIR ) )
@@ -41,18 +46,31 @@ function checkStates() {
     for i in "${files[@]}"
     do
         if [[ $i == $AdminFile ]]; then
-            AdminState="${RED}[PROD]${RESET}"
-            PromptState=$PromptState"a"
+            AdminState=$prod
+            PromptState=$PromptState"sa "
         elif [[ $i == $SitesFile ]]; then
-            SitesState="${RED}[PROD]${RESET}"
-            PromptState=$PromptState"s"
+            SitesState=$prod
+            PromptState=$PromptState"si "
         fi
     done
 
+    if grep -iq ';;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;; SCRIPT WBDB PROD' $AdsAdminFile; then
+        AdsAdminState=$prod
+        PromptState=$PromptState"aa "
+    fi
+
+    if grep -iq ';;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;; SCRIPT WBDB PROD' $AdsFile; then
+        AdsState=$prod
+        PromptState=$PromptState"ad "
+    fi
+
     if [ -n "$1" ]; then
         echo -e "================================="
-        echo -e "${YELLOW}Sites ${SitesState}"
-        echo -e "${YELLOW}Admin ${AdminState}"
+        echo -e "${YELLOW}Admin     ${AdminState}"
+        echo -e "${YELLOW}Sites     ${SitesState}"
+        echo -e "---------------------------------"
+        echo -e "${YELLOW}AdsAdmin  ${AdsAdminState}"
+        echo -e "${YELLOW}Ads       ${AdsState}"
         echo -e "================================="
     else
         if [[ $PromptState != "" ]]; then
@@ -64,12 +82,21 @@ function checkStates() {
 affState=""
 for i; do
     neededState=$(echo $i | sed -e 's/[^p]//g')
-    if [ -n "$(echo $i | sed -e 's/[^a]//g')" ]; then
+    if echo $i | grep -iq 'sa'; then
         useDbProd $AdminFile $neededState
         affState="ok"
     fi
-    if [ -n "$(echo $i | sed -e 's/[^s]//g')" ]; then
+    if echo $i | grep -iq 'si'; then
         useDbProd $SitesFile $neededState
+        affState="ok"
+    fi
+
+    if echo $i | grep -iq 'aa'; then
+        useAdsAdminDbProd $AdsAdminFile $neededState
+        affState="ok"
+    fi
+    if echo $i | grep -iq 'ad'; then
+        useAdsDbProd $AdsFile $neededState
         affState="ok"
     fi
 done
