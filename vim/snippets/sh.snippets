@@ -4,4 +4,21 @@ snippet todo
 	${1:#delete this fucking thing...}
 	# TODO DELETE BEFORE PROD
 	####################################
+snippet confirmation
+	function confirmation {
+		echo -e $YELLOW
+		read -p " Are you sure you want to do ${1:this}?!" -n 1 -r
+		echo -e $RESET   # (optional) move to a new line
+		if ! [[ $REPLY =~ ^[Yy]$ ]]; then
+			echo -e "\n"
+			if type "fortune" &> /dev/null; then
+				echo -e $MAGENTA"$(fortune ~/config/fortune/quotes)" $RESET
+			else
+				echo -e $MAGENTA"See you next time!!"$RESET
+			fi
+			echo -e "\n"
+			exit
+		fi
+	}
+
 
