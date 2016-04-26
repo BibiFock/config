@@ -47,19 +47,21 @@ function checkStates() {
     do
         if [[ $i == $AdminFile ]]; then
             AdminState=$prod
-            PromptState=$PromptState"sa "
+            PromptState=$PromptState"sa|"
         elif [[ $i == $SitesFile ]]; then
             SitesState=$prod
-            PromptState=$PromptState"si "
+            PromptState=$PromptState"si|"
         fi
     done
 
-    if grep -iq ';;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;; SCRIPT WBDB PROD' $AdsAdminFile; then
+    exist=( $(grep -l "; SCRIPT WBDB PROD$" $AdsAdminFile | wc -l ) )
+    if [[ $exist == "1" ]]; then
         AdsAdminState=$prod
-        PromptState=$PromptState"aa "
+        PromptState=$PromptState"aa|"
     fi
 
-    if grep -iq ';;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;; SCRIPT WBDB PROD' $AdsFile; then
+    exist=( $(grep -l "; SCRIPT WBDB PROD$" $AdsFile | wc -l ) )
+    if [[ $exist == "1" ]]; then
         AdsState=$prod
         PromptState=$PromptState"ad "
     fi
