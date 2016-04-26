@@ -6,7 +6,7 @@ source $HOME/.bash_aliases
 
 source $HOME/.bash_functions
 
-PROMPT='%{$reset_color%}$(_user_host) ${_current_dir}%{$fg_bold[magenta]%}$(__git_ps1)%{$fg_bold[red]%}$(wbdb)%{$reset_color%}%{$reset_color%}
+PROMPT='%{$reset_color%}$(_user_host) ${_current_dir}%{$fg_bold[magenta]%}$(__git_ps1)%{$reset_color%}
 '
 PROMPT2=''
 RPROMPT=''
