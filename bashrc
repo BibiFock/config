@@ -125,6 +125,6 @@ fi
 set -o vi
 
 #[ -z "$PS1" ] && return
-#exec zsh
+exec zsh
 
 

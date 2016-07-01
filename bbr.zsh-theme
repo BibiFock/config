@@ -18,11 +18,11 @@ function _user_host() {
     if [ "`id -u`" -eq 0 ]; then
         color="red"
     else
-        color="green"
+        color="white"
     fi
 
     if [[ -n $me ]]; then
-        echo "%{$fg[$color]%}%n%{$fg[cyan]%}::%{$fg[yellow]%}%m%{$reset_color%}"
+        echo "%{$fg[$color]%}%n%{$fg[cyan]%}::%{$fg[white]%}%m%{$reset_color%}"
     fi
 }
 
@@ -57,7 +57,7 @@ zle -N zle-line-finish
 #export GREP_COLOR='1;33'
 
 function _www_path_content() {
-    reply=(${$(ls ~/www/)})
+    reply=(${$(ls /var/www/)})
     return 0;
 }
 

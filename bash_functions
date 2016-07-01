@@ -38,7 +38,7 @@ function xmail {
 
 
 function Go {
-    home=~
+    home=/var
     dir=/www/
     subdir=
     if [ -n "$2" ]; then
@@ -71,7 +71,7 @@ function Go {
 function _Go() {
     # fill local variable with a list of completions
      if [ $COMP_CWORD -eq 1 ]; then
-         local COMPLETES=$(ls ~/www/)
+         local COMPLETES=$(ls /var/www/)
      elif [ $COMP_CWORD -eq 2 ]; then
          local COMPLETES=$(ls /home/)
      fi
