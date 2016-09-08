@@ -61,7 +61,7 @@ function _www_path_content() {
     return 0;
 }
 
-function _go_complete() {
+function _Go_complete() {
     local arg
     if (( CURRENT == 3 )); then
         reply=(${$(ls /home/)})
@@ -71,7 +71,7 @@ function _go_complete() {
     _www_path_content
 }
 
-compctl -K _go_complete go
+compctl -K _Go_complete Go
 
 compctl -K _www_path_content publish
 

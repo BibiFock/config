@@ -37,7 +37,7 @@ function xmail {
 }
 
 
-function go {
+function Go {
     home=~
     dir=/www/
     subdir=
@@ -68,7 +68,7 @@ function go {
 
 # Create function that will run when a certain phrase is typed in terminal
 # and tab key is pressed twice
-function _go() {
+function _Go() {
     # fill local variable with a list of completions
      if [ $COMP_CWORD -eq 1 ]; then
          local COMPLETES=$(ls ~/www/)
@@ -81,10 +81,10 @@ function _go() {
     return 0
 }
 if [ -n "$BASH_VERSION" ]; then
-    complete -F _go go
+    complete -F _Go Go
 
-    complete -F _go publish
-    complete -F _go publishns
+    complete -F _Go publish
+    complete -F _Go publishns
 fi
 
 function seelog {

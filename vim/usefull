@@ -366,6 +366,29 @@ sf2
     </Directory>
 </VirtualHost>
 
+[redis]
+#install a exécuter en sudo
+--------------
+#!/bin/sh
+aptitude install php5-dev
+
+cd /root; git clone https://github.com/redis/hiredis.git
+cd /root/hiredis
+make install
+rm -Rf /root/hiredis
+
+cd /root; git clone https://github.com/nrk/phpiredis.git
+cd /root/phpiredis
+rm /root/phpiredis/phpiredis.c
+wget https://raw.githubusercontent.com/jbbrunsveld/phpiredis/13152a5688e549692c92576a918a50dc6638f230/phpiredis.c
+phpize && ./configure --enable-phpiredis
+make && make install
+rm -Rf /root/phpiredis
+
+echo "extension=phpiredis.so" > /etc/php5/mods-available/20-phpiredis.ini
+ln -s /etc/php5/mods-available/20-phpiredis.ini /etc/php5/apache2/conf.d/20-phpiredis.ini
+-----
+
 [explore dir images]
 if ($_REQUEST['image']) {
     $images = glob($_REQUEST['image']."*");

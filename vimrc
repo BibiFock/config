@@ -49,7 +49,7 @@ Bundle 'kien/ctrlp.vim'
 let g:ctrlp_working_path_mode = 'ra'
 let g:ctrlp_root_markers = ['html', '.ctrlp']
 let g:ctrlp_custom_ignore = {
-  \ 'dir':  '\.git$\|\.svn$\|_cache|_config\|branches\|tags\|nodejs\|build\|node_modules$',
+  \ 'dir':  '\.git$\|\.svn$\|_cache|_config\|branches\|tags\|nodejs\|build\|node_modules\|vendors$',
   \ 'file': '\.exe$\|\.so$\|\.dat\|\.jpg\|\.png$'
   \ }
 let g:ctrlp_clear_cache_on_exit=0
@@ -264,7 +264,7 @@ highlight Folded gui=bold   "Surligne la ligne courante en gris
 set complete=.,w,b,i        " default: .,w,b,u,t,i
 set splitbelow              " force split open below
 set splitright              " force vsplit open right
-set synmaxcol=200           " limit for line coloration
+set synmaxcol=1200           " limit for line coloration
 
 """"""""""""""""""""""""""""""""""""""""""""""
 " _BACKUP
