@@ -1,6 +1,6 @@
 #usefull
 alias tmux='TERM=xterm-256color tmux'
-alias grepr='grep -Rin --exclude-dir={library,_cache,nodejs,node_modules,build,vendors,cache,dist.prod}'
+alias grepr='grep -Rin --exclude-dir={library,_cache,nodejs,node_modules,build,vendors,cache,dist.prod,dist.dev}'
 
 #bash
 if [ -n "$BASH_VERSION" ]; then
@@ -31,6 +31,7 @@ alias aapu='sudo /var/shared5/scripts/tools/adsadmin/publish'
 alias gitlist='ssh git@server-git'
 #makelibrary link
 alias linklib='ln -s ~/www/library/html/ html/library'
+
 
 #fortune
 alias myfort='fortune ~/config/fortune/quotes'

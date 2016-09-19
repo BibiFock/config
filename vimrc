@@ -28,7 +28,8 @@ autocmd FileType php set keywordprg=pman
 """"""""""""""""""""""""""""""""""""""""""""""
 au BufNewFile,BufRead *.less set filetype=less
 au BufNewFile,BufRead *.conf set filetype=dosini
-
+au BufNewFile,BufRead *.ts set filetype=typescript
+"autocmd FileType typescript :set makeprg=tsc
 """"""""""""""""""""""""""""""""""""""""""""""
 " _BUNDLES
 """"""""""""""""""""""""""""""""""""""""""""""
@@ -91,6 +92,7 @@ let g:syntastic_error_symbol = '✗'
 let g:syntastic_warning_symbol = '!'
 " let g:syntastic_php_checkers = ['php', 'phpcs', 'phpmd']
 let g:syntastic_php_checkers = ['php']
+let g:syntastic_typescript_checkers = ['tslint']
 
 "javascript
 Bundle 'othree/javascript-libraries-syntax.vim'
@@ -204,6 +206,14 @@ endfunction
 
 "function list
 Bundle 'functionlist.vim'
+
+" typescript
+Bundle 'leafgarland/typescript-vim'
+" visiblement ya des couilles avec l'indentation donc en cas de besoin la
+" ligne ci-dessous la désactive
+"let g:typescript_indent_disable = 1
+"let g:typescript_compiler_binary = 'tsc'
+"let g:typescript_compiler_options = ''
 """"""""""""""""""""""""""""""""""""""""""""""
 " _EDITOR
 """"""""""""""""""""""""""""""""""""""""""""""

@@ -1,0 +1,54 @@
+#!/bin/bash
+
+# FUNCTIONS_DEFINITION
+RESET="\\033[0m"
+YELLOW="\\033[33m"
+GREEN="\\033[32m"
+RED="\\033[31m"
+MAGENTA="\\033[35m"
+BOLD="\\e[1m"
+
+function confirmation {
+    echo -e $YELLOW
+    read -p "${1:-Do It?}" -n 1 -r
+    echo -e $RESET   # (optional) move to a new line
+    if ! [[ $REPLY =~ ^[Yy]$ ]]; then
+        echo -e "\n"
+        if type "fortune" &> /dev/null; then
+            echo -e $MAGENTA"$(fortune ~/config/fortune/quotes)" $RESET
+        else
+            echo -e $MAGENTA"See you next time!!"$RESET
+        fi
+        echo -e "\n"
+        exit
+    fi
+}
+
+function isOk {
+    [ $? -ne 0 ] && echo -e "$RED${1:-last operation}\n\n==> FAILED$RESET" && ${2:-exit}
+}
+
+function step {
+    echo -e $YELLOW---------------------------- [$1]$RESET
+}
+
+step "graylog aggregator"
+
+cd /home/bbr/www/graylogAggregator/ && npm start &!
+
+#isOk
+
+step "vagrant"
+
+cd /home/bbr/www/vagrant && vagrant up
+
+isOk
+
+step "Result"
+
+if type "fortune" &> /dev/null; then
+    echo -e "\n"$MAGENTA"$(fortune ~/config/fortune/quotes)" $RESET
+fi
+
+echo -e "\n"$GREEN"==> ready to go$RESET\n"
+

@@ -1,0 +1,86 @@
+#!/bin/bash
+
+source ~/.bash_functions
+
+# FUNCTIONS_DEFINITION
+RESET="\\033[0m"
+YELLOW="\\033[33m"
+GREEN="\\033[32m"
+RED="\\033[31m"
+MAGENTA="\\033[35m"
+BOLD="\\e[1m"
+
+function confirmation {
+    echo -e $YELLOW
+    read -p "$1" -n 1 -r
+    echo -e $RESET   # (optional) move to a new line
+    if ! [[ $REPLY =~ ^[Yy]$ ]]; then
+        echo -e "\n"
+        if type "fortune" &> /dev/null; then
+            echo -e $MAGENTA"$(fortune ~/config/fortune/quotes)" $RESET
+        else
+            echo -e $MAGENTA"See you next time!!"$RESET
+        fi
+        echo -e "\n"
+        exit
+    fi
+}
+
+function isOk {
+    [ $? -ne 0 ] && echo -e "$RED$1\n\n==> FAILED$RESET" && exit
+}
+
+function step {
+    echo -e $YELLOW-------------------------------------------------------- [$1]$RESET
+}
+
+site=$1
+
+Go ads
+
+isOk "ads project found"
+
+data="_data/1/$site"
+if [ ! -d "$data" ]
+then
+    mkdir -p $data
+else
+    rm -rf $data/*
+fi
+
+isOk "looking for path destination"
+
+step "copy networks sources"
+
+scp -r root@web3-ads.eu1.internal:/var/replicated/tools/ads/$data/* $data
+
+isOk "copy of all network insertions"
+
+step "copy direct"
+
+data="_data/direct"
+if [ ! -d "$data" ]
+then
+    mkdir -p $data
+else
+    rm -rf $data/*
+fi
+
+scp -r root@web3-ads.eu1.internal:/var/replicated/tools/ads/$data/* $data
+
+isOk "copy of all network insertions"
+
+step "update db"
+
+wbdb aadp
+
+isOk "use prod db"
+
+step "Result"
+
+if type "fortune" &> /dev/null; then
+    echo -e "\n"$MAGENTA"$(fortune ~/config/fortune/quotes)" $RESET
+fi
+
+echo -e "\n"$GREEN"==> all insertion for $BOLD$site/$page$RESET$GREEN are available $RESET\n"
+
