@@ -22,11 +22,16 @@ uname -r
 dpkg -l | grep linux-image
 # purge kernel
 sudo apt-get purge linux-image-x.x.x-{xx,xx,xx,xx}-generic
+#finish installation
+sudo dpkg --configure -a --log /tmp/dpkg.log
 
 for i in {1..20}; do echo $i; done;
 
 #reload cron files
 systemctl reload cron.service
+
+#port used by
+netstat -tulpn
 
 [ssh]
 connection sans mpd
@@ -68,6 +73,9 @@ git remote prune origin
 angular.element(document).injector().get('ServiceName');
 var test = document.querySelector('[ng-app=adsAdmin]');test = angular.element(test).scope();
 angular.element($0).scope
+
+[ANGULAR2]
+ng.probe($0).componentInstance
 
 
 [Zend]

@@ -29,7 +29,6 @@ autocmd FileType php set keywordprg=pman
 au BufNewFile,BufRead *.less set filetype=less
 au BufNewFile,BufRead *.conf set filetype=dosini
 au BufNewFile,BufRead *.ts set filetype=typescript
-"autocmd FileType typescript :set makeprg=tsc
 """"""""""""""""""""""""""""""""""""""""""""""
 " _BUNDLES
 """"""""""""""""""""""""""""""""""""""""""""""
@@ -50,7 +49,7 @@ Bundle 'kien/ctrlp.vim'
 let g:ctrlp_working_path_mode = 'ra'
 let g:ctrlp_root_markers = ['html', '.ctrlp']
 let g:ctrlp_custom_ignore = {
-  \ 'dir':  '\.git$\|\.svn$\|_cache|_config\|branches\|tags\|nodejs\|build\|node_modules\|vendors$',
+  \ 'dir': '\.git$\|_cache\|branches\|tags\|nodejs\|build\|node_modules\|vendors\|coverage\|dist\.dev\|dist\.prod\|framework$',
   \ 'file': '\.exe$\|\.so$\|\.dat\|\.jpg\|\.png$'
   \ }
 let g:ctrlp_clear_cache_on_exit=0
@@ -63,6 +62,7 @@ call ctrlp_bdelete#init()
 Bundle 'bufexplorer.zip'
 
 Bundle 'The-NERD-Commenter'
+let g:NERDSpaceDelims = 1
 Bundle 'The-NERD-tree'
 " NERDTree
 let g:NERDTreeWinPos = "right"
@@ -93,6 +93,7 @@ let g:syntastic_warning_symbol = '!'
 " let g:syntastic_php_checkers = ['php', 'phpcs', 'phpmd']
 let g:syntastic_php_checkers = ['php']
 let g:syntastic_typescript_checkers = ['tslint']
+let g:syntastic_typescript_args = ['-r node_modules/codelyzer']
 
 "javascript
 Bundle 'othree/javascript-libraries-syntax.vim'
@@ -211,9 +212,9 @@ Bundle 'functionlist.vim'
 Bundle 'leafgarland/typescript-vim'
 " visiblement ya des couilles avec l'indentation donc en cas de besoin la
 " ligne ci-dessous la désactive
-"let g:typescript_indent_disable = 1
-"let g:typescript_compiler_binary = 'tsc'
-"let g:typescript_compiler_options = ''
+" let g:typescript_indent_disable = 1
+" let g:typescript_compiler_binary = 'tslint'
+" let g:typescript_compiler_options = ''
 """"""""""""""""""""""""""""""""""""""""""""""
 " _EDITOR
 """"""""""""""""""""""""""""""""""""""""""""""
@@ -274,7 +275,7 @@ highlight Folded gui=bold   "Surligne la ligne courante en gris
 set complete=.,w,b,i        " default: .,w,b,u,t,i
 set splitbelow              " force split open below
 set splitright              " force vsplit open right
-set synmaxcol=1200           " limit for line coloration
+set synmaxcol=3200           " limit for line coloration
 
 """"""""""""""""""""""""""""""""""""""""""""""
 " _BACKUP
@@ -357,7 +358,7 @@ function! SnippetsUpdate(snip_dir)
 endfunction
 
 function! GoTo(site, ...)
-    let str = $HOME.'/www/'.a:site.'/'
+    let str = $HOME.'/projects/dev/tools/'.a:site.'/'
     if !isdirectory(str)
         echoerr 'Directory not found: "'.str.'"'
         return
@@ -371,10 +372,9 @@ function! GoTo(site, ...)
 endfunction
 
 fun! GoToComplete(A,L,P)
-    let path = expand('~/www/')
+    let path = expand('~/projects/dev/tools/')
     return split(substitute(globpath(path, a:A."*"), path, "", "g"), "\n")
 endfun
-
 """"""""""""""""""""""""""""""""""""""""""""""
 " _COMMANDS
 """"""""""""""""""""""""""""""""""""""""""""""
@@ -513,4 +513,6 @@ nnoremap <Leader>fun :execute 'CtrlPFunky ' . expand('<cword>')<Cr>
 
 "get current file full name
 nmap <Leader>pwd :echo expand('%:p')<Cr>
+
+nmap <leader>fo :r !fortune ~/config/fortune/quotes<Cr>
 

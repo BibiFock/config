@@ -4,3 +4,4 @@ vim/bundle/*
 vim/swap/*
 bin/composer.phar
 fortune/quotes*
+node_modules

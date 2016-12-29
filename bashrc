@@ -113,18 +113,17 @@ if ! shopt -oq posix; then
   fi
 fi
 
-export GREP_OPTIONS="--exclude-dir=\.svn --exclude-dir=_cache"
-
-
 if [ -f $HOME/.bash_functions ]; then
   . $HOME/.bash_functions;
 fi
 
 
 #adding vi edition style to bashrc
-set -o vi
+# set -o vi
 
 #[ -z "$PS1" ] && return
 #exec zsh
 
+#history shared between all term
+export PROMPT_COMMAND='history -a'
 

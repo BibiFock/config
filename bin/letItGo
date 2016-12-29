@@ -34,13 +34,15 @@ function step {
 
 step "graylog aggregator"
 
-cd /home/bbr/www/graylogAggregator/ && npm start &!
+cd /home/bbr/projects/dev/tools/graylogAggregator/ && npm start &!
+
+# cd /home/bbr/projects/dev/tools/adsdashboard/webapp/ && npm run prod &!
 
 #isOk
 
 step "vagrant"
 
-cd /home/bbr/www/vagrant && vagrant up
+cd /home/bbr/projects/vagrant && vagrant up
 
 isOk
 

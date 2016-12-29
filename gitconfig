@@ -27,14 +27,14 @@
     editor = vim
 
 [alias]
-    st = status
+    st = status -s
     ci = commit -m
     br = branch
     co = checkout
     df = diff
     unstage = reset HEAD --
     last = log -1 HEAD
-    lol = !"git --no-pager log --pretty=format:\"%C(green)%cd %C(red bold)%an%Creset %C(yellow)%h %C(white)%s %C(auto)%d\" --graph --date-order --date=relative -20;"
+    lol = !"git --no-pager log --pretty=format:\"%C(green)%cd %C(red bold)%an%Creset %C(yellow)%h %C(white)%s %C(auto)%d\" --graph --date-order --date=relative -20;echo;"
     loldf = log --pretty=format:\"%C(green)%cd %C(red bold)%an%Creset %C(yellow)%h %C(white)%s %C(auto)%d\" --graph --date-order --date=relative -10 --decorate --numstat --shortstat
     loa = log --pretty=format:\"%C(green)%cd %C(red bold)%an%Creset %C(yellow)%h %C(white)%s %C(auto)%d\" --graph --date-order --date=iso --all
     loadf = log --pretty=format:\"%C(green)%cd %C(red bold)%an%Creset %C(yellow)%h %C(white)%s %C(auto)%d\" --graph --date-order --date=iso --all --decorate --numstat --shortstat
