@@ -7,7 +7,8 @@ snippet number
 snippet trans
 	{{ '${1:REPORTS}' | translate:lang }}
 snippet for
-	<template ngFor let-item [ngForOf]="${1:items}">
-		{{ ${2:item} }}
+	<template ngFor let-item [ngForOf]="${1:item}s">
+		<option value="{{ item.value }}">{{ item.name }}</option>
 	</template>
-
+snippet ngmodel
+	[(ngModel)]="${1:model}" 
