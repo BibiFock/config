@@ -29,6 +29,8 @@ autocmd FileType php set keywordprg=pman
 au BufNewFile,BufRead *.less set filetype=less
 au BufNewFile,BufRead *.conf set filetype=dosini
 au BufNewFile,BufRead *.ts set filetype=typescript
+au BufNewFile,BufRead *.vue set filetype=vue
+"autocmd FileType typescript :set makeprg=tsc
 """"""""""""""""""""""""""""""""""""""""""""""
 " _BUNDLES
 """"""""""""""""""""""""""""""""""""""""""""""
@@ -212,9 +214,15 @@ Bundle 'functionlist.vim'
 Bundle 'leafgarland/typescript-vim'
 " visiblement ya des couilles avec l'indentation donc en cas de besoin la
 " ligne ci-dessous la désactive
-" let g:typescript_indent_disable = 1
-" let g:typescript_compiler_binary = 'tslint'
-" let g:typescript_compiler_options = ''
+"let g:typescript_indent_disable = 1
+"let g:typescript_compiler_binary = 'tsc'
+"let g:typescript_compiler_options = ''
+
+Bundle 'fatih/vim-go'
+
+Bundle 'posva/vim-vue'
+autocmd FileType vue syntax sync fromstart
+
 """"""""""""""""""""""""""""""""""""""""""""""
 " _EDITOR
 """"""""""""""""""""""""""""""""""""""""""""""
