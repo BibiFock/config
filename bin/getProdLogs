@@ -33,33 +33,44 @@ function step {
 }
 
 path=/var/data/wads/
-#path=/var/log/
 patternFiles=${path}$1
 
-outputPath=/home/bbr/logs/
+outputPath=/home/bbr/dev/logs/
 
 step "search for files like $patternFiles"
 
-for i in {4..19}
+
+for i in {3..19}
 do
     step "go to web-$i"
 
     server=web$i-ads.eu1.internal
-    #ssh root@$server
+    #sudo ssh $server
+    #continue
 
     ping -c 3 $server > /dev/null 2>&1
     isOk "server down" continue
 
+    ls=$(sudo ssh $server ls $patternFiles)
+    isOk "no files found" continue
+
     [ ! -d $outputPath/web$i ] && echo " --> create log web$i dir" && mkdir ${outputPath}/web$i
 
-    #ls=$(sudo ssh $server ls $patternFiles)
-    #isOk "no files found" continue
+    # ls=$(sudo ssh $server rm $patternFiles)
+    # isOk "delete failed"
+    # continue
 
-    #sudo scp $server:$patternFiles ${outputPath}/web$i/
-    #isOk "copy failed" continue
+    sudo scp $server:$patternFiles ${outputPath}/web$i/
+    isOk "copy failed" continue
 
     echo " ** read only mode **"
-    sudo ssh $server rm $patternFiles
-    isOk "cleanning files" continue
+    # sudo ssh $server rm $patternFiles
+    # isOk "cleanning files" continue
 
 done
+
+if [ -n "$2" ]
+then
+    confirmation "aggregate data?"
+    cat $outputPath/web*/$1 |sort |uniq -c |sort > $2
+fi

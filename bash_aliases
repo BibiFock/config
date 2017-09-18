@@ -1,6 +1,6 @@
 #usefull
 alias tmux='TERM=xterm-256color tmux'
-alias grepr='grep -Rin --exclude-dir={library,_cache,nodejs,node_modules,build,vendors,cache,dist.prod,dist.dev,vendor,coverage}'
+alias grepr='grep -Rin --exclude-dir={library,_cache,nodejs,node_modules,build,vendors,cache,dist.prod,dist.dev,vendor,coverage,statics,.git}'
 
 #bash
 if [ -n "$BASH_VERSION" ]; then

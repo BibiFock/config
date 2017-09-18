@@ -49,7 +49,7 @@
     #uncommit
     unci = reset --soft 'HEAD^'
     stave = stash save -u
-    rull = pull --rebase
+    rull = pull --rebase -p
     amend = commit --amend -m 
     pop = stash pop
     wip = !"git commit -m \"$(echo \"--WIP-- \"$(curl -s http://whatthecommit.com/index.txt))\";"

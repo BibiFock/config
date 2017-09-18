@@ -52,7 +52,7 @@ isOk "looking for path destination"
 
 step "copy networks sources"
 
-scp -r root@web3-ads.eu1.internal:/var/replicated/tools/ads/$data/* $data
+scp -r root@wbd-web4-ads.eu1.wbd.tech:/var/replicated/tools/ads/$data/* $data
 
 isOk "copy of all network insertions"
 
@@ -66,7 +66,7 @@ else
     rm -rf $data/*
 fi
 
-scp -r root@web3-ads.eu1.internal:/var/replicated/tools/ads/$data/* $data
+scp -r root@wbd-web4-ads.eu1.wbd.tech:/var/replicated/tools/ads/$data/* $data
 
 isOk "copy of all network insertions"
 

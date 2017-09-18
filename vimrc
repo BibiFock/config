@@ -93,7 +93,8 @@ let g:syntastic_loc_list_height = 5
 let g:syntastic_error_symbol = '✗'
 let g:syntastic_warning_symbol = '!'
 " let g:syntastic_php_checkers = ['php', 'phpcs', 'phpmd']
-let g:syntastic_php_checkers = ['php']
+let g:syntastic_php_checkers = ['php', 'phpcs']
+let g:syntastic_php_phpcs_args='--standard=PSR2 -n'
 let g:syntastic_typescript_checkers = ['tslint']
 let g:syntastic_typescript_args = ['-r node_modules/codelyzer']
 
@@ -152,9 +153,12 @@ let jshint2_error = 0
 "Set min and max height of error list:
 let jshint2_height = 3
 let jshint2_height = 12
+
+Bundle 'editorconfig/editorconfig-vim'
 """"""""""""""""""""""""""""""""""""""""""""""
 " _BUNDLES_TEST
 """"""""""""""""""""""""""""""""""""""""""""""
+" shortcut -> (ctrl y ,)
 Bundle 'mattn/emmet-vim'
 
 Bundle 'luochen1990/rainbow'
@@ -214,14 +218,13 @@ Bundle 'functionlist.vim'
 Bundle 'leafgarland/typescript-vim'
 " visiblement ya des couilles avec l'indentation donc en cas de besoin la
 " ligne ci-dessous la désactive
-"let g:typescript_indent_disable = 1
-"let g:typescript_compiler_binary = 'tsc'
-"let g:typescript_compiler_options = ''
+" let g:typescript_indent_disable = 1
+" let g:typescript_compiler_binary = 'tslint'
+" let g:typescript_compiler_options = ''
 
 Bundle 'fatih/vim-go'
 
 Bundle 'posva/vim-vue'
-autocmd FileType vue syntax sync fromstart
 
 """"""""""""""""""""""""""""""""""""""""""""""
 " _EDITOR
