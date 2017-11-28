@@ -1,6 +1,6 @@
 #!/bin/bash
 
-sudo apt-get install git zsh tmux
+sudo apt-get install git vim vim-gtk fortune
 
 ln -sf "$PWD"/bashrc ~/.bashrc
 ln -sf "$PWD"/bash_aliases ~/.bash_aliases
@@ -32,5 +32,8 @@ ln -sf "$PWD"/gitignore_global ~/.gitignore_global
 
 #composer
 php -r "readfile('https://getcomposer.org/installer');" | php -- --install-dir="$PWD"/bin
+
+# fortune create
+$PWD/bin/fortuneUpgrade
 
 

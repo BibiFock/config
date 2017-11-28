@@ -32,6 +32,8 @@ function step {
     echo -e $YELLOW---------------------------- [$1]$RESET
 }
 
+vm=${1:-"vagrant"}
+
 step "graylog aggregator"
 
 cd /home/bbr/projects/dev/tools/graylogAggregator/ && npm start &!
@@ -40,9 +42,9 @@ cd /home/bbr/projects/dev/tools/graylogAggregator/ && npm start &!
 
 #isOk
 
-step "vagrant"
+step "$vm"
 
-cd /home/bbr/projects/vagrant && vagrant up
+cd /home/bbr/projects/$vm && vagrant up
 
 isOk
 

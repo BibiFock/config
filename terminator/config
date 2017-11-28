@@ -1,0 +1,31 @@
+[global_config]
+  borderless = True
+  broadcast_default = off
+  enabled_plugins = CustomCommandsMenu, LaunchpadCodeURLHandler, APTURLHandler, LaunchpadBugURLHandler
+  handle_size = 0
+  inactive_color_offset = 1.0
+  suppress_multiple_term_dialog = True
+[keybindings]
+[layouts]
+  [[default]]
+    [[[child1]]]
+      parent = window0
+      profile = default
+      type = Terminal
+    [[[window0]]]
+      parent = ""
+      type = Window
+[plugins]
+[profiles]
+  [[default]]
+    background_color = "#1c1c1c"
+    cursor_color = "#aaaaaa"
+    font = Ubuntu Mono 10
+    foreground_color = "#ffffff"
+    icon_bell = False
+    palette = "#000000:#cd0000:#00cd00:#cdcd00:#0000ee:#cd00cd:#00cdcd:#e5e5e5:#7f7f7f:#ff0000:#00ff00:#ffff00:#5c5cff:#ff00ff:#00ffff:#ffffff"
+    scroll_on_keystroke = False
+    scroll_on_output = True
+    scrollbar_position = hidden
+    show_titlebar = False
+    use_system_font = False

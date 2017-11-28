@@ -11,6 +11,7 @@ fi
 
 # other
 alias vagsh="cd ~/projects/vagrant && vagrant ssh"
+alias vag7sh="cd ~/projects/php7-dev && vagrant ssh"
 
 #connection
 alias cron='ssh cron1.internal'

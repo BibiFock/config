@@ -117,7 +117,6 @@ if [ -f $HOME/.bash_functions ]; then
   . $HOME/.bash_functions;
 fi
 
-
 #adding vi edition style to bashrc
 # set -o vi
 
@@ -126,4 +125,6 @@ fi
 
 #history shared between all term
 export PROMPT_COMMAND='history -a'
+
+export PATH="/home/$USER/bin:$PATH"
 

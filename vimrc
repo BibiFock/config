@@ -30,6 +30,7 @@ au BufNewFile,BufRead *.less set filetype=less
 au BufNewFile,BufRead *.conf set filetype=dosini
 au BufNewFile,BufRead *.ts set filetype=typescript
 au BufNewFile,BufRead *.vue set filetype=vue
+au BufNewFile,BufRead *.go set filetype=go
 "autocmd FileType typescript :set makeprg=tsc
 """"""""""""""""""""""""""""""""""""""""""""""
 " _BUNDLES
@@ -49,9 +50,9 @@ Bundle 'matchit.zip'
 
 Bundle 'kien/ctrlp.vim'
 let g:ctrlp_working_path_mode = 'ra'
-let g:ctrlp_root_markers = ['html', '.ctrlp']
+let g:ctrlp_root_markers = ['html', '.ctrlp', '.env']
 let g:ctrlp_custom_ignore = {
-  \ 'dir': '\.git$\|_cache\|branches\|tags\|nodejs\|build\|node_modules\|vendors\|coverage\|dist\.dev\|dist\.prod\|framework$',
+  \ 'dir': '\.git$\|_cache\|branches\|tags\|nodejs\|build\|node_modules\|vendors\|coverage\|dist\.dev\|dist\.prod\|framework\|vendor$',
   \ 'file': '\.exe$\|\.so$\|\.dat\|\.jpg\|\.png$'
   \ }
 let g:ctrlp_clear_cache_on_exit=0

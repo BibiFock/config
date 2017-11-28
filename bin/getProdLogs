@@ -35,16 +35,16 @@ function step {
 path=/var/data/wads/
 patternFiles=${path}$1
 
-outputPath=/home/bbr/dev/logs/
+outputPath=/home/bbr/projects/dev/logs/
 
 step "search for files like $patternFiles"
 
 
-for i in {3..19}
+for i in {4..19}
 do
     step "go to web-$i"
 
-    server=web$i-ads.eu1.internal
+    server=wbd-web$i-ads.eu1.wbd.tech
     #sudo ssh $server
     #continue
 
@@ -54,7 +54,7 @@ do
     ls=$(sudo ssh $server ls $patternFiles)
     isOk "no files found" continue
 
-    [ ! -d $outputPath/web$i ] && echo " --> create log web$i dir" && mkdir ${outputPath}/web$i
+    [ ! -d $outputPath/web$i ] && echo " --> create log web$i dir" && mkdir -p ${outputPath}/web$i
 
     # ls=$(sudo ssh $server rm $patternFiles)
     # isOk "delete failed"
