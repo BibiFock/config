@@ -69,7 +69,7 @@
     #list branches sorted by last modified
     lb = "!git for-each-ref --sort='-authordate' --format='%(authordate)%09%(objectname:short)%09%(refname)' refs/heads | sed -e 's-refs/heads/--'"
     # clear merged branch
-    ; clbr="!sh -c 'git branch --merged | egrep -v \"(^\\*|master)\" | xargs git branch -d'"
+    brclr="!sh -c 'git branch --merged | egrep -v \"(^\\*|master)\" | xargs git branch -d'"
 
 [mergetool "fugitive"]
     cmd = vim -f -c \"Gdiff\" \"$MERGED\"
