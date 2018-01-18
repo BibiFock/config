@@ -1,6 +1,6 @@
 #!/bin/bash
 
-sudo apt-get install git vim vim-gtk fortune terminator
+sudo apt-get install git vim vim-gtk fortune terminator npm php-pear
 
 ln -sf "$PWD"/bashrc ~/.bashrc
 ln -sf "$PWD"/bash_aliases ~/.bash_aliases
@@ -28,6 +28,9 @@ ln -sf "$PWD"/gitignore_global ~/.gitignore_global
 
 #composer
 php -r "readfile('https://getcomposer.org/installer');" | php -- --install-dir="$PWD"/bin
+
+# pman (doc php for term)
+sudo pear install doc.php.net/pman
 
 # fortune create
 $PWD/bin/fortuneUpgrade
