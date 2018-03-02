@@ -28,6 +28,7 @@ ln -sf "$PWD"/gitignore_global ~/.gitignore_global
 
 #composer
 php -r "readfile('https://getcomposer.org/installer');" | php -- --install-dir="$PWD"/bin
+ln -s "$PWD"/bin/composer.phar "$PWD"/bin/composer
 
 # pman (doc php for term)
 sudo pear install doc.php.net/pman

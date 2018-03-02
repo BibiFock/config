@@ -58,6 +58,7 @@
     nbci = !"git rev-list --left-right --count ${1-master}..."
     #extra cmd
     srull = !git stash && git rull && git pop
+    fush= push --force-with-lease
     ; aa = "!sh -c 'git add -p $1 && git status;'"
     aa = "!sh -c 'git add -p && git status;'"
     #co to an old commit and keep unmerged files

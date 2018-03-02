@@ -50,7 +50,7 @@ Bundle 'matchit.zip'
 
 Bundle 'kien/ctrlp.vim'
 let g:ctrlp_working_path_mode = 'ra'
-let g:ctrlp_root_markers = ['html', '.ctrlp', '.env']
+let g:ctrlp_root_markers = ['html', '.ctrlp', '.env', 'readme.md']
 let g:ctrlp_custom_ignore = {
   \ 'dir': '\.git$\|_cache\|branches\|tags\|nodejs\|build\|node_modules\|vendors\|coverage\|dist\.dev\|dist\.prod\|framework\|vendor$',
   \ 'file': '\.exe$\|\.so$\|\.dat\|\.jpg\|\.png$'
@@ -80,7 +80,7 @@ Bundle 'snipMate'
 
 "git tool for vim
 Bundle 'tpope/vim-fugitive'
-Bundle 'gitv'
+Bundle 'gregsexton/gitv'
 
 "Fast inner selector
 Bundle 'gcmt/wildfire.vim'

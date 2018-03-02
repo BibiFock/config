@@ -16,18 +16,23 @@ AdsAdminFile="<file_path>"
 AdsFile="<file path>"
 
 function useAdsAdminDbProd() {
-
-    if [[ $2 != "p" ]]; then
+    if [[ $2 == "p" ]]; then
+        sed -i '/;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;; SCRIPT WBDB TEST/,/;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;; \/ SCRIPT WBDB TEST/d' $1
+        db="\n;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;; SCRIPT WBDB PROD\n\
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;; \/ SCRIPT WBDB PROD"
+    elif [[ $2 == "t" ]]; then
         sed -i '/;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;; SCRIPT WBDB PROD/,/;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;; \/ SCRIPT WBDB PROD/d' $1
+        db="\n;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;; SCRIPT WBDB TEST\n\
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;; \/ SCRIPT WBDB TEST"
+    else
+        sed -i '/;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;; SCRIPT WBDB \(PROD\|TEST\)/,/;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;; \/ SCRIPT WBDB \(PROD\|TEST\)/d' $1
         return
     fi
 
-    exist=( $(grep -l "; SCRIPT WBDB PROD$" $1 | wc -l ) )
+    exist=( $(grep -l "; SCRIPT WBDB \(PROD\|TEST\)$" $1 | wc -l ) )
     if [[ $exist == "1" ]]; then
         return
     fi
-db="\n;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;; SCRIPT WBDB PROD\n\
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;; \/ SCRIPT WBDB PROD"
 
     sed -i "/; chemins pour les fichiers des pubs/i$db" $1
 }
@@ -51,21 +56,26 @@ EndOfMessage
 
 function checkStates() {
     dev="${GREEN}[dev]${RESET}"
-    prod="${RED}[dev]${RESET}"
+    test="${YELLOW}[test]${RESET}"
+    prod="${RED}[prod]${RESET}"
     AdsAdminState=$dev
     AdsState=$dev
     PromptState=""
 
-    exist=( $(grep -l "; SCRIPT WBDB PROD$" $AdsAdminFile | wc -l ) )
-    if [[ $exist == "1" ]]; then
-        AdsAdminState=$prod
-        PromptState=$PromptState"aa|"
-    fi
-
     exist=( $(grep -l "; SCRIPT WBDB PROD$" $AdsFile | wc -l ) )
     if [[ $exist == "1" ]]; then
         AdsState=$prod
-        PromptState=$PromptState"ad "
+        PromptState=$PromptState"ad|"
+    fi
+
+    existProd=( $(grep -l "; SCRIPT WBDB PROD$" $AdsAdminFile | wc -l ) )
+    existTest=( $(grep -l "; SCRIPT WBDB TEST$" $AdsAdminFile | wc -l ) )
+    if [[ $existProd == "1" ]]; then
+        AdsAdminState=$prod
+        PromptState=$PromptState"aa[prod] "
+    elif [[ $existTest == "1" ]]; then
+        AdsAdminState=$test
+        PromptState=$PromptState"aa[test] "
     fi
 
     if [ -n "$1" ]; then
@@ -82,7 +92,7 @@ function checkStates() {
 
 affState=""
 for i; do
-    neededState=$(echo $i | sed -e 's/[^p]//g')
+    neededState=$(echo $i | sed -e 's/[^pt]//g')
 
     if echo $i | grep -iq 'aa'; then
         useAdsAdminDbProd $AdsAdminFile $neededState

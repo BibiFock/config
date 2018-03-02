@@ -17,14 +17,14 @@ quotes
 - american dad
 
 #vim
-split function params when to long, automaticly go to next line (,,) = (,\n ,\n)
+- split function params when to long, automaticly go to next line (,,) = (,\n ,\n)
+- intégrer coloration syntaxique pour le markdown
 
 #minux
 trouver nouveau wm i3wm
-trouver nouveau term
+finir de confiruger mycli
 
 #git
-check zsh shortcut
 check how add autocomplete to sco
 
 #fun
