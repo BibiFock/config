@@ -1,6 +1,6 @@
 #!/bin/bash
 
-sudo apt-get install git vim vim-gtk fortune terminator npm php-pear
+sudo apt-get install git vim vim-gtk fortune terminator npm php-pear composer
 
 ln -sf "$PWD"/bashrc ~/.bashrc
 ln -sf "$PWD"/bash_aliases ~/.bash_aliases
