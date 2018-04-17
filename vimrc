@@ -370,7 +370,7 @@ function! SnippetsUpdate(snip_dir)
 endfunction
 
 function! GoTo(site, ...)
-    let str = $HOME.'/projects/dev/tools/'.a:site.'/'
+    let str = $HOME.'/dev/'.a:site.'/'
     if !isdirectory(str)
         echoerr 'Directory not found: "'.str.'"'
         return
@@ -384,7 +384,7 @@ function! GoTo(site, ...)
 endfunction
 
 fun! GoToComplete(A,L,P)
-    let path = expand('~/projects/dev/tools/')
+    let path = expand('~/dev/')
     return split(substitute(globpath(path, a:A."*"), path, "", "g"), "\n")
 endfun
 """"""""""""""""""""""""""""""""""""""""""""""

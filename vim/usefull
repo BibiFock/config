@@ -1,5 +1,18 @@
+
+
 [NOTE]
 usefull website for learn new language: http://learnxinyminutes.com/
+
+[DNSmasq]
+/etc/dnsmasq.conf (fill)
+    listen-address=127.0.0.1
+    conf-dir=/etc/dnsmasq.d
+/etc/dnsmasq.d/<your domain:test> (fill)
+    address=/test/127.0.0.1
+/etc/dhcp/dhclient.conf (uncomment)
+    prepend domain-name-servers 127.0.0.1;
+-> relancer le service dnsmasq
+-> redémarrer la connection si nécessaire
 
 [COMMANDE]
 grep -Rin "ajax.php" ./

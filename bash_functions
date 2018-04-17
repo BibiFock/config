@@ -39,7 +39,7 @@ function xmail {
 
 function Go {
     home=~
-    dir=/projects/dev/tools/
+    dir=/dev/
     subdir=
     if [ -n "$2" ]; then
         home=/home/$2
@@ -71,7 +71,7 @@ function Go {
 function _Go() {
     # fill local variable with a list of completions
      if [ $COMP_CWORD -eq 1 ]; then
-         local COMPLETES=$(ls ~/projects/dev/tools/)
+         local COMPLETES=$(ls ~/dev/)
      elif [ $COMP_CWORD -eq 2 ]; then
          local COMPLETES=$(ls /home/)
      fi
@@ -83,8 +83,8 @@ function _Go() {
 if [ -n "$BASH_VERSION" ]; then
     complete -F _Go Go
 
-    complete -F _Go publish
-    complete -F _Go publishns
+    # complete -F _Go publish
+    # complete -F _Go publishns
 fi
 
 function seelog {

@@ -27,11 +27,11 @@ alias www-php='sudo -u www-data /usr/bin/php'
 alias vag='cd /home/bbr/projects/vagrant/ && vagrant up && cd -'
 
 #publish
-alias pu='sudo publish $1'
-alias puns='sudo publish --ns $1'
-
-alias apu='sudo /var/shared5/scripts/tools/ads/publish'
-alias aapu='sudo /var/shared5/scripts/tools/adsadmin/publish'
+# alias pu='sudo publish $1'
+# alias puns='sudo publish --ns $1'
+# 
+# alias apu='sudo /var/shared5/scripts/tools/ads/publish'
+# alias aapu='sudo /var/shared5/scripts/tools/adsadmin/publish'
 
 ##git
 alias gitlist='ssh git@server-git'
