@@ -115,7 +115,8 @@ let g:airline#extensions#branch#enabled = 1
 let g:airline#extensions#syntastic#enabled = 1
 let g:airline_left_sep=''
 let g:airline_right_sep=''
-let g:airline_section_c = '%<%{getcwd()}/%f'
+call airline#parts#define_accent('%{$USER}@', 'blue')
+let g:airline_section_c = airline#section#create(['%{$USER}@','%{getcwd()}','/%f'])
 
 "colorscheme
 Bundle 'Solarized'
