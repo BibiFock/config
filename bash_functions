@@ -33,7 +33,7 @@ function xsvnstdiff {
 
 
 function xmail {
-    cat $1  | mail -s "... envoi de mon fichier" sr@webedia.fr
+    cat $1  | mail -s "... envoi de mon fichier" bbr@mail.com
 }
 
 
