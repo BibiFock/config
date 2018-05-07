@@ -1,2 +1,4 @@
 _cache/*
 php/_cache/*
+vendor/*
+.env

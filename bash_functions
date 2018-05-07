@@ -37,6 +37,10 @@ function xmail {
 }
 
 
+function findit {
+    find . -iname "*$1*" -print|grep -i "$1"
+}
+
 function Go {
     home=~
     dir=/dev/

@@ -36,7 +36,10 @@ alias vag='cd /home/bbr/projects/vagrant/ && vagrant up && cd -'
 ##git
 alias gitlist='ssh git@server-git'
 #makelibrary link
-alias linklib='ln -s ~/www/library/html/ html/library'
+# alias linklib='ln -s ~/www/library/html/ html/library'
+
+# fuck you sudo
+alias fuck='sudo $(history -p !!)'
 
 
 #fortune

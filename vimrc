@@ -31,6 +31,8 @@ au BufNewFile,BufRead *.conf set filetype=dosini
 au BufNewFile,BufRead *.ts set filetype=typescript
 au BufNewFile,BufRead *.vue set filetype=vue
 au BufNewFile,BufRead *.go set filetype=go
+au BufNewFile,BufRead *.twig set filetype=html.twig
+au BufNewFile,BufRead *.styl set filetype=stylus
 "autocmd FileType typescript :set makeprg=tsc
 """"""""""""""""""""""""""""""""""""""""""""""
 " _BUNDLES
@@ -98,6 +100,8 @@ let g:syntastic_php_checkers = ['php', 'phpcs']
 let g:syntastic_php_phpcs_args='--standard=PSR2 -n'
 let g:syntastic_typescript_checkers = ['tslint']
 let g:syntastic_typescript_args = ['-r node_modules/codelyzer']
+let g:syntastic_javascript_checkers=['eslint']
+let g:syntastic_javascript_eslint_exe='$(npm bin)/eslint'
 
 "javascript
 Bundle 'othree/javascript-libraries-syntax.vim'
@@ -162,6 +166,17 @@ Bundle 'editorconfig/editorconfig-vim'
 """"""""""""""""""""""""""""""""""""""""""""""
 " shortcut -> (ctrl y ,)
 Bundle 'mattn/emmet-vim'
+
+Bundle 'iloginow/vim-stylus'
+Bundle 'mxw/vim-jsx'
+let g:jsx_ext_required = 0 " Allow JSX in normal JS files
+
+" vim resizer
+Bundle 'simeji/winresizer'
+let g:winresizer_start_key = '<leader>r'
+
+" Bundle 'beyondwords/vim-twig'
+Bundle 'lumiliet/vim-twig'
 
 Bundle 'luochen1990/rainbow'
 let g:rainbow_active = 0 " 0 if you want to enable it later via :RainbowToggle
@@ -228,6 +243,14 @@ Bundle 'fatih/vim-go'
 
 Bundle 'posva/vim-vue'
 
+" Plante comme un batard ---
+" Bundle 'gabrielelana/vim-m-arkdown'
+" <leader> + e: for edit code with good syntax
+" ----
+" Bundle 'tpope/vim-markdown'
+Bundle 'godlygeek/tabular'
+Bundle 'plasticboy/vim-markdown'
+let g:vim_markdown_folding_disabled = 1
 """"""""""""""""""""""""""""""""""""""""""""""
 " _EDITOR
 """"""""""""""""""""""""""""""""""""""""""""""
@@ -267,6 +290,8 @@ set expandtab           " no more tabs, only spaces!
 set shiftround          " when at 3 spaces, and I hit > ... go to 4, not 7"
 set noswapfile          " No more swap file!
 set colorcolumn=80,120  " Highlight column 80
+
+au FileType javascript setl softtabstop=2 shiftwidth=2
 
 " FONTS
 syntax on
@@ -428,8 +453,8 @@ if filereadable(expand("~/.vim/todo"))
     :command! Mytodo tabe $HOME/.vim/todo
 endif
 
-if filereadable(expand("~/usefull_var"))
-    :command! Myvar tabe $HOME/usefull_var
+if filereadable(expand("~/dev/divers/README.md"))
+    :command! Myvar tabe $HOME/dev/divers/README.md
 endif
 
 if isdirectory(expand("~/www/library"))
@@ -509,9 +534,9 @@ map <leader>bb :BufExplorer<cr>
 " This command will cause SnippetsUpdate() with parameter <your_snip_dir>
 map <leader>n :call SnippetsUpdate('~/.vim/snippets/')<CR>
 "resize vertical split
-map <leader>f :vertical resize 200<CR>
-map <leader>r :vertical resize 90<CR>
-map <leader>s :vertical resize 10<CR>
+" map <leader>f :vertical resize 200<CR>
+" map <leader>r :vertical resize 90<CR>
+" map <leader>s :vertical resize 10<CR>
 
 "clear search hl
 map <leader>h :noh<CR>
