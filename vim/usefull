@@ -84,6 +84,11 @@ git co --ours/theirs
 //nettoyer le repo local de toutes branches inexistantes
 git remote prune origin
 
+// ajouter un autre repo
+git remote add upstream git@github.com:yoomap-project/<repo>.git
+// push with precaution
+--force-with-lease
+
 [ANGULARJS]
 angular.element(document).injector().get('ServiceName');
 var test = document.querySelector('[ng-app=adsAdmin]');test = angular.element(test).scope();
@@ -190,6 +195,10 @@ gv ;dernière sélection
 
 #replace sqlkeyword for upper case
 :'<,'>s:\(inner\|left\| in \|join\| as \|between\| by \| asc\| on \| limit \|select\| order \| group  \| from \| and \| where \):\U&:g
+# change case by replace
+\U -> upper case \u (one char)
+\L -> lower case \l (one char)
+\e -> finish replacement
 
 [MySQL]
 -- show process list

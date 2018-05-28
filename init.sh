@@ -7,31 +7,38 @@ ln -sf "$PWD"/bash_aliases ~/.bash_aliases
 ln -sf "$PWD"/bash_prompt ~/.bash_prompt
 ln -sf "$PWD"/bash_functions ~/.bash_functions
 
-#vim
+# vim
 ln -sf "$PWD"/vimrc ~/.vimrc
 ln -sf "$PWD"/vim ~/.vim
 git clone https://github.com/gmarik/vundle.git ~/.vim/bundle/vundle
 
-#terminator
+# terminator
 rm -rf ~/.config/terminator
 ln -sf "$PWD"/terminator ~/.config/
 
-#bash
+# bash
 ln -sf "$PWD"/inputrc ~/.inputrc
 
-#bin
+# bin
 ln -sf "$PWD"/bin ~/bin
 
-#git
+# git
 ln -sf "$PWD"/gitconfig ~/.gitconfig
 ln -sf "$PWD"/gitignore_global ~/.gitignore_global
 
-#composer
+# composer
 php -r "readfile('https://getcomposer.org/installer');" | php -- --install-dir="$PWD"/bin
 ln -s "$PWD"/bin/composer.phar "$PWD"/bin/composer
 
+# phpcs
+curl -OL https://squizlabs.github.io/PHP_CodeSniffer/phpcs.phar
+ln -s "$PWD"/bin/phpcs.phar "$PWD"/bin/phpcs
+
 # pman (doc php for term)
 sudo pear install doc.php.net/pman
+
+# npm install
+sudo npm i -g babel-eslint bower eslint eslint-config-standard eslint-config-standard-jsx eslint-config-standard-react eslint-plugin-import eslint-plugin-node eslint-plugin-promise eslint-plugin-react eslint-plugin-standard lint n npm-check-updates
 
 # fortune create
 $PWD/bin/fortuneUpgrade

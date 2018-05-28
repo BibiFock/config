@@ -101,7 +101,10 @@ let g:syntastic_php_phpcs_args='--standard=PSR2 -n'
 let g:syntastic_typescript_checkers = ['tslint']
 let g:syntastic_typescript_args = ['-r node_modules/codelyzer']
 let g:syntastic_javascript_checkers=['eslint']
-let g:syntastic_javascript_eslint_exe='$(npm bin)/eslint'
+" let g:syntastic_javascript_eslint_exe='[ -f $(npm bin)/eslint ]
+    " \ && vimSyntasticExe=$(npm bin)/eslint
+    " \ || vimSyntasticExe=eslint; $vimSyntasticExe'
+let g:syntastic_javascript_checkers=['eslint']
 
 "javascript
 Bundle 'othree/javascript-libraries-syntax.vim'
@@ -553,4 +556,7 @@ nnoremap <Leader>fun :execute 'CtrlPFunky ' . expand('<cword>')<Cr>
 nmap <Leader>pwd :echo expand('%:p')<Cr>
 
 nmap <leader>fo :r !fortune ~/config/fortune/quotes<Cr>
+
+" next error
+nmap <leader>e :lnext<Cr>
 

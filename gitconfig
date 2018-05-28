@@ -72,6 +72,12 @@
     # clear merged branch
     brclr="!sh -c 'git branch --merged | egrep -v \"(^\\*|master)\" | xargs git branch -d'"
 
+    # pr
+    pr  = "!f() { git fetch -fu ${2:-$(git remote |grep ^upstream || echo origin)} refs/pull/$1/head:pr/$1 && git checkout pr/$1; }; f"
+    pr-clean = "!git for-each-ref refs/heads/pr/* --format='%(refname)' | while read ref ; do branch=${ref#refs/heads/} ; git branch -D $branch ; done"
+# for bitbucket/stash remotes
+    spr = "!f() { git fetch -fu ${2:-$(git remote |grep ^upstream || echo origin)} refs/pull-requests/$1/from:pr/$1 && git checkout pr/$1; }; f"
+
 [mergetool "fugitive"]
     cmd = vim -f -c \"Gdiff\" \"$MERGED\"
 [merge]
@@ -80,3 +86,5 @@
     default = current
 [rerere]
 	enabled = true
+[credential]
+	helper = cache
