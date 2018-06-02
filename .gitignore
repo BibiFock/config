@@ -2,7 +2,10 @@ vim/backup/*
 vim/.netrwhist
 vim/bundle/*
 vim/swap/*
-bin/composer.phar
 fortune/quotes*
 node_modules
+
 bin/composer
+bin/phpcs
+bin/php-cs-fixer
+bin/*.phar
