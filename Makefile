@@ -43,11 +43,14 @@ load-bash: ## load my bash config
 	@. ~/.bashrc
 
 vim: ## load vim config
-	@$(call say_yellow,"[create bash links]")
+	@$(call say_yellow,"[create vim config]")
 	@ln -sf "$(shell pwd)"/vimrc ~/.vimrc
 	@ln -sf "$(shell pwd)"/vim ~/.vim
 	@git clone https://github.com/gmarik/vundle.git ~/.vim/bundle/vundle
-# todo bundle update
+
+vim-update: ## update all vim packages
+	@$(call say_yellow,"[update vim bundles]")
+	@vim -c VundleUpdate -c quitall
 
 terminator: ## load terminator conf
 	@$(call say_yellow,"[init terminator conf]")
@@ -96,6 +99,7 @@ all: ## run all this command in good order
 	$(MAKE) install-packages
 	$(MAKE) load-bash
 	$(MAKE) vim
+	$(MAKE) vim-update
 	$(MAKE) terminator
 	$(MAKE) load-bin
 	$(MAKE) load-git
