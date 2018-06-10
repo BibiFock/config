@@ -42,7 +42,7 @@ load-bash: ## load my bash config
 	@ln -sf "$(shell pwd)"/inputrc ~/.inputrc
 	@. ~/.bashrc
 
-vim: ## load vim config
+load-vim: ## load vim config
 	@$(call say_yellow,"[create vim config]")
 	@ln -sf "$(shell pwd)"/vimrc ~/.vimrc
 	@ln -sf "$(shell pwd)"/vim ~/.vim
@@ -52,7 +52,7 @@ vim-update: ## update all vim packages
 	@$(call say_yellow,"[update vim bundles]")
 	@vim -c VundleUpdate -c quitall
 
-terminator: ## load terminator conf
+load-terminator: ## load terminator conf
 	@$(call say_yellow,"[init terminator conf]")
 	@rm -rf ~/.config/terminator
 	@ln -sf "$(shell pwd)"/terminator ~/.config/
@@ -98,9 +98,9 @@ all: ## run all this command in good order
 	@$(call say_green,"-- installation [start]")
 	$(MAKE) install-packages
 	$(MAKE) load-bash
-	$(MAKE) vim
+	$(MAKE) load-vim
 	$(MAKE) vim-update
-	$(MAKE) terminator
+	$(MAKE) load-terminator
 	$(MAKE) load-bin
 	$(MAKE) load-git
 	$(MAKE) install-composer
