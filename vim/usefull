@@ -97,7 +97,6 @@ angular.element($0).scope
 [ANGULAR2]
 ng.probe($0).componentInstance
 
-
 [Zend]
 #redirection si tablette
 $bootstrap=new Wb_Bootstrap();
@@ -225,6 +224,16 @@ doc: http://dev.mysql.com/doc/refman/5.5/en/date-and-time-functions.html#functio
 date_format(date_update, '%Y-%m-%d %k')  date
 -- copy table
 CREATE TABLE foo SELECT * FROM bar (LIMIT 0 for only structure)
+-- add user like root
+mysql --user=root mysql
+CREATE USER 'monty'@'localhost' IDENTIFIED BY 'some_pass';
+GRANT ALL PRIVILEGES ON *.* TO 'monty'@'localhost' WITH GRANT OPTION;
+CREATE USER 'monty'@'%' IDENTIFIED BY 'some_pass';
+GRANT ALL PRIVILEGES ON *.* TO 'monty'@'%' WITH GRANT OPTION;
+CREATE USER 'admin'@'localhost';
+GRANT RELOAD,PROCESS ON *.* TO 'admin'@'localhost';
+CREATE USER 'dummy'@'localhost';
+FLUSH PRIVILEGES;
 
 [CURL]
 $ch = curl_init($url);

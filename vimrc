@@ -254,6 +254,7 @@ Bundle 'posva/vim-vue'
 Bundle 'godlygeek/tabular'
 Bundle 'plasticboy/vim-markdown'
 let g:vim_markdown_folding_disabled = 1
+
 """"""""""""""""""""""""""""""""""""""""""""""
 " _EDITOR
 """"""""""""""""""""""""""""""""""""""""""""""
@@ -295,6 +296,7 @@ set noswapfile          " No more swap file!
 set colorcolumn=80,120  " Highlight column 80
 
 au FileType javascript setl softtabstop=2 shiftwidth=2
+au FileType yaml setl softtabstop=2 shiftwidth=2
 
 " FONTS
 syntax on
