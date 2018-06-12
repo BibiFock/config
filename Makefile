@@ -31,7 +31,7 @@ help:
 
 install-packages: ## install all need package for work
 	@$(call say_yellow, "[install all needed package]")
-	@sudo apt-get install git vim vim-gtk fortune terminator npm php-pear composer
+	@sudo apt-get install git vim vim-gtk fortune terminator npm php-pear composer curl
 
 load-bash: ## load my bash config
 	@$(call say_yellow,"[create bash links]")
