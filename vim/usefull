@@ -44,6 +44,12 @@ systemctl reload cron.service
 
 #port used by
 netstat -tulpn
+# maj linux to image 4.16 -> bug can't logging on XPS 15 9560
+# just launch this command
+sudo add-apt-repository ppa:graphics-drivers/ppa
+sudo apt update
+sudo apt install nvidia-390
+sudo reboot
 
 [ssh]
 connection sans mpd
@@ -226,10 +232,10 @@ date_format(date_update, '%Y-%m-%d %k')  date
 CREATE TABLE foo SELECT * FROM bar (LIMIT 0 for only structure)
 -- add user like root
 mysql --user=root mysql
-CREATE USER 'monty'@'localhost' IDENTIFIED BY 'some_pass';
-GRANT ALL PRIVILEGES ON *.* TO 'monty'@'localhost' WITH GRANT OPTION;
-CREATE USER 'monty'@'%' IDENTIFIED BY 'some_pass';
-GRANT ALL PRIVILEGES ON *.* TO 'monty'@'%' WITH GRANT OPTION;
+CREATE USER 'bbr'@'localhost' IDENTIFIED BY '';
+GRANT ALL PRIVILEGES ON *.* TO 'bbr'@'localhost' WITH GRANT OPTION;
+CREATE USER 'bbr'@'%' IDENTIFIED BY '';
+GRANT ALL PRIVILEGES ON *.* TO 'bbr'@'%' WITH GRANT OPTION;
 CREATE USER 'admin'@'localhost';
 GRANT RELOAD,PROCESS ON *.* TO 'admin'@'localhost';
 CREATE USER 'dummy'@'localhost';

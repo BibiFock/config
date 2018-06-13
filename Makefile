@@ -90,6 +90,10 @@ install-eslint: ## install eslint in global with npm
 	@$(call say_yellow,"[install eslint]")
 	@sudo npm i -g babel-eslint bower eslint eslint-config-standard eslint-config-standard-jsx eslint-config-standard-react eslint-plugin-import eslint-plugin-node eslint-plugin-promise eslint-plugin-react eslint-plugin-standard lint n npm-check-updates
 
+install-mycli: ## install mycli with debian package
+	@$(call say_yellow,"[install mycli]")
+	@sudo apt-get install mycli
+
 create-fortune: ## create my fortune file
 	@$(call say_yellow,"[create fortune files]")
 	@$(shell pwd)/bin/fortuneUpgrade
@@ -107,6 +111,7 @@ all: ## run all this command in good order
 	$(MAKE) install-phpcs
 	$(MAKE) install-phpdoc
 	$(MAKE) install-eslint
+	$(MAKE) install-mycli
 	$(MAKE) create-fortune
 	@$(call say_green,"-- installation [end]")
 
