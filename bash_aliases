@@ -26,6 +26,9 @@ alias www-php='sudo -u www-data /usr/bin/php'
 
 alias vag='cd /home/bbr/projects/vagrant/ && vagrant up && cd -'
 
+# laravel
+alias art='php artisan '
+
 #publish
 # alias pu='sudo publish $1'
 # alias puns='sudo publish --ns $1'

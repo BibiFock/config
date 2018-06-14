@@ -458,6 +458,10 @@ if filereadable(expand("~/.vim/todo"))
     :command! Mytodo tabe $HOME/.vim/todo
 endif
 
+if filereadable(expand("~/dev/vpn/todo"))
+    :command! Wtodo tabe $HOME/dev/vpn/todo
+endif
+
 if filereadable(expand("~/dev/divers/README.md"))
     :command! Myvar tabe $HOME/dev/divers/README.md
 endif

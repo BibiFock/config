@@ -1,4 +1,4 @@
-#scripts
+# scripts
 wbdb -> check ads stat and update it
 revoir installation script clairement incomplet...
  -> posé des questions sur quoi utilisé
@@ -7,35 +7,37 @@ revoir installation script clairement incomplet...
  -> vérifier que vim est présent....
  -> prompt configurable...
 
-#usefull
+# usefull
  -> reprendre mes fichiers utils en markdown
 
-#fortune
+# fortune
 régler le problème des sauts à la ligne dans le commit
 quotes
 - simpson
 - american dad
 
-#vim
+# vim
 - split function params when to long, automaticly go to next line (,,) = (,\n ,\n)
 - intégrer coloration syntaxique pour le markdown
 
-#minux
-trouver nouveau wm i3wm
+# minux
 finir de confiruger mycli
 ansible
+tester les exceptions dans les scripts bash
+installation mysql configure root user and bbr user
+customize top bar size
 
-#git
+# git
 check how add autocomplete to sco
 
-#fun
+# fun
 car race
 uke online free editor (http://ukegeeks.com/)
 bd stream (poulpy)
 backpacktrip -> mapjs: http://leafletjs.com/
 feedreader sous node
 
-#reader
+# reader
 - add/update/delete rss list
 - save rss in db
 - read (live) rss / render infos

@@ -93,6 +93,13 @@ install-eslint: ## install eslint in global with npm
 install-mycli: ## install mycli with debian package
 	@$(call say_yellow,"[install mycli]")
 	@sudo apt-get install mycli
+	## TODO change default password for mysql and create bbr user
+
+install-ripgrep: ## install rip-grep with repo
+	@$(call say_yellow,"[install mycli]")
+	@curl -LO https://github.com/BurntSushi/ripgrep/releases/download/0.8.1/ripgrep_0.8.1_amd64.deb
+	@sudo dpkg -i ripgrep_0.8.1_amd64.deb
+	@rm ripgrep_0.8.1_amd64.deb
 
 create-fortune: ## create my fortune file
 	@$(call say_yellow,"[create fortune files]")
@@ -112,6 +119,7 @@ all: ## run all this command in good order
 	$(MAKE) install-phpdoc
 	$(MAKE) install-eslint
 	$(MAKE) install-mycli
+	$(MAKE) install-ripgrep
 	$(MAKE) create-fortune
 	@$(call say_green,"-- installation [end]")
 
