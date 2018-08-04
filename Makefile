@@ -88,7 +88,7 @@ install-php-cs-fixer: ## download & install php-cs-fixer
 
 install-eslint: ## install eslint in global with npm
 	@$(call say_yellow,"[install eslint]")
-	@sudo npm i -g babel-eslint bower eslint eslint-config-standard eslint-config-standard-jsx eslint-config-standard-react eslint-plugin-import eslint-plugin-node eslint-plugin-promise eslint-plugin-react eslint-plugin-standard lint n npm-check-updates
+	@sudo npm i -g babel-eslint bower eslint eslint-config-standard eslint-config-standard-jsx eslint-config-standard-react eslint-plugin-import eslint-plugin-node eslint-plugin-promise eslint-plugin-react eslint-plugin-standard lint n
 
 install-mycli: ## install mycli with debian package
 	@$(call say_yellow,"[install mycli]")
