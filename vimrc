@@ -116,6 +116,8 @@ Bundle 'pangloss/vim-javascript'
 let g:javascript_enable_domhtmlcss=1
 Bundle 'nathanaelkane/vim-indent-guides'
 
+Bundle 'styled-components/vim-styled-components'
+
 "bottom bar
 Bundle 'bling/vim-airline'
 let g:airline#extensions#branch#enabled = 1
@@ -164,6 +166,7 @@ let jshint2_height = 3
 let jshint2_height = 12
 
 Bundle 'editorconfig/editorconfig-vim'
+
 """"""""""""""""""""""""""""""""""""""""""""""
 " _BUNDLES_TEST
 """"""""""""""""""""""""""""""""""""""""""""""
