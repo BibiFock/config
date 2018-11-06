@@ -54,7 +54,7 @@ Bundle 'kien/ctrlp.vim'
 let g:ctrlp_working_path_mode = 'ra'
 let g:ctrlp_root_markers = ['html', '.ctrlp', '.env', 'readme.md']
 let g:ctrlp_custom_ignore = {
-  \ 'dir': '\.git$\|_cache\|branches\|tags\|nodejs\|build\|node_modules\|vendors\|coverage\|dist\.dev\|dist\.prod\|framework\|vendor$',
+  \ 'dir': '\.git$\|_cache\|branches\|tags\|nodejs\|build\|node_modules\|vendors\|coverage\|dist\.dev\|dist\.prod\|framework\|vendor\|_webpack-backup$',
   \ 'file': '\.exe$\|\.so$\|\.dat\|\.jpg\|\.png$'
   \ }
 let g:ctrlp_clear_cache_on_exit=0
@@ -100,11 +100,12 @@ let g:syntastic_php_checkers = ['php', 'phpcs']
 let g:syntastic_php_phpcs_args='--standard=PSR2 -n'
 let g:syntastic_typescript_checkers = ['tslint']
 let g:syntastic_typescript_args = ['-r node_modules/codelyzer']
-let g:syntastic_javascript_checkers=['eslint']
+" let g:syntastic_javascript_checkers = ['stylelint']
+" let g:syntastic_javascript_stylelint_args='\"./!(node_modules)/**/*.@(js|jsx)\"'
 " let g:syntastic_javascript_eslint_exe='[ -f $(npm bin)/eslint ]
     " \ && vimSyntasticExe=$(npm bin)/eslint
     " \ || vimSyntasticExe=eslint; $vimSyntasticExe'
-let g:syntastic_javascript_checkers=['eslint']
+let g:syntastic_javascript_checkers=['eslint', 'css/stylelint']
 
 "javascript
 Bundle 'othree/javascript-libraries-syntax.vim'

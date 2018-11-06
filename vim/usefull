@@ -89,11 +89,15 @@ git co --ours/theirs
 
 //nettoyer le repo local de toutes branches inexistantes
 git remote prune origin
+git fetch -p origin
 
 // ajouter un autre repo
 git remote add upstream git@github.com:yoomap-project/<repo>.git
 // push with precaution
 --force-with-lease
+
+// delete all branch gone
+for branch in `git branch -vv | grep ': gone]' | awk '{print $1}'`; do git branch -D $branch; done;
 
 [ANGULARJS]
 angular.element(document).injector().get('ServiceName');
@@ -240,6 +244,8 @@ CREATE USER 'admin'@'localhost';
 GRANT RELOAD,PROCESS ON *.* TO 'admin'@'localhost';
 CREATE USER 'dummy'@'localhost';
 FLUSH PRIVILEGES;
+## Incorrect datetime value: '0000-00-00 00:00:00' for column
+SET SQL_MODE='ALLOW_INVALID_DATES';
 
 [CURL]
 $ch = curl_init($url);
