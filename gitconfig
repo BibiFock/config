@@ -71,6 +71,8 @@
     lb = "!git for-each-ref --sort='-authordate' --format='%(authordate)%09%(objectname:short)%09%(refname)' refs/heads | sed -e 's-refs/heads/--'"
     # clear merged branch
     brclr="!sh -c 'git branch --merged | egrep -v \"(^\\*|master)\" | xargs git branch -d'"
+    # clear deleted branch
+    brdel="!f() { for branch in ${2:-$(git branch -vv | grep ': gone]' | awk '{print $1}')}; do git branch -D $branch; done;}; f"
 
     # pr
     pr  = "!f() { git fetch -fu ${2:-$(git remote |grep ^upstream || echo origin)} refs/pull/$1/head:pr/$1 && git checkout pr/$1; }; f"
