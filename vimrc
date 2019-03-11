@@ -33,6 +33,7 @@ au BufNewFile,BufRead *.vue set filetype=vue
 au BufNewFile,BufRead *.go set filetype=go
 au BufNewFile,BufRead *.twig set filetype=html.twig
 au BufNewFile,BufRead *.styl set filetype=stylus
+au BufNewFile,BufRead *.gql set filetype=graphql
 "autocmd FileType typescript :set makeprg=tsc
 """"""""""""""""""""""""""""""""""""""""""""""
 " _BUNDLES
@@ -167,6 +168,8 @@ let jshint2_height = 3
 let jshint2_height = 12
 
 Bundle 'editorconfig/editorconfig-vim'
+
+Bundle 'jparise/vim-graphql'
 
 """"""""""""""""""""""""""""""""""""""""""""""
 " _BUNDLES_TEST
