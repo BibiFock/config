@@ -1,6 +1,9 @@
 .PHONY: ${TARGETS}
 .DEFAULT_GOAL := help
 
+RIPGREP_VERSION := 11.0.1
+RIPGREP_FILE := ripgrep_$(RIPGREP_VERSION)_amd64.deb
+
 define say =
     echo "$1"
 endef
@@ -96,30 +99,26 @@ install-mycli: ## install mycli with debian package
 	## TODO change default password for mysql and create bbr user
 
 install-ripgrep: ## install rip-grep with repo
-	@$(call say_yellow,"[install mycli]")
-	@curl -LO https://github.com/BurntSushi/ripgrep/releases/download/0.8.1/ripgrep_0.8.1_amd64.deb
-	@sudo dpkg -i ripgrep_0.8.1_amd64.deb
-	@rm ripgrep_0.8.1_amd64.deb
+	@$(call say_yellow,"[install ripgrep v$(RIPGREP_VERSION)]")
+	@curl -LO https://github.com/BurntSushi/ripgrep/releases/download/$(RIPGREP_VERSION)/$(RIPGREP_FILE)
+	@sudo dpkg -i $(RIPGREP_FILE)
+	@rm $(RIPGREP_FILE)
 
 create-fortune: ## create my fortune file
 	@$(call say_yellow,"[create fortune files]")
 	@$(shell pwd)/bin/fortuneUpgrade
 
-all: ## run all this command in good order
-	@$(call say_green,"-- installation [start]")
-	$(MAKE) install-packages
-	$(MAKE) load-bash
-	$(MAKE) load-vim
-	$(MAKE) vim-update
-	$(MAKE) load-terminator
-	$(MAKE) load-bin
-	$(MAKE) load-git
-	$(MAKE) install-composer
-	$(MAKE) install-phpcs
-	$(MAKE) install-phpdoc
-	$(MAKE) install-eslint
-	$(MAKE) install-mycli
-	$(MAKE) install-ripgrep
-	$(MAKE) create-fortune
-	@$(call say_green,"-- installation [end]")
-
+all: install-packages \
+	load-bash \
+	load-vim \
+	vim-update \
+	load-terminator \
+	load-bin \
+	load-git \
+	install-composer \
+	install-phpcs \
+	install-phpdoc \
+	install-eslint \
+	install-mycli \
+	install-ripgrep \
+	create-fortune
