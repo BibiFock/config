@@ -104,6 +104,11 @@ install-ripgrep: ## install rip-grep with repo
 	@sudo dpkg -i $(RIPGREP_FILE)
 	@rm $(RIPGREP_FILE)
 
+install-fzf: ## install fzf with repo
+	@$(call say_yellow,"[install fzf]")
+	@git clone --depth 1 https://github.com/junegunn/fzf.git ./fzf
+	@fzf/install
+
 create-fortune: ## create my fortune file
 	@$(call say_yellow,"[create fortune files]")
 	@$(shell pwd)/bin/fortuneUpgrade

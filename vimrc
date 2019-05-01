@@ -174,6 +174,10 @@ Bundle 'jparise/vim-graphql'
 """"""""""""""""""""""""""""""""""""""""""""""
 " _BUNDLES_TEST
 """"""""""""""""""""""""""""""""""""""""""""""
+set rtp+=~/config/fzf
+Bundle 'junegunn/fzf.vim'
+let g:fzf_command_prefix = 'Fzf'
+nmap <leader><tab> <plug>(fzf-maps-n)
 " shortcut -> (ctrl y ,)
 Bundle 'mattn/emmet-vim'
 
@@ -529,8 +533,10 @@ nnoremap <leader>c :so %<cr>
 nmap <leader>w :w!<cr>
 
 " fast buffers opening
-nmap <leader>pc :CtrlP<cr>
-nmap <leader>bc :CtrlPBuffer<cr>
+" nmap <leader>pc :CtrlP<cr>
+" nmap <leader>bc :CtrlPBuffer<cr>
+nmap <leader>b :FzfBuffers<cr>
+nmap <leader>p :FzfFiles<cr>
 
 " Toggle list
 map <leader><Space> :set list!<CR>

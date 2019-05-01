@@ -128,3 +128,5 @@ export PROMPT_COMMAND='history -a'
 
 export PATH="/home/$USER/bin:$PATH"
 
+
+[ -f ~/.fzf.bash ] && source ~/.fzf.bash
