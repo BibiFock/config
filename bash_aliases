@@ -45,7 +45,9 @@ alias gitlist='ssh git@server-git'
 # fuck you sudo
 alias fuck='sudo $(history -p !!)'
 
-
 #fortune
 alias myfort='fortune ~/config/fortune/quotes'
+
+# youtube-dl
+alias youtube-dl-mp3='youtube-dl -x --audio-format "mp3" --add-metadata -o "%(playlist_index)s.%(artist)s-%(title)s.%(ext)s" --restrict-filenames '
 

@@ -109,6 +109,12 @@ install-fzf: ## install fzf with repo
 	@git clone --depth 1 https://github.com/junegunn/fzf.git ./fzf
 	@fzf/install
 
+
+install-youtube-dl: ## install youtube-dl
+	@$(call say_yellow,"[install youtube-dl]")
+	@$(sudo wget https://yt-dl.org/downloads/latest/youtube-dl -O /usr/local/bin/youtube-dl)
+	@$(sudo chmod a+rx /usr/local/bin/youtube-dl)
+
 create-fortune: ## create my fortune file
 	@$(call say_yellow,"[create fortune files]")
 	@$(shell pwd)/bin/fortuneUpgrade
@@ -126,4 +132,5 @@ all: install-packages \
 	install-eslint \
 	install-mycli \
 	install-ripgrep \
+	install-youtube-dl \
 	create-fortune

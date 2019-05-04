@@ -1,42 +1,3 @@
-########################
-# fonctions perso a seb
-########################
-function xgrep {
-    find . -iname "*.$1" | xargs grep -i "$2"
-}
-
-function xsvnadd {
-    svn status | grep '\?' | grep -v '_cache' | grep -v 'library' | awk '{print $2;}' | xargs svn add
-}
-
-function xsvnrm {
-    svn status | grep '\!' | awk '{print $2;}' | xargs svn rm
-}
-
-function xsvnrevert {
-    svn status | grep '\M' | awk '{print $2;}' | xargs svn revert
-}
-
-function xsvndiff {
-    svn diff $@ | colordiff | less -R
-}
-
-function xsvnst {
-    #svn st -q -u
-    #svn st -u --ignore-externals | grep -v "_cache/" | grep -v "html/library" | grep -v ".ctrlp" | grep -v "^X"
-    svn st -u --ignore-externals | grep -vE "_cache/|html/library|.ctrlp|^X"
-}
-
-function xsvnstdiff {
-    svn diff $@ -r BASE:HEAD | colordiff | less -R
-}
-
-
-function xmail {
-    cat $1  | mail -s "... envoi de mon fichier" bbr@mail.com
-}
-
-
 function findit {
     find . -iname "*$1*" -print|grep -i "$1"
 }
@@ -91,13 +52,28 @@ if [ -n "$BASH_VERSION" ]; then
     # complete -F _Go publishns
 fi
 
-function seelog {
-    tail "$1" | sed -e "s/[0-9]\{1,3\}\.[0-9]\{1,3\}\.[0-9]\{1,3\}\.[0-9]\{1,3\}/\x1b[1;36m&\x1b[0m/g" \
-    -e "s/\[ERROR [^]]*]/\x1b[1;31m\n&/;" \
-    -e "s/Type:[^,]*/\x1b[1;33m\n&/g" \
-    -e "s/http_host:[^,]*/\x1b[1;32m\n&\x1b[0m/;"  \
-    -e "s/url:[^,]*/\x1b[1;32m\n&\x1b[0m/;" \
-    -e "s/request_uri:[^,]*/\x1b[    1;35m&\x1b[0m/g" \
-    -e "s/referer/\x1b[0m\n&/g" -e "s/^/-\x1b[1;31m\\\\\x1b[0m------------------------------------------\n/g" \
-    -e "s/^\(.*\n\)\(.*\n\)\(.*\n\)\(.*\n\)\(.*\n\)\(.*\)/\x1b[0m\1 _\\\\,,        \2\"-=\\\\~     _  \3   \\\\\\\\~___( ~ \4  _|\/---\\\\\\\\_  \5 \\\\        \\\\  \6/g"
+function DlRendevList {
+    finalPath=~/Music/rendev-uke/$2/
+
+    mkdir -p $finalPath
+
+    cd $finalPath
+
+    youtube-dl -x --audio-format "mp3" --add-metadata --restrict-filenames \
+        -o "%(playlist_index)s_%(artist)s-%(title)s.%(ext)s" $1
+
+    count=1
+    for file in $(ls)
+    do
+        tmpFile=$(basename -s mp3 $file).tmp.mp3
+        ffmpeg -loglevel quiet -i $file -codec copy \
+            -metadata Genre="rendev-uke" \
+            -metadata Album=$2 \
+            -metadata Track=$count \
+            $tmpFile
+        mv $tmpFile $file
+        ((count++))
+    done
+
+    cd -
 }
