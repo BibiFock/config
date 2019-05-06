@@ -8,3 +8,85 @@ snippet stop
 	${1:event}.stopPropagation();${2}
 snippet log
 	console.log(${1:'oki'});${2}
+snippet rcomp
+	import * as React from 'react';
+	import PropTypes from 'prop-types';
+	import styled from 'styled-components';
+
+	class ${1:MyComponent} extends React.Component {
+		static displayName = '$1';
+
+		static propTypes = {};
+
+		static defaultProps = {}
+
+		render() {
+			return (
+					<div className={ this.displayName } />
+			);
+		}
+	}
+
+	export default $1;
+snippet yooco
+	import YoomapComponent from 'ui/helpers/YoomapComponent';
+snippet impSvgBack
+	import { svgBackground } from 'ui/atoms/icons/svg-sprite-icon/SvgSpriteIcon';
+snippet styled
+	import styled from 'styled-components';
+snippet proptypes
+	import PropTypes from 'prop-types';
+snippet import
+	import ${1:MyComponent} from 'ui/${2:atoms}/$1';
+snippet renderer
+	const tree = render(<${1:MyComponent} {...props} />);
+snippet snap
+	expect(tree${1:.toJSON()}).toMatchSnapshot();
+snippet sTheme
+	${({ ${1:theme} }) => $1${2}};
+snippet testit
+	it('${1:renders correctly}', () => {
+		${2: // write your test}
+	});
+snippet toit
+	// TODO it('${1:renders correctly}', () => {});
+snippet oContain
+	expect.objectContaining(${1:props})${2:;}
+snippet beforeeach
+	let props;
+	beforeEach(() => {
+		props = {
+			${1}
+		};
+	});
+snippet react-router
+	import { ${1:StaticRouter} } from 'react-router-dom';
+snippet t_test
+	import React from 'react';
+
+	import render from 'ui/testing/render';
+
+	import ${1:Component} from './$1';
+
+	describe('[${2:dir}] $1', () => {
+		const props = {};
+
+		it('renders correctly', () => {
+			const tree = render(<$1 {...props} />);
+
+			expect(tree.toJSON()).toMatchSnapshot();
+		});
+	});
+snippet apollomocks
+	const response = {${1}};
+	const settings = {${2}};
+
+	const apolloMocks = [{
+		request: {
+			query: ${3:getQuery()},
+			variables: { ...settings }
+		 },
+		result: {
+			data: { ...response }
+		}
+	}];

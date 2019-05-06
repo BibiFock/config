@@ -1,6 +1,9 @@
 [NOTE]
 usefull website for learn new language: http://learnxinyminutes.com/
 
+[YOUTUBE-DL]
+youtube-dl -x --audio-format mp3 <url-youtube/playlist>
+
 [DNSmasq]
 /etc/dnsmasq.conf (fill)
     listen-address=127.0.0.1
