@@ -46,29 +46,14 @@ call vundle#rc()
 " required!
 Bundle 'gmarik/vundle'
 
-Bundle 'smarty-syntax'
-"Bundle 'lunaru/vim-less'
-Bundle 'groenewege/vim-less'
+" bracket matchers
 Bundle 'matchit.zip'
 
-Bundle 'kien/ctrlp.vim'
-let g:ctrlp_working_path_mode = 'ra'
-let g:ctrlp_root_markers = ['html', '.ctrlp', '.env', 'readme.md']
-let g:ctrlp_custom_ignore = {
-  \ 'dir': '\.git$\|_cache\|branches\|tags\|nodejs\|build\|node_modules\|vendors\|coverage\|dist\.dev\|dist\.prod\|framework\|vendor\|_webpack-backup$',
-  \ 'file': '\.exe$\|\.so$\|\.dat\|\.jpg\|\.png$'
-  \ }
-let g:ctrlp_clear_cache_on_exit=0
-Bundle 'tacahiroy/ctrlp-funky'
-let g:ctrlp_extensions = ['funky']
-let g:ctrlp_funky_syntax_highlight = 1
-Bundle 'd11wtq/ctrlp_bdelete.vim'
-call ctrlp_bdelete#init()
-
+" buffers explorer
 Bundle 'bufexplorer.zip'
 
-Bundle 'The-NERD-Commenter'
-let g:NERDSpaceDelims = 1
+" Bundle 'The-NERD-Commenter'
+" let g:NERDSpaceDelims = 1
 Bundle 'The-NERD-tree'
 " NERDTree
 let g:NERDTreeWinPos = "right"
@@ -130,7 +115,6 @@ call airline#parts#define_accent('%{$USER}@', 'blue')
 let g:airline_section_c = airline#section#create(['%{$USER}@','%{getcwd()}','/%f'])
 
 "colorscheme
-Bundle 'Solarized'
 Bundle 'xoria256.vim'
 
 "php fixer
@@ -167,20 +151,8 @@ let jshint2_error = 0
 let jshint2_height = 3
 let jshint2_height = 12
 
-Bundle 'editorconfig/editorconfig-vim'
-
 Bundle 'jparise/vim-graphql'
 
-""""""""""""""""""""""""""""""""""""""""""""""
-" _BUNDLES_TEST
-""""""""""""""""""""""""""""""""""""""""""""""
-set rtp+=~/config/fzf
-Bundle 'junegunn/fzf.vim'
-" let g:fzf_command_prefix = 'Fzf'
-" shortcut -> (ctrl y ,)
-Bundle 'mattn/emmet-vim'
-
-Bundle 'iloginow/vim-stylus'
 Bundle 'mxw/vim-jsx'
 let g:jsx_ext_required = 0 " Allow JSX in normal JS files
 
@@ -188,41 +160,13 @@ let g:jsx_ext_required = 0 " Allow JSX in normal JS files
 Bundle 'simeji/winresizer'
 let g:winresizer_start_key = '<leader>r'
 
-" Bundle 'beyondwords/vim-twig'
-Bundle 'lumiliet/vim-twig'
+""""""""""""""""""""""""""""""""""""""""""""""
+" _BUNDLES_TEST
+""""""""""""""""""""""""""""""""""""""""""""""
+set rtp+=~/config/fzf
+Bundle 'junegunn/fzf.vim'
 
-Bundle 'luochen1990/rainbow'
-let g:rainbow_active = 0 " 0 if you want to enable it later via :RainbowToggle
-let g:rainbow_conf = {
-\   'guifgs': ['royalblue3', 'darkorange3', 'seagreen3', 'firebrick'],
-\   'ctermfgs': [
-\        'lightblue','blue',
-\        'lightyellow', 'yellow',
-\        'lightcyan', 'cyan',
-\        'lightmagenta', 'magenta'
-\    ],
-\   'operators': '_,_',
-\   'parentheses': ['start=/(/ end=/)/ fold', 'start=/\[/ end=/\]/ fold', 'start=/{/ end=/}/ fold'],
-\   'separately': {
-\       '*': {},
-\       'tex': {
-\           'parentheses': ['start=/(/ end=/)/', 'start=/\[/ end=/\]/'],
-\       },
-\       'lisp': {
-\           'guifgs': ['royalblue3', 'darkorange3', 'seagreen3', 'firebrick', 'darkorchid3'],
-\       },
-\       'vim': {
-\           'parentheses': ['start=/(/ end=/)/', 'start=/\[/ end=/\]/', 'start=/{/ end=/}/ fold', 'start=/(/ end=/)/ containedin=vimFuncBody', 'start=/\[/ end=/\]/ containedin=vimFuncBody', 'start=/{/ end=/}/ fold containedin=vimFuncBody'],
-\       },
-\       'smarty': {
-\           'parentheses': ['start=/\v\<((area|base|br|col|embed|hr|img|input|keygen|link|menuitem|meta|param|source|track|wbr)[ >])@!\z([-_:a-zA-Z0-9]+)(\s+[-_:a-zA-Z0-9]+(\=("[^"]*"|'."'".'[^'."'".']*'."'".'|[^ '."'".'"><=`]*))?)*\>/ end=#</\z1># fold'],
-\       },
-\       'html': {
-\           'parentheses': ['start=/\v\<((area|base|br|col|embed|hr|img|input|keygen|link|menuitem|meta|param|source|track|wbr)[ >])@!\z([-_:a-zA-Z0-9]+)(\s+[-_:a-zA-Z0-9]+(\=("[^"]*"|'."'".'[^'."'".']*'."'".'|[^ '."'".'"><=`]*))?)*\>/ end=#</\z1># fold'],
-\       }
-\   }
-\}
-
+" rebase & diff window
 Bundle 'rhysd/committia.vim'
 let g:committia_hooks = {}
 function! g:committia_hooks.edit_open(info)
@@ -241,27 +185,9 @@ function! g:committia_hooks.edit_open(info)
     imap <buffer><C-p> <Plug>(committia-scroll-diff-up-half)
 endfunction
 
-"function list
-Bundle 'functionlist.vim'
-
-" typescript
-Bundle 'leafgarland/typescript-vim'
-" visiblement ya des couilles avec l'indentation donc en cas de besoin la
-" ligne ci-dessous la désactive
-" let g:typescript_indent_disable = 1
-" let g:typescript_compiler_binary = 'tslint'
-" let g:typescript_compiler_options = ''
 
 Bundle 'fatih/vim-go'
 
-Bundle 'posva/vim-vue'
-
-" Plante comme un batard ---
-" Bundle 'gabrielelana/vim-m-arkdown'
-" <leader> + e: for edit code with good syntax
-" ----
-" Bundle 'tpope/vim-markdown'
-Bundle 'godlygeek/tabular'
 Bundle 'plasticboy/vim-markdown'
 let g:vim_markdown_folding_disabled = 1
 
@@ -354,18 +280,11 @@ endif
 """"""""""""""""""""""""""""""""""""""""""""""
 " Set extra options when running in GUI mode
 set background=dark
-if has("gui_running")
-    set guioptions=Ace
-    set guifont=Monospace\ 8
-    colorscheme solarized
-    set guitablabel=%M\ %t
-else
-    set t_Co=256
-    colorscheme xoria256
-    highlight ColorColumn ctermbg=darkgrey guibg=#666666
-    "redef des msg de warning car trop discret par défaut
-    hi WarningMsg ctermfg=15  guifg=#ffffff ctermbg=166   guibg=#800000
-endif
+set t_Co=256
+colorscheme xoria256
+highlight ColorColumn ctermbg=darkgrey guibg=#666666
+"redef des msg de warning car trop discret par défaut
+hi WarningMsg ctermfg=15  guifg=#ffffff ctermbg=166   guibg=#800000
 
 "coloration command ligne for each mode
 au InsertEnter * hi StatusLine term=reverse ctermbg=4 gui=undercurl guisp=Magenta
@@ -428,10 +347,6 @@ fun! GoToComplete(A,L,P)
     let path = expand('~/dev/')
     return split(substitute(globpath(path, a:A."*"), path, "", "g"), "\n")
 endfun
-
-function! s:find_git_root()
-  return system('git rev-parse --show-toplevel 2> /dev/null')[:-2]
-endfunction
 """"""""""""""""""""""""""""""""""""""""""""""
 " _COMMANDS
 """"""""""""""""""""""""""""""""""""""""""""""
@@ -454,9 +369,6 @@ if has("gui_running")
     autocmd VimEnter * NERDTree
 endif
 
-
-" automatically search in root project path
-command! ProjectFiles execute 'Files' s:find_git_root()
 """"""""""""""""""""""""""""""""""""""""""""""
 " _COMMANDS_QUICK_FILES
 """"""""""""""""""""""""""""""""""""""""""""""
@@ -481,6 +393,10 @@ endif
 
 if filereadable(expand("~/dev/divers/README.md"))
     :command! Myvar tabe $HOME/dev/divers/README.md
+endif
+
+if isdirectory(expand("~/www/library"))
+    :command! Dbconf tabe $HOME/www/library/php/classes/Wb/Controller/Action.php
 endif
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
@@ -535,11 +451,8 @@ nnoremap <leader>c :so %<cr>
 nmap <leader>w :w!<cr>
 
 " fast buffers opening
-nmap <leader>oi :Buffers<cr>
-nmap <leader>op :ProjectFiles<cr>
-
-" fast search inside files
-nmap <leader>io :Rg<space>
+nmap <leader>pc :CtrlP<cr>
+nmap <leader>bc :CtrlPBuffer<cr>
 
 " Toggle list
 map <leader><Space> :set list!<CR>
