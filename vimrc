@@ -52,8 +52,8 @@ Bundle 'matchit.zip'
 " buffers explorer
 Bundle 'bufexplorer.zip'
 
-" Bundle 'The-NERD-Commenter'
-" let g:NERDSpaceDelims = 1
+Bundle 'The-NERD-Commenter'
+let g:NERDSpaceDelims = 1
 Bundle 'The-NERD-tree'
 " NERDTree
 let g:NERDTreeWinPos = "right"
@@ -347,6 +347,10 @@ fun! GoToComplete(A,L,P)
     let path = expand('~/dev/')
     return split(substitute(globpath(path, a:A."*"), path, "", "g"), "\n")
 endfun
+
+function! s:find_git_root()
+  return system('git rev-parse --show-toplevel 2> /dev/null')[:-2]
+endfunction
 """"""""""""""""""""""""""""""""""""""""""""""
 " _COMMANDS
 """"""""""""""""""""""""""""""""""""""""""""""
@@ -369,6 +373,8 @@ if has("gui_running")
     autocmd VimEnter * NERDTree
 endif
 
+" automatically search in root project path
+command! ProjectFiles execute 'Files' s:find_git_root()
 """"""""""""""""""""""""""""""""""""""""""""""
 " _COMMANDS_QUICK_FILES
 """"""""""""""""""""""""""""""""""""""""""""""
@@ -451,8 +457,8 @@ nnoremap <leader>c :so %<cr>
 nmap <leader>w :w!<cr>
 
 " fast buffers opening
-nmap <leader>pc :CtrlP<cr>
-nmap <leader>bc :CtrlPBuffer<cr>
+nmap <leader>oi :Buffers<cr>
+nmap <leader>io :ProjectFiles<cr>"
 
 " Toggle list
 map <leader><Space> :set list!<CR>
