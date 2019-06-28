@@ -81,6 +81,8 @@
 # for bitbucket/stash remotes
     spr = "!f() { git fetch -fu ${2:-$(git remote |grep ^upstream || echo origin)} refs/pull-requests/$1/from:pr/$1 && git checkout pr/$1; }; f"
 
+    listci = "!git log $(git describe --tags --abbrev=0)..HEAD --pretty=format:'- %s'"
+
 [mergetool "fugitive"]
     cmd = vim -f -c \"Gdiff\" \"$MERGED\"
 [merge]

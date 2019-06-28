@@ -420,7 +420,7 @@ function! GoTo(site, ...)
     if (a:0 > 0)
         exe 'NERDTree '.str
     else
-        exe 'CtrlP '.str
+        exe 'Files '.str
     endif
 endfunction
 
@@ -536,10 +536,7 @@ nmap <leader>w :w!<cr>
 
 " fast buffers opening
 nmap <leader>oi :Buffers<cr>
-nmap <leader>op :ProjectFiles<cr>
-
-" fast search inside files
-nmap <leader>io :Rg<space>
+nmap <leader>io :ProjectFiles<cr>
 
 " Toggle list
 map <leader><Space> :set list!<CR>

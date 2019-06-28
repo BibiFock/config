@@ -9,3 +9,5 @@ bin/composer
 bin/phpcs
 bin/php-cs-fixer
 bin/*.phar
+
+fzf/
