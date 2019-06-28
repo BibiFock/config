@@ -4,6 +4,12 @@ usefull website for learn new language: http://learnxinyminutes.com/
 [YOUTUBE-DL]
 youtube-dl -x --audio-format mp3 <url-youtube/playlist>
 
+[gitlab-runner]
+gitlab-runner exec docker <step>
+# with cache
+gitlab-runner exec docker --cache-dir=/tmp/gitlab-cache --docker-cache-dir=/tmp/gitlab-cache --docker-volumes=/tmp/gitlab-cache npm
+
+
 [DNSmasq]
 /etc/dnsmasq.conf (fill)
     listen-address=127.0.0.1
