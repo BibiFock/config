@@ -339,7 +339,7 @@ function! GoTo(site, ...)
     if (a:0 > 0)
         exe 'NERDTree '.str
     else
-        exe 'CtrlP '.str
+        exe 'Files '.str
     endif
 endfunction
 
