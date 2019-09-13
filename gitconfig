@@ -32,6 +32,7 @@
     br = branch
     co = checkout
     df = diff
+    dff = diff --compact-summary
     unstage = reset HEAD --
     last = log -1 HEAD
     lol = !"git --no-pager log --pretty=format:\"%C(green)%cd %C(red bold)%an%Creset %C(yellow)%h %C(white)%s %C(auto)%d\" --graph --date-order --date=relative -20;echo;"
@@ -71,9 +72,11 @@
     #list branches sorted by last modified
     lb = "!git for-each-ref --sort='-authordate' --format='%(authordate)%09%(objectname:short)%09%(refname)' refs/heads | sed -e 's-refs/heads/--'"
     # clear merged branch
-    brclr="!sh -c 'git branch --merged | egrep -v \"(^\\*|master)\" | xargs git branch -d'"
+    brclr="!sh -c 'git branch --merged | egrep -v \"(^\\*|master|HEAD )\" | xargs git branch -d'"
     # clear deleted branch
     brdel="!f() { for branch in ${2:-$(git branch -vv | grep ': gone]' | awk '{print $1}')}; do git branch -D $branch; done;}; f"
+    # full clean
+    brclean="!f(){ for up in $(git remote); do git fetch -p $up; done; git brclr; git brdel;}; f"
 
     # pr
     pr  = "!f() { git fetch -fu ${2:-$(git remote |grep ^upstream || echo origin)} refs/pull/$1/head:pr/$1 && git checkout pr/$1; }; f"
@@ -81,7 +84,8 @@
 # for bitbucket/stash remotes
     spr = "!f() { git fetch -fu ${2:-$(git remote |grep ^upstream || echo origin)} refs/pull-requests/$1/from:pr/$1 && git checkout pr/$1; }; f"
 
-    listci = "!git log $(git describe --tags --abbrev=0)..HEAD --pretty=format:'- %s'"
+    list-ci = "!git log $(git describe --tags --abbrev=0)..HEAD --pretty=format:'- %s %C(green)@%an'"
+    list-jira ="!sh -c 'git list-ci | grep -Eo \"(BQ1-[0-9]+)\"| uniq | sort | tr \"\n\" \" \";echo'"
 
 [mergetool "fugitive"]
     cmd = vim -f -c \"Gdiff\" \"$MERGED\"
