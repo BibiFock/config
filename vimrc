@@ -34,6 +34,7 @@ au BufNewFile,BufRead *.go set filetype=go
 au BufNewFile,BufRead *.twig set filetype=html.twig
 au BufNewFile,BufRead *.styl set filetype=stylus
 au BufNewFile,BufRead *.gql set filetype=graphql
+au BufNewFile,BufRead *.svelte set filetype=svelte
 "autocmd FileType typescript :set makeprg=tsc
 """"""""""""""""""""""""""""""""""""""""""""""
 " _BUNDLES
@@ -92,6 +93,9 @@ let g:syntastic_typescript_args = ['-r node_modules/codelyzer']
     " \ && vimSyntasticExe=$(npm bin)/eslint
     " \ || vimSyntasticExe=eslint; $vimSyntasticExe'
 let g:syntastic_javascript_checkers=['eslint', 'css/stylelint']
+let g:syntastic_filetype_map = { 'svelte': 'javascript' }
+let g:syntastic_debug=0
+let g:syntastic_go_checkers = [ 'go' ]
 
 "javascript
 Bundle 'othree/javascript-libraries-syntax.vim'
@@ -191,6 +195,8 @@ Bundle 'fatih/vim-go'
 Bundle 'plasticboy/vim-markdown'
 let g:vim_markdown_folding_disabled = 1
 
+Bundle 'evanleck/vim-svelte'
+
 """"""""""""""""""""""""""""""""""""""""""""""
 " _EDITOR
 """"""""""""""""""""""""""""""""""""""""""""""
@@ -232,6 +238,7 @@ set noswapfile          " No more swap file!
 set colorcolumn=80,120  " Highlight column 80
 
 au FileType javascript setl softtabstop=2 shiftwidth=2
+au FileType svelte setl softtabstop=2 shiftwidth=2
 au FileType yaml setl softtabstop=2 shiftwidth=2
 
 " FONTS

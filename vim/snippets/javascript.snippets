@@ -90,3 +90,16 @@ snippet apollomocks
 			data: { ...response }
 		}
 	}];
+snippet svelte-stories
+	import Component from './${1:Component}';
+
+	const getStory = (props = {}) => () => ({
+		Component,
+		props
+	});
+
+	export default {
+		title: '${2:folder}/$1'
+	};
+
+	export const base = getStory();
