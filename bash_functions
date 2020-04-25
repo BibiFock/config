@@ -6,12 +6,6 @@ function Go {
     home=~
     dir=/dev/
     subdir=
-    if [ -n "$2" ]; then
-        home=/home/$2
-        if [[ $2 == "beta" ]]; then
-            subdir=site/
-        fi
-    fi
     if [ -n "$1" ]; then
         dest=$home$dir$1/
         if [ $subdir ]; then
@@ -19,12 +13,19 @@ function Go {
         fi
         if [ -d "$dest" ] ; then
             cd $dest
-        elif [ -z "$2" ]; then
-            echo -e "\e[33m$1 not found, if you want to clone a new repository, enter his name (or press enter to quit)\e[0m"
-            read reponame
-            if [ -n "$reponame" ] ; then
-                cd $home$dir && git clone $reponame && cd $dest
-            fi
+        fi
+
+        if [ -n "$2" ]; then
+            # split teminator screen + open vim in the right side
+            sleep 0.2
+            xdotool key ctrl+shift+E
+            sleep 0.2
+            xdotool key --delay 5 --repeat 15 ctrl+shift+Left
+            sleep 0.2
+            xdotool key super+Up
+            sleep 0.2
+            xdotool type --delay 15 vim
+            xdotool key Return
         fi
     else
         ls $dir/www/
