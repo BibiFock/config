@@ -34,7 +34,7 @@ help:
 
 install-packages: ## install all need package for work
 	@$(call say_yellow, "[install all needed package]")
-	@sudo apt-get install git vim vim-gtk fortune terminator npm php-pear composer curl
+	@sudo apt-get install git vim vim-gtk fortune terminator npm php-pear composer curl youtube-dl
 
 load-bash: ## load my bash config
 	@$(call say_yellow,"[create bash links]")
@@ -89,10 +89,6 @@ install-php-cs-fixer: ## download & install php-cs-fixer
 	@chmod u+x "$(shell pwd)"/bin/php-cs-fixer
 	@rm $(shell pwd)/php-cs-fixer-v2.phar
 
-install-eslint: ## install eslint in global with npm
-	@$(call say_yellow,"[install eslint]")
-	@sudo npm i -g babel-eslint bower eslint eslint-config-standard eslint-config-standard-jsx eslint-config-standard-react eslint-plugin-import eslint-plugin-node eslint-plugin-promise eslint-plugin-react eslint-plugin-standard lint n
-
 install-mycli: ## install mycli with debian package
 	@$(call say_yellow,"[install mycli]")
 	@sudo apt-get install mycli
@@ -109,12 +105,6 @@ install-fzf: ## install fzf with repo
 	@git clone --depth 1 https://github.com/junegunn/fzf.git ./fzf
 	@fzf/install
 
-
-install-youtube-dl: ## install youtube-dl
-	@$(call say_yellow,"[install youtube-dl]")
-	@$(sudo wget https://yt-dl.org/downloads/latest/youtube-dl -O /usr/local/bin/youtube-dl)
-	@$(sudo chmod a+rx /usr/local/bin/youtube-dl)
-
 create-fortune: ## create my fortune file
 	@$(call say_yellow,"[create fortune files]")
 	@$(shell pwd)/bin/fortuneUpgrade
@@ -129,8 +119,6 @@ all: install-packages \
 	install-composer \
 	install-phpcs \
 	install-phpdoc \
-	install-eslint \
 	install-mycli \
 	install-ripgrep \
-	install-youtube-dl \
 	create-fortune
