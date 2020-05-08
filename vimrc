@@ -53,19 +53,10 @@ Bundle 'matchit.zip'
 " buffers explorer
 Bundle 'bufexplorer.zip'
 
-Bundle 'The-NERD-Commenter'
-let g:NERDSpaceDelims = 1
-Bundle 'The-NERD-tree'
-" NERDTree
-let g:NERDTreeWinPos = "right"
-let NERDTreeMinimalUI = 1
-let NERDTreeShowHidden = 1
-let NERDTreeShowBookmarks = 1
-let NERDTreeIgnore=['\.svn$','\.git$']
-
 Bundle 'Toggle'
 
 Bundle 'snipMate'
+Bundle 'preservim/nerdcommenter'
 
 "git tool for vim
 Bundle 'tpope/vim-fugitive'
@@ -164,11 +155,11 @@ let g:jsx_ext_required = 0 " Allow JSX in normal JS files
 Bundle 'simeji/winresizer'
 let g:winresizer_start_key = '<leader>r'
 
-""""""""""""""""""""""""""""""""""""""""""""""
-" _BUNDLES_TEST
-""""""""""""""""""""""""""""""""""""""""""""""
+" fzf
 set rtp+=~/config/fzf
 Bundle 'junegunn/fzf.vim'
+let g:fzf_commits_log_options = '--color=always --format="%C(green)%cd %C(red bold)%an%Creset %C(yellow)%h %C(white)%s %C(auto)%d" --graph --date-order --date=relative'
+
 
 " rebase & diff window
 Bundle 'rhysd/committia.vim'
@@ -189,7 +180,9 @@ function! g:committia_hooks.edit_open(info)
     imap <buffer><C-p> <Plug>(committia-scroll-diff-up-half)
 endfunction
 
-
+""""""""""""""""""""""""""""""""""""""""""""""
+" _BUNDLES_TEST
+""""""""""""""""""""""""""""""""""""""""""""""
 Bundle 'fatih/vim-go'
 
 Bundle 'plasticboy/vim-markdown'
@@ -208,7 +201,12 @@ set lazyredraw "optimize redrawing
 " Height of the command bar
 
 "Explore
+let g:netrw_banner = 0
 let g:netrw_liststyle=3
+let g:netrw_altv=0
+let g:netrw_winsize=100
+let g:netrw_win=20
+
 "status line
 set laststatus=2
 
@@ -257,7 +255,6 @@ set listchars=trail:¤,tab:>-,nbsp:•     " Show blank spaces and tabs at the e
 set enc=utf-8
 set showcmd                 " Affiche la commande en cours de saisie en bas à droite
 set cursorline              "Soulignement de la ligne courante
-highlight Folded gui=bold   "Surligne la ligne courante en gris
 set complete=.,w,b,i        " default: .,w,b,u,t,i
 set splitbelow              " force split open below
 set splitright              " force vsplit open right
@@ -289,13 +286,15 @@ endif
 set background=dark
 set t_Co=256
 colorscheme xoria256
-highlight ColorColumn ctermbg=darkgrey guibg=#666666
+highlight ColorColumn ctermbg=237
 "redef des msg de warning car trop discret par défaut
-hi WarningMsg ctermfg=15  guifg=#ffffff ctermbg=166   guibg=#800000
+hi WarningMsg ctermfg=15  ctermbg=166
+
+hi CursorLineNr ctermbg=237 guibg=#3a3a3a cterm=none gui=none
 
 "coloration command ligne for each mode
-au InsertEnter * hi StatusLine term=reverse ctermbg=4 gui=undercurl guisp=Magenta
-au InsertLeave * hi StatusLine term=reverse ctermfg=15 ctermbg=8 gui=bold,reverse
+au InsertEnter * hi StatusLine term=reverse ctermbg=4
+au InsertLeave * hi StatusLine term=reverse ctermfg=15 ctermbg=8
 "tab coloration
 hi TabLineFill ctermfg=0 ctermbg=0
 hi TabLineSel ctermfg=15 ctermbg=8
@@ -344,7 +343,7 @@ function! GoTo(site, ...)
     endif
 
     if (a:0 > 0)
-        exe 'NERDTree '.str
+        exe 'Explore! '.str
     else
         exe 'Files '.str
     endif
@@ -415,8 +414,7 @@ endif
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " _SHORTCUTS
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-nnoremap <F2> :NERDTreeToggle<CR>
-nnoremap <F3> :NERDTreeFind<CR>
+nnoremap <F2> :20Lexplore!<CR>
 
 " Treat long lines as break lines (useful when moving around in them)
 map k gk
