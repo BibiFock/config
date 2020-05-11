@@ -74,6 +74,8 @@
     brclr="!sh -c 'git branch --merged | egrep -v \"(^\\*|master)\" | xargs git branch -d'"
     # clear deleted branch
     brdel="!f() { for branch in ${2:-$(git branch -vv | grep ': gone]' | awk '{print $1}')}; do git branch -D $branch; done;}; f"
+    # full clean
+    brclean="!f(){ git fetch --all -p; git brclr; git brdel;}; f"
 
     # pr
     pr  = "!f() { git fetch -fu ${2:-$(git remote |grep ^upstream || echo origin)} refs/pull/$1/head:pr/$1 && git checkout pr/$1; }; f"
