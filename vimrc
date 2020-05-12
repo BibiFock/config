@@ -235,7 +235,7 @@ set shiftround          " when at 3 spaces, and I hit > ... go to 4, not 7"
 set noswapfile          " No more swap file!
 set colorcolumn=80,120  " Highlight column 80
 
-au FileType javascript setl softtabstop=2 shiftwidth=2
+au FileType javascript* setl softtabstop=2 shiftwidth=2
 au FileType svelte setl softtabstop=2 shiftwidth=2
 au FileType yaml setl softtabstop=2 shiftwidth=2
 

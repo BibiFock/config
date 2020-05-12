@@ -66,6 +66,9 @@ sudo gnome-shell-extension-installer <id found in https://extensions.gnome.org/#
 penser à lancer le démon à la main
 killall usbmuxd | sudo usbmuxd -u -f -v
 
+[DEV local smtp]
+docker run -p 1080:1080 -p 1025:1025 maildev/maildev bin/maildev -w 1080 -s 1025 --incoming-user user --incoming-pass password
+
 [GIT]
 git fetch origin
 git log HEAD..origin/master
@@ -459,4 +462,3 @@ if ($_REQUEST['image']) {
 test.log | sed -e "s/[0-9]\{1,3\}\.[0-9]\{1,3\}.[0-9]\{1,3\}.[0-9]\{1,3\}/\x1b[1;34m&\x1b[0m/g" -e "s/\[ERROR [^]]*]/\x1b[1;31m&\x1b[0m/;" -e "s/http_host:[^,]*/\x1b[1;32m&\x1b[0m/;" -e "s/Type:[^,]*/\x1b[1;33m&\x1b[0m/;"
 
 "sudo service lightdm restart.
-
