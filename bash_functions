@@ -83,7 +83,6 @@ function DlRendevList {
 GIT_FZF_DEFAULT_OPTS="
 $FZF_DEFAULT_OPTS
 --ansi
---height='80%'
 --bind='alt-k:preview-up,alt-p:preview-up'
 --bind='alt-j:preview-down,alt-n:preview-down'
 --bind='ctrl-r:toggle-all'
@@ -96,4 +95,35 @@ $FZF_DEFAULT_OPTS
 
 gco() {
   git branch --all --color=always |sed -e 's/remotes\///g' | FZF_DEFAULT_OPTS="$GIT_FZF_DEFAULT_OPTS" fzf|awk '{print $1}'|xargs git co
+}
+
+alias glFzf='git log --graph --color=always --date=relative --format="%C(yellow)%h %C(white)%s %C(green)%cd %C(red bold)%an%Creset %C(auto)%d" "$@" '
+GIT_FZF_LOG_OPTS="
+$GIT_FZF_DEFAULT_OPTS
+ --no-sort
+ --reverse
+ --tiebreak=index
+ --preview-window=\"down:30%\"
+ --preview=\"echo {2}|xargs git show --stat --color=always\"
+"
+
+gshow() {
+  glFzf |
+
+  FZF_DEFAULT_OPTS="$GIT_FZF_LOG_OPTS" fzf \
+      --bind "ctrl-m:execute:
+              (grep -o '[a-f0-9]\{7\}' | head -1 |
+              xargs -I % sh -c 'git show --color=always % | less -R') << 'FZF-EOF'
+              {}
+FZF-EOF"
+}
+
+gri() {
+ commit=$(
+    glFzf |
+    FZF_DEFAULT_OPTS="$GIT_FZF_LOG_OPTS" fzf |
+    awk '{print $2}'
+ );
+
+ git rebase -i $commit~1
 }
