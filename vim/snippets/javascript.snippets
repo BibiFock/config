@@ -77,6 +77,21 @@ snippet t_test
 			expect(tree.toJSON()).toMatchSnapshot();
 		});
 	});
+snippet t_fcomp
+	import React from 'react';
+	import PropTypes from 'prop-types';
+
+	/**
+	*
+	*/
+	const ${1:Component} = (props) => {
+		return <div {...props} />
+	};
+
+	$1.displayName = "$1";
+	$1.propTypes = {};
+
+	export default $1;
 snippet apollomocks
 	const response = {${1}};
 	const settings = {${2}};

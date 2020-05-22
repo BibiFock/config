@@ -84,7 +84,8 @@ let g:syntastic_typescript_args = ['-r node_modules/codelyzer']
     " \ && vimSyntasticExe=$(npm bin)/eslint
     " \ || vimSyntasticExe=eslint; $vimSyntasticExe'
 let g:syntastic_javascript_checkers=['eslint', 'css/stylelint']
-let g:syntastic_filetype_map = { 'svelte': 'javascript' }
+let g:syntastic_javascript_checkers=['eslint', 'css/stylelint']
+let g:syntastic_filetype_map = { 'svelte': 'javascript', 'javascriptreact': 'javascript' }
 let g:syntastic_debug=0
 let g:syntastic_go_checkers = [ 'go' ]
 
