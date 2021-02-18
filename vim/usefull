@@ -54,6 +54,13 @@ sudo apt update
 sudo apt install nvidia-390
 sudo reboot
 
+# pm2
+pm2 start "npm run start" --name <name>
+pm2 start "this is a cron" --name <name> --no-autorestart
+
+# generate random value
+openssl rand -base64 12
+
 [ssh]
 connection sans mpd
 ssh-keygen -t rsa
@@ -410,6 +417,13 @@ mysql -u root -p<password> -d <database target> < dump.sql
 sf2
 <VirtualHost *:80>
     ServerName test.local
+
+ServerAlias *.dev.bbr
+
+	VirtualDocumentRoot /home/bbr/dev/%1/public
+	<Directory /home/bbr/dev/*/public>
+	</Directory>
+
 
     DocumentRoot /var/www/test/web
     <Directory /var/www/test/web>

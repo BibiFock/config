@@ -1,5 +1,5 @@
 [global_config]
-  handle_size = 1
+  handle_size = 20
   borderless = True
   extra_styling = False
   broadcast_default = off
@@ -18,7 +18,6 @@
     scrollbar_position = hidden
     scroll_on_keystroke = False
     scroll_on_output = True
-    scrollback_lines = 10000
     palette = "#000000:#cd0000:#00cd00:#cdcd00:#0000ee:#cd00cd:#00cdcd:#e5e5e5:#7f7f7f:#ff0000:#00ff00:#ffff00:#5c5cff:#ff00ff:#00ffff:#ffffff"
     use_system_font = False
 [layouts]

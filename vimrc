@@ -83,9 +83,9 @@ let g:syntastic_typescript_args = ['-r node_modules/codelyzer']
 " let g:syntastic_javascript_eslint_exe='[ -f $(npm bin)/eslint ]
     " \ && vimSyntasticExe=$(npm bin)/eslint
     " \ || vimSyntasticExe=eslint; $vimSyntasticExe'
-let g:syntastic_javascript_checkers=['eslint', 'css/stylelint']
-let g:syntastic_javascript_checkers=['eslint', 'css/stylelint']
-let g:syntastic_filetype_map = { 'svelte': 'javascript', 'javascriptreact': 'javascript' }
+let g:syntastic_javascript_checkers=['eslint']
+let g:syntastic_javascriptreact_checkers=['eslint', 'css/stylelint']
+let g:syntastic_filetype_map = { 'svelte': 'javascript' }
 let g:syntastic_debug=0
 let g:syntastic_go_checkers = [ 'go' ]
 
@@ -189,7 +189,10 @@ Bundle 'fatih/vim-go'
 Bundle 'plasticboy/vim-markdown'
 let g:vim_markdown_folding_disabled = 1
 
-Bundle 'evanleck/vim-svelte'
+" Bundle 'evanleck/vim-svelte', { 'pinned': 1 }
+" Bundle 'burner/vim-svelte'
+Bundle 'leafOfTree/vim-svelte-plugin'
+let g:vim_svelte_plugin_load_full_syntax = 1
 
 """"""""""""""""""""""""""""""""""""""""""""""
 " _EDITOR
@@ -464,7 +467,7 @@ nmap <leader>w :w!<cr>
 
 " fast buffers opening
 nmap <leader>oi :Buffers<cr>
-nmap <leader>io :ProjectFiles<cr>"
+nmap <leader>io :ProjectFiles<cr>
 
 " Toggle list
 map <leader><Space> :set list!<CR>

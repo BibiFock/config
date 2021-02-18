@@ -106,15 +106,18 @@ snippet apollomocks
 		}
 	}];
 snippet svelte-stories
+	import getStory from 'utils/storybook/getStory';
+
 	import Component from './${1:Component}';
 
-	const getStory = (props = {}) => () => ({
+	const story = getStory({
 		Component,
-		props
+		title: '${2:folder}/$1',
+		argTypes: {
+			${3}
+		}
 	});
 
-	export default {
-		title: '${2:folder}/$1'
-	};
+	export default story.default;
 
-	export const base = getStory();
+	export const base = story.bind();
