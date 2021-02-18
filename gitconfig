@@ -26,6 +26,9 @@
     excludesfile = /home/bbr/.gitignore_global
     editor = vim
 
+[pretty]
+    log=format:"%C(green)%cd %C(red bold)%an%Creset %C(yellow)%h %C(white)%s %C(auto)%d"
+
 [alias]
     st = status -s
     ci = commit -m
@@ -34,11 +37,11 @@
     df = diff
     unstage = reset HEAD --
     last = log -1 HEAD
-    lol = !"git --no-pager log --pretty=format:\"%C(green)%cd %C(red bold)%an%Creset %C(yellow)%h %C(white)%s %C(auto)%d\" --graph --date-order --date=relative -20;echo;"
-    lola = log --pretty=format:\"%C(green)%cd %C(red bold)%an%Creset %C(yellow)%h %C(white)%s %C(auto)%d\" --graph --date-order --date=relative
-    loldf = log --pretty=format:\"%C(green)%cd %C(red bold)%an%Creset %C(yellow)%h %C(white)%s %C(auto)%d\" --graph --date-order --date=relative -10 --decorate --numstat --shortstat
-    loa = log --pretty=format:\"%C(green)%cd %C(red bold)%an%Creset %C(yellow)%h %C(white)%s %C(auto)%d\" --graph --date-order --date=iso --all
-    loadf = log --pretty=format:\"%C(green)%cd %C(red bold)%an%Creset %C(yellow)%h %C(white)%s %C(auto)%d\" --graph --date-order --date=iso --all --decorate --numstat --shortstat
+    lol = !"git --no-pager log --pretty=log --graph --date-order --date=relative -20;echo;"
+    lola = log --pretty=log --graph --date-order --date=relative
+    loldf = log --pretty=log --graph --date-order --date=relative -10 --decorate --numstat --shortstat
+    loa = log --pretty=log --graph --date-order --date=iso --all
+    loadf = log --pretty=log --graph --date-order --date=iso --all --decorate --numstat --shortstat
     ls = ls-files
     d = difftool
     hist = whatchanged -p
