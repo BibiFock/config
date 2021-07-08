@@ -84,6 +84,7 @@ let g:syntastic_typescript_args = ['-r node_modules/codelyzer']
     " \ && vimSyntasticExe=$(npm bin)/eslint
     " \ || vimSyntasticExe=eslint; $vimSyntasticExe'
 let g:syntastic_javascript_checkers=['eslint']
+let g:syntastic_javascript_eslint_exe = '$(npm bin)/eslint'
 let g:syntastic_javascriptreact_checkers=['eslint', 'css/stylelint']
 let g:syntastic_filetype_map = { 'svelte': 'javascript' }
 let g:syntastic_debug=0
@@ -193,7 +194,7 @@ let g:vim_markdown_folding_disabled = 1
 " Bundle 'burner/vim-svelte'
 Bundle 'leafOfTree/vim-svelte-plugin'
 let g:vim_svelte_plugin_load_full_syntax = 1
-
+let g:vim_svelte_plugin_use_typescript = 1
 """"""""""""""""""""""""""""""""""""""""""""""
 " _EDITOR
 """"""""""""""""""""""""""""""""""""""""""""""
