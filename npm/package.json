@@ -25,7 +25,9 @@
     "eslint-plugin-svelte3": "2.7.3",
     "forever": "^3.0.0",
     "localtunnel": "^2.0.0",
+    "markdown-cli": "^1.6.0",
     "n": "6.5.1",
+    "nb.sh": "^6.3.5",
     "pm2": "^4.5.0",
     "stylelint": "13.5.0",
     "stylelint-config-standard": "20.0.0",
@@ -33,6 +35,7 @@
     "stylelint-processor-styled-components": "1.10.0"
   },
   "devDependencies": {
-    "ndb": "^1.1.4"
+    "tsc": "^2.0.3",
+    "typescript": "^4.3.5"
   }
 }

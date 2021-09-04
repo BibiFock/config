@@ -1,0 +1,67 @@
+snippet todo
+	////////////////////////////////
+	// TODO ${1:delete before prod!!}
+	${2://code}
+	// TODO $1
+	////////////////////////////////
+	${1:event}.stopPropagation();${2}
+snippet log
+	console.log(${1:'oki'});${2}
+snippet styled
+	import styled from 'styled-components';
+snippet import
+	import ${1:MyComponent} from 'ui/${2:atoms}/$1';
+snippet snap
+	expect(tree${1:.toJSON()}).toMatchSnapshot();
+snippet t_test
+	import React from 'react';
+
+	import render from '@ui/testing/render';
+
+	import ${1:Component} from './$1';
+
+	describe('[${2:dir}] $1', () => {
+		const props = {};
+
+		it('renders correctly', () => {
+			const tree = render(<$1 {...props} />);
+
+			expect(tree.toJSON()).toMatchSnapshot();
+		});
+	});
+snippet t_comp
+	import React, { FC } from 'react';
+
+	export type $1Props = {
+		className?: string;
+		${2}
+	};
+
+	const ${1:Component}:FC<$1Props> = ({ className }) => (
+		<div className={className} />
+	);
+
+	export default $1;
+snippet t_sto
+	import React from 'react';
+	import { Story } from '@storybook/react';
+
+	import ${1:Component}, { $1Props } from './$1';
+
+	export default {
+	  title: '${2}/$1',
+	  component: $1
+	};
+
+	const story: Story<$1Props> = (args) => <$1 {...args} />;
+
+	export const Default = story.bind(null);
+snippet classnames
+	import cls from 'classnames';
+snippet ts-ignore
+	// eslint-disable-next-line @typescript-eslint/ban-ts-comment
+	// @ts-ignore: Unreachable code error
+snippet React.ForwardRef
+	React.ForwardRefRenderFunction<${1:HTMLInputElement, ${2:Comp}Props>
+snippet lodash
+	import ${1:get} from 'lodash/$1';

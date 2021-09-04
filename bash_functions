@@ -2,6 +2,8 @@ function findit {
     find . -iname "*$1*" -print|grep -i "$1"
 }
 
+function mktouch() { mkdir -p "$(dirname "$1")" && touch "$1" ; }
+
 function Go {
     home=~
     dir=/dev/

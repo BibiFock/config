@@ -35,7 +35,6 @@ au BufNewFile,BufRead *.twig set filetype=html.twig
 au BufNewFile,BufRead *.styl set filetype=stylus
 au BufNewFile,BufRead *.gql set filetype=graphql
 au BufNewFile,BufRead *.svelte set filetype=svelte
-"autocmd FileType typescript :set makeprg=tsc
 """"""""""""""""""""""""""""""""""""""""""""""
 " _BUNDLES
 """"""""""""""""""""""""""""""""""""""""""""""
@@ -73,22 +72,21 @@ let g:syntastic_loc_list_height = 5
 " Better :sign interface symbols
 let g:syntastic_error_symbol = '✗'
 let g:syntastic_warning_symbol = '!'
+" PHP
 " let g:syntastic_php_checkers = ['php', 'phpcs', 'phpmd']
 let g:syntastic_php_checkers = ['php', 'phpcs']
 let g:syntastic_php_phpcs_args='--standard=PSR2 -n'
-let g:syntastic_typescript_checkers = ['tslint']
-let g:syntastic_typescript_args = ['-r node_modules/codelyzer']
-" let g:syntastic_javascript_checkers = ['stylelint']
-" let g:syntastic_javascript_stylelint_args='\"./!(node_modules)/**/*.@(js|jsx)\"'
-" let g:syntastic_javascript_eslint_exe='[ -f $(npm bin)/eslint ]
-    " \ && vimSyntasticExe=$(npm bin)/eslint
-    " \ || vimSyntasticExe=eslint; $vimSyntasticExe'
+" Javascript
 let g:syntastic_javascript_checkers=['eslint']
+let g:syntastic_javascript_tsc_exe = '$(npm bin)/eslint'
 let g:syntastic_javascript_eslint_exe = '$(npm bin)/eslint'
 let g:syntastic_javascriptreact_checkers=['eslint', 'css/stylelint']
-let g:syntastic_filetype_map = { 'svelte': 'javascript' }
+" other files mapping
+let g:syntastic_filetype_map = { 'svelte': 'javascript', 'typescriptreact': 'typescript' }
 let g:syntastic_debug=0
 let g:syntastic_go_checkers = [ 'go' ]
+" aggregate all linters errors
+let g:syntastic_aggregate_errors = 1
 
 "javascript
 Bundle 'othree/javascript-libraries-syntax.vim'
@@ -191,10 +189,18 @@ Bundle 'plasticboy/vim-markdown'
 let g:vim_markdown_folding_disabled = 1
 
 " Bundle 'evanleck/vim-svelte', { 'pinned': 1 }
-" Bundle 'burner/vim-svelte'
+Bundle 'burner/vim-svelte'
 Bundle 'leafOfTree/vim-svelte-plugin'
 let g:vim_svelte_plugin_load_full_syntax = 1
 let g:vim_svelte_plugin_use_typescript = 1
+
+"Bundle 'leafgarland/typescript-vim'
+"autocmd FileType typescript :set makeprg=tsc
+Bundle 'Quramy/tsuquyomi'
+
+let g:tsuquyomi_disable_quickfix = 1
+let g:syntastic_typescript_checkers = ['tsuquyomi', 'eslint'] " You shouldn't use 'tsc' checker.
+let g:syntastic_typescript_eslint_exe = '$(npm bin)/eslint'
 """"""""""""""""""""""""""""""""""""""""""""""
 " _EDITOR
 """"""""""""""""""""""""""""""""""""""""""""""
