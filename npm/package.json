@@ -9,6 +9,7 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "@react-navigation/devtools": "^6.0.1",
     "babel-eslint": "10.1.0",
     "eslint": "7.13.0",
     "eslint-config-standard-jsx": "10.0.0",
@@ -23,16 +24,19 @@
     "eslint-plugin-react": "7.21.5",
     "eslint-plugin-standard": "4.1.0",
     "eslint-plugin-svelte3": "2.7.3",
+    "expo-cli": "^4.9.1",
     "forever": "^3.0.0",
     "localtunnel": "^2.0.0",
     "markdown-cli": "^1.6.0",
     "n": "6.5.1",
     "nb.sh": "^6.3.5",
     "pm2": "^4.5.0",
+    "sharp-cli": "^1.15.0",
     "stylelint": "13.5.0",
     "stylelint-config-standard": "20.0.0",
     "stylelint-config-styled-components": "0.1.1",
-    "stylelint-processor-styled-components": "1.10.0"
+    "stylelint-processor-styled-components": "1.10.0",
+    "yarn": "^1.22.11"
   },
   "devDependencies": {
     "tsc": "^2.0.3",
