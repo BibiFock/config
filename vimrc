@@ -194,13 +194,21 @@ Bundle 'leafOfTree/vim-svelte-plugin'
 let g:vim_svelte_plugin_load_full_syntax = 1
 let g:vim_svelte_plugin_use_typescript = 1
 
-"Bundle 'leafgarland/typescript-vim'
 "autocmd FileType typescript :set makeprg=tsc
-Bundle 'Quramy/tsuquyomi'
 
+Bundle 'Quramy/tsuquyomi'
 let g:tsuquyomi_disable_quickfix = 1
 let g:syntastic_typescript_checkers = ['tsuquyomi', 'eslint'] " You shouldn't use 'tsc' checker.
 let g:syntastic_typescript_eslint_exe = '$(npm bin)/eslint'
+
+Bundle 'maxmellon/vim-jsx-pretty'
+let g:vim_jsx_pretty_colorful_config = 1 " default 0
+
+"Bundle 'leafgarland/typescript-vim'
+"let g:typescript_ignore_typescriptdoc=1
+"let g:typescript_i
+"Bundle 'Quramy/vim-js-pretty-template'
+"Bundle 'jason0x43/vim-js-indent'
 """"""""""""""""""""""""""""""""""""""""""""""
 " _EDITOR
 """"""""""""""""""""""""""""""""""""""""""""""
@@ -247,6 +255,7 @@ set noswapfile          " No more swap file!
 set colorcolumn=80,120  " Highlight column 80
 
 au FileType javascript* setl softtabstop=2 shiftwidth=2
+au FileType typescript* setl softtabstop=2 shiftwidth=2
 au FileType svelte setl softtabstop=2 shiftwidth=2
 au FileType yaml setl softtabstop=2 shiftwidth=2
 
@@ -466,6 +475,7 @@ nmap <silent> <F9> :call CleanCode(1)<CR>
 let mapleader = " "
 let g:mapleader = " "
 
+autocmd FileType typescript* nmap <buffer> <Leader>q : <C-u>echo tsuquyomi#hint()<CR>
 "relaod config
 nnoremap <leader>c :so %<cr>
 
