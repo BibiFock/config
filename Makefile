@@ -121,4 +121,5 @@ all: install-packages \
 	install-phpdoc \
 	install-mycli \
 	install-ripgrep \
+	install-fzf \
 	create-fortune

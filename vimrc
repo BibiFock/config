@@ -151,6 +151,12 @@ Bundle 'jparise/vim-graphql'
 Bundle 'mxw/vim-jsx'
 let g:jsx_ext_required = 0 " Allow JSX in normal JS files
 
+Bundle 'Quramy/tsuquyomi'
+let g:tsuquyomi_completion_detail = 1
+let g:tsuquyomi_disable_quickfix = 1
+let g:syntastic_typescript_checkers = ['tsuquyomi', 'eslint'] " You shouldn't use 'tsc' checker.
+let g:syntastic_typescript_eslint_exe = '$(npm bin)/eslint'
+
 " vim resizer
 Bundle 'simeji/winresizer'
 let g:winresizer_start_key = '<leader>r'
@@ -247,6 +253,7 @@ set noswapfile          " No more swap file!
 set colorcolumn=80,120  " Highlight column 80
 
 au FileType javascript* setl softtabstop=2 shiftwidth=2
+au FileType typescript* setl softtabstop=2 shiftwidth=2
 au FileType svelte setl softtabstop=2 shiftwidth=2
 au FileType yaml setl softtabstop=2 shiftwidth=2
 
@@ -517,3 +524,5 @@ nmap <leader>fo :r !fortune ~/config/fortune/quotes<Cr>
 " next error
 nmap <leader>e :lnext<Cr>
 
+" typescript command
+autocmd FileType typescript* nmap <buffer> <Leader>q : <C-u>echo tsuquyomi#hint()<CR>

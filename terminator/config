@@ -12,7 +12,7 @@
     icon_bell = False
     background_color = "#1c1c1c"
     cursor_color = "#aaaaaa"
-    font = Ubuntu Mono 10
+    font = Ubuntu Mono 10.5
     foreground_color = "#ffffff"
     show_titlebar = False
     scrollbar_position = hidden

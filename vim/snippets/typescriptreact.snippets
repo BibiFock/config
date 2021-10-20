@@ -21,20 +21,20 @@ snippet t_test
 	import ${1:Component} from './$1';
 
 	describe('[${2:dir}] $1', () => {
-		const props = {};
+	  const props = {};
 
-		it('renders correctly', () => {
-			const tree = render(<$1 {...props} />);
+	  it('renders correctly', () => {
+	    const tree = render(<$1 {...props} />);
 
-			expect(tree.toJSON()).toMatchSnapshot();
-		});
+	    expect(tree.toJSON()).toMatchSnapshot();
+	  });
 	});
 snippet t_comp
 	import React, { FC } from 'react';
 
 	export type $1Props = {
-		className?: string;
-		${2}
+	  className?: string;
+	  ${2}
 	};
 
 	const ${1:Component}:FC<$1Props> = ({ className }) => (
@@ -56,6 +56,11 @@ snippet t_sto
 	const story: Story<$1Props> = (args) => <$1 {...args} />;
 
 	export const Default = story.bind(null);
+snippet story.bind
+	export const ${1:StoryName} = story.bind(null);
+	$1.args = {
+	  ${2: args}: ${3: true}
+	};
 snippet classnames
 	import cls from 'classnames';
 snippet ts-ignore
@@ -65,3 +70,15 @@ snippet React.ForwardRef
 	React.ForwardRefRenderFunction<${1:HTMLInputElement, ${2:Comp}Props>
 snippet lodash
 	import ${1:get} from 'lodash/$1';
+snippet i18
+	import { useTranslation } from 'react-i18next';
+snippet useTranslation
+	const { t } = useTranslation(${1});
+snippet badge-rest
+	parameters: {
+	  docs: {
+	    instamed: {
+	      badges: ['rest']
+	    }
+	  }
+	}
