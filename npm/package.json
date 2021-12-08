@@ -29,7 +29,7 @@
     "localtunnel": "^2.0.0",
     "markdown-cli": "^1.6.0",
     "n": "^6.5.1",
-    "nb.sh": "^6.3.5",
+    "nb.sh": "^6.7.4",
     "pm2": "^4.5.0",
     "sharp-cli": "^1.15.0",
     "stylelint": "13.5.0",
@@ -40,6 +40,7 @@
   },
   "devDependencies": {
     "@npmcli/config": "^2.3.0",
+    "npm-check-updates": "^12.0.0",
     "react-devtools": "^4.10.0",
     "tsc": "^2.0.3",
     "typescript": "^4.3.5"

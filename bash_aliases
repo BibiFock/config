@@ -10,6 +10,10 @@ else
     alias bash='. ~/.zshrc'
 fi
 
+# docker
+alias dockUp='docker-compose up -d'
+alias dockDown='docker-compose down'
+
 # laravel
 alias art='php artisan '
 

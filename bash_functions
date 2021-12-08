@@ -57,12 +57,9 @@ if [ -n "$BASH_VERSION" ]; then
     # complete -F _Go publishns
 fi
 
-function DlRendevList {
-    finalPath=~/Music/rendev-uke/$2/
-
-    mkdir -p $finalPath
-
-    cd $finalPath
+function DlYtList {
+    mkdir -p ./$2/
+    cd ./$2/
 
     youtube-dl -x --audio-format "mp3" --add-metadata --restrict-filenames \
         -o "%(playlist_index)s_%(artist)s-%(title)s.%(ext)s" $1
@@ -72,17 +69,25 @@ function DlRendevList {
     do
         tmpFile=$(basename -s mp3 $file).tmp.mp3
         ffmpeg -loglevel quiet -i $file -codec copy \
-            -metadata Genre="rendev-uke" \
+            -metadata Genre=$3 \
             -metadata Album=$2 \
             -metadata Track=$count \
             $tmpFile
         mv $tmpFile $file
         ((count++))
     done
-
-    cd -
 }
 
+function DlRendevList {
+    cPath=$(pwd)
+    finalPath=~/Music/rendev-uke
+
+    cd $finalPath
+
+    DlYtList $1 $2 "rendev-uke"
+
+    cd $cPath
+}
 
 GIT_FZF_DEFAULT_OPTS="
 $FZF_DEFAULT_OPTS

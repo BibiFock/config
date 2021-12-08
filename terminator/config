@@ -1,5 +1,5 @@
 [global_config]
-  handle_size = 20
+  handle_size = 3
   borderless = True
   extra_styling = False
   broadcast_default = off

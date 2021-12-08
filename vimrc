@@ -200,13 +200,8 @@ Bundle 'leafOfTree/vim-svelte-plugin'
 let g:vim_svelte_plugin_load_full_syntax = 1
 let g:vim_svelte_plugin_use_typescript = 1
 
-"Bundle 'leafgarland/typescript-vim'
-"autocmd FileType typescript :set makeprg=tsc
-Bundle 'Quramy/tsuquyomi'
-
-let g:tsuquyomi_disable_quickfix = 1
-let g:syntastic_typescript_checkers = ['tsuquyomi', 'eslint'] " You shouldn't use 'tsc' checker.
-let g:syntastic_typescript_eslint_exe = '$(npm bin)/eslint'
+"Bundle 'jason0x43/vim-js-indent'
+Bundle 'sheerun/vim-polyglot'
 """"""""""""""""""""""""""""""""""""""""""""""
 " _EDITOR
 """"""""""""""""""""""""""""""""""""""""""""""
