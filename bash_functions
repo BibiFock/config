@@ -1,3 +1,11 @@
+# FUNCTIONS_DEFINITION
+COLOR_RESET="\\033[0m"
+COLOR_YELLOW="\\033[33m"
+COLOR_GREEN="\\033[32m"
+COLOR_RED="\\033[31m"
+COLOR_MAGENTA="\\033[35m"
+COLOR_BOLD="\\e[1m"
+
 function findit {
     find . -iname "*$1*" -print|grep -i "$1"
 }
@@ -8,7 +16,7 @@ function mktouch() {
 
 function Go {
     home=~
-    dir=/dev/
+    dir=/Documents/dev/
     subdir=
     if [ -n "$1" ]; then
         dest=$home$dir$1/
@@ -41,9 +49,9 @@ function Go {
 function _Go() {
     # fill local variable with a list of completions
      if [ $COMP_CWORD -eq 1 ]; then
-         local COMPLETES=$(ls ~/dev/)
+         local COMPLETES=$(ls ~/Documents/dev/)
      elif [ $COMP_CWORD -eq 2 ]; then
-         local COMPLETES=$(ls /home/)
+         local COMPLETES=$(ls /Users/)
      fi
 
     # we put the completions into $COMPREPLY using compgen
@@ -136,3 +144,30 @@ gri() {
 
  git rebase -i $commit~1
 }
+
+function ywkVal() {
+    for i in $@
+    do
+        echo -e "$COLOR_YELLOW----------------------------------- [$i]$COLOR_RESET"
+        ywk $i validate
+        [ $? -ne 0 ] && echo -e "$COLOR_RED\n----------------------------------- [$i]$COLOR_RESET" && break
+    done
+}
+
+function _Ywk() {
+    # fill local variable with a list of completions
+    local COMPLETES=$(yarn -s workspaces info|jq 'keys[]'|sed -e 's/"//g')
+
+    # we put the completions into $COMPREPLY using compgen
+    COMPREPLY=( $(compgen -W "$COMPLETES" -- ${COMP_WORDS[COMP_CWORD]}) )
+    return 0
+}
+
+if [ -n "$BASH_VERSION" ]; then
+    complete -F _Ywk ywk
+
+    complete -F _Ywk yarn workspace
+
+    complete -F _Ywk ywkVal
+fi
+

@@ -4,15 +4,18 @@ alias grepr='grep -Rin --exclude-dir={library,_cache,nodejs,node_modules,build,v
 alias findit='find . -not -path "./node_modules/*" -iname '
 
 #bash
-if [ -n "$BASH_VERSION" ]; then
+#if [ -n "$BASH_VERSION" ]; then
     alias bash='. ~/.bashrc'
-else
-    alias bash='. ~/.zshrc'
-fi
+#else
+    #alias bash='. ~/.zshrc'
+#fi
 
 # docker
 alias dockUp='docker-compose up -d'
 alias dockDown='docker-compose down'
+
+# yarn
+alias ywk="yarn workspace "
 
 # laravel
 alias art='php artisan '

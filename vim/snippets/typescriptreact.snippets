@@ -30,18 +30,11 @@ snippet t_test
 	  });
 	});
 snippet t_comp
-	import React, { FC } from 'react';
+	import { ReactElement } from 'react';
 
-	export type $1Props = {
-	  className?: string;
-	  ${2}
-	};
-
-	const ${1:Component}:FC<$1Props> = ({ className }) => (
-		<div className={className} />
+	export const ${1:Component} = (${2}): ReactElement => (
+		<div />
 	);
-
-	export default $1;
 snippet t_sto
 	import React from 'react';
 	import { Story } from '@storybook/react';
@@ -82,3 +75,5 @@ snippet badge-rest
 	    }
 	  }
 	}
+snippet @kym
+	import { ${2} } from '@kymdom/${1:models}';

@@ -85,6 +85,7 @@ if [ -x /usr/bin/dircolors ]; then
 fi
 
 # some more ls aliases
+alias ls='ls -G'
 alias ll='ls -alFh'
 alias la='ls -A'
 alias l='ls -CF'
@@ -126,9 +127,11 @@ fi
 #history shared between all term
 export PROMPT_COMMAND='history -a'
 
-export PATH="/home/$USER/bin:/home/$USER/config/npm/node_modules/.bin:/home/$USER/.local/bin:$PATH"
+export PATH="/home/$USER/bin:/Users/$USER/config/npm/node_modules/.bin:/Users/$USER/.local/bin:$PATH"
 
 
 [ -f ~/.fzf.bash ] && source ~/.fzf.bash
 
 export FZF_DEFAULT_COMMAND='rg --files --hidden --follow --glob "!.git/*"'
+
+export EDITOR=vim

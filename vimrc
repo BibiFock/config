@@ -64,29 +64,29 @@ Bundle 'gregsexton/gitv'
 "Fast inner selector
 Bundle 'gcmt/wildfire.vim'
 
-Bundle 'scrooloose/syntastic'
-let g:syntastic_check_on_open=1
-let g:syntastic_enable_signs=1
-let g:syntastic_auto_jump = 1
-let g:syntastic_loc_list_height = 5
-" Better :sign interface symbols
-let g:syntastic_error_symbol = '✗'
-let g:syntastic_warning_symbol = '!'
-" PHP
-" let g:syntastic_php_checkers = ['php', 'phpcs', 'phpmd']
-let g:syntastic_php_checkers = ['php', 'phpcs']
-let g:syntastic_php_phpcs_args='--standard=PSR2 -n'
-" Javascript
-let g:syntastic_javascript_checkers=['eslint']
-let g:syntastic_javascript_tsc_exe = '$(npm bin)/eslint'
-let g:syntastic_javascript_eslint_exe = '$(npm bin)/eslint'
-let g:syntastic_javascriptreact_checkers=['eslint', 'css/stylelint']
-" other files mapping
-let g:syntastic_filetype_map = { 'svelte': 'javascript', 'typescriptreact': 'typescript' }
-let g:syntastic_debug=0
-let g:syntastic_go_checkers = [ 'go' ]
-" aggregate all linters errors
-let g:syntastic_aggregate_errors = 1
+"Bundle 'scrooloose/syntastic'
+"let g:syntastic_check_on_open=1
+"let g:syntastic_enable_signs=1
+"let g:syntastic_auto_jump = 1
+"let g:syntastic_loc_list_height = 5
+"" Better :sign interface symbols
+"let g:syntastic_error_symbol = '✗'
+"let g:syntastic_warning_symbol = '!'
+"" PHP
+"" let g:syntastic_php_checkers = ['php', 'phpcs', 'phpmd']
+"let g:syntastic_php_checkers = ['php', 'phpcs']
+"let g:syntastic_php_phpcs_args='--standard=PSR2 -n'
+"" Javascript
+"let g:syntastic_javascript_checkers=['eslint']
+"let g:syntastic_javascript_tsc_exe = '$(yarn bin)/eslint'
+"let g:syntastic_javascript_eslint_exe = '$(yarn bin)/eslint'
+"let g:syntastic_javascriptreact_checkers=['eslint', 'css/stylelint']
+"" other files mapping
+"let g:syntastic_filetype_map = { 'svelte': 'javascript', 'typescriptreact': 'typescript' }
+"let g:syntastic_debug=0
+"let g:syntastic_go_checkers = [ 'go' ]
+"" aggregate all linters errors
+"let g:syntastic_aggregate_errors = 1
 
 "javascript
 Bundle 'othree/javascript-libraries-syntax.vim'
@@ -151,11 +151,13 @@ Bundle 'jparise/vim-graphql'
 Bundle 'mxw/vim-jsx'
 let g:jsx_ext_required = 0 " Allow JSX in normal JS files
 
-Bundle 'Quramy/tsuquyomi'
-let g:tsuquyomi_completion_detail = 1
-let g:tsuquyomi_disable_quickfix = 1
-let g:syntastic_typescript_checkers = ['tsuquyomi', 'eslint'] " You shouldn't use 'tsc' checker.
-let g:syntastic_typescript_eslint_exe = '$(npm bin)/eslint'
+"Bundle 'Quramy/tsuquyomi'
+"let g:tsuquyomi_completion_detail = 1
+"let g:tsuquyomi_disable_quickfix = 1
+"autocmd InsertLeave,BufWritePost *.ts,*.tsx call tsuquyomi#asyncGeterr()
+""let g:syntastic_typescript_checkers = ['tsuquyomi', 'eslint'] " You shouldn't use 'tsc' checker.
+"let g:syntastic_typescript_checkers = ['eslint'] " You shouldn't use 'tsc' checker.
+"let g:syntastic_typescript_eslint_exe = '$(yarn bin)/eslint --parser-options=project:$(yarn bin)/../../tsconfig.json --rule "import/no-unused-modules: off"'
 
 " vim resizer
 Bundle 'simeji/winresizer'
@@ -163,6 +165,7 @@ let g:winresizer_start_key = '<leader>r'
 
 " fzf
 set rtp+=~/config/fzf
+Bundle 'junegunn/fzf'
 Bundle 'junegunn/fzf.vim'
 let g:fzf_commits_log_options = '--color=always --format="%C(green)%cd %C(red bold)%an%Creset %C(yellow)%h %C(white)%s %C(auto)%d" --graph --date-order --date=relative'
 
@@ -191,6 +194,10 @@ endfunction
 """"""""""""""""""""""""""""""""""""""""""""""
 Bundle 'fatih/vim-go'
 
+Bundle 'prettier/vim-prettier'
+"autocmd InsertLeave *.js,*.jsx,*.mjs,*.ts,*.tsx,*.css,*.less,*.scss,*.json,*.graphql,*.md,*.vue,*.svelte,*.yaml,*.html PrettierAsync
+autocmd BufWritePre *.tsx,*.ts Prettier
+
 Bundle 'plasticboy/vim-markdown'
 let g:vim_markdown_folding_disabled = 1
 
@@ -202,9 +209,23 @@ let g:vim_svelte_plugin_use_typescript = 1
 
 "Bundle 'jason0x43/vim-js-indent'
 Bundle 'sheerun/vim-polyglot'
+
+" try for async test
+Bundle 'dense-analysis/ale'
+let g:ale_fixers = { 'typescriptreact': ['prettier', 'eslint'] }
+let g:ale_echo_msg_format='%linter% %severity% (%code%): %s'
+let g:ale_loclist_msg_format='%linter% %severity% (%code%): %s'
+let g:ale_loclist_format='%linter% %severity% (%code%): %s'
+let g:ale_lint_on_text_changed = 'never'
+let g:ale_open_list = 0
+let g:ale_set_loclist = 0
+let g:ale_set_quickfix = 0
+
 """"""""""""""""""""""""""""""""""""""""""""""
 " _EDITOR
 """"""""""""""""""""""""""""""""""""""""""""""
+" for macos
+set mouse=a
 set nocp  " sets vi compatible mode : (nocp|cp)
 set wrap  " long lines wrap : (nowrap|wrap)
 set nu    " line numbering : (nu\nonu)
@@ -349,7 +370,7 @@ function! SnippetsUpdate(snip_dir)
 endfunction
 
 function! GoTo(site, ...)
-    let str = $HOME.'/dev/'.a:site.'/'
+    let str = $HOME.'/Documents/dev/'.a:site.'/'
     if !isdirectory(str)
         echoerr 'Directory not found: "'.str.'"'
         return
@@ -363,7 +384,7 @@ function! GoTo(site, ...)
 endfunction
 
 fun! GoToComplete(A,L,P)
-    let path = expand('~/dev/')
+    let path = expand('~/Documents/dev/')
     return split(substitute(globpath(path, a:A."*"), path, "", "g"), "\n")
 endfun
 
@@ -521,3 +542,6 @@ nmap <leader>e :lnext<Cr>
 
 " typescript command
 autocmd FileType typescript* nmap <buffer> <Leader>q : <C-u>echo tsuquyomi#hint()<CR>
+
+" try fix macos bug
+set re=0

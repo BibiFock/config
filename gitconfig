@@ -1,6 +1,6 @@
 [user]
-	name = bibifock
-	email = bbr.bourin.avec.mention@gmail.com
+	name = Julien Bernardo
+	email = julien.bernardo@kymono.co
 
 [color]
     ui = auto
@@ -58,7 +58,8 @@
     amend = commit --amend -m 
     pop = stash pop
     ; wip = !"git commit -m \"$(echo \"--WIP-- \"$(curl -s http://whatthecommit.com/index.txt))\";"
-    wip = !"git commit -m \"$(echo \"--WIP-- \"$(fortune ~/config/fortune/quotes))\";"
+    ; wip = !"git commit -m \"$(echo \"test(wip): --WIP-- \"$(fortune ~/config/fortune/quotes))\";"
+    wip= !"git commit -m \"$(echo \"test(wip): \"$(fortune ~/config/fortune/quotes | cut -b1-50| tr '[:upper:]' '[:lower:]'))\";"
     #nb ci diff avec le master
     nbci = !"git rev-list --left-right --count ${1-master}..."
     #extra cmd
