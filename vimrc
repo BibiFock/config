@@ -195,7 +195,7 @@ endfunction
 Bundle 'fatih/vim-go'
 
 Bundle 'prettier/vim-prettier'
-"autocmd InsertLeave *.js,*.jsx,*.mjs,*.ts,*.tsx,*.css,*.less,*.scss,*.json,*.graphql,*.md,*.vue,*.svelte,*.yaml,*.html PrettierAsync
+""autocmd InsertLeave *.js,*.jsx,*.mjs,*.ts,*.tsx,*.css,*.less,*.scss,*.json,*.graphql,*.md,*.vue,*.svelte,*.yaml,*.html PrettierAsync
 autocmd BufWritePre *.tsx,*.ts Prettier
 
 Bundle 'plasticboy/vim-markdown'
@@ -541,7 +541,10 @@ nmap <leader>fo :r !fortune ~/config/fortune/quotes<Cr>
 nmap <leader>e :lnext<Cr>
 
 " typescript command
-autocmd FileType typescript* nmap <buffer> <Leader>q : <C-u>echo tsuquyomi#hint()<CR>
+autocmd FileType typescript* nmap <buffer> <Leader>a :ALEGoToDefinition<CR>
+autocmd FileType typescript* nmap <buffer> <Leader>as :ALEGoToDefinition -split<CR>
+autocmd FileType typescript* nmap <buffer> <Leader>aa :ALEGoToDefinition -vsplit<CR>
+autocmd FileType typescript* nmap <buffer> <Leader>at :ALEGoToDefinition -tab<CR>
 
 " try fix macos bug
 set re=0

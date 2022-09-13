@@ -59,10 +59,12 @@ snippet classnames
 snippet ts-ignore
 	// eslint-disable-next-line @typescript-eslint/ban-ts-comment
 	// @ts-ignore: Unreachable code error
+snippet es-dis
+	// eslint-disable-next-line $1
 snippet React.ForwardRef
 	React.ForwardRefRenderFunction<${1:HTMLInputElement, ${2:Comp}Props>
 snippet lodash
-	import ${1:get} from 'lodash/$1';
+	import { ${1:get} } from 'lodash';
 snippet i18
 	import { useTranslation } from 'react-i18next';
 snippet useTranslation
@@ -77,3 +79,7 @@ snippet badge-rest
 	}
 snippet @kym
 	import { ${2} } from '@kymdom/${1:models}';
+snippet t_schem
+	export const ${1:Object}Schema = ${2:z.};
+
+	export type $1 = z.infer<typeof $1Schema>;

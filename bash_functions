@@ -69,10 +69,12 @@ function DlYtList {
     mkdir -p ./$2/
     cd ./$2/
 
-    youtube-dl -x --audio-format "mp3" --add-metadata --restrict-filenames \
-        -o "%(playlist_index)s_%(artist)s-%(title)s.%(ext)s" $1
+    START=${4:-1}
 
-    count=1
+    youtube-dl -x --audio-format "mp3" --add-metadata --restrict-filenames \
+        -o "%(playlist_index)s_%(artist)s-%(title)s.%(ext)s" $1 --playlist-start $START
+
+    count=$START
     for file in $(ls)
     do
         tmpFile=$(basename -s mp3 $file).tmp.mp3
@@ -92,7 +94,7 @@ function DlRendevList {
 
     cd $finalPath
 
-    DlYtList $1 $2 "rendev-uke"
+    DlYtList $1 $2 "rendev-uke" $3
 
     cd $cPath
 }

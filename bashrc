@@ -127,7 +127,7 @@ fi
 #history shared between all term
 export PROMPT_COMMAND='history -a'
 
-export PATH="/home/$USER/bin:/Users/$USER/config/npm/node_modules/.bin:/Users/$USER/.local/bin:$PATH"
+export PATH="/Users/$USER/bin:/Users/$USER/config/npm/node_modules/.bin:/Users/$USER/.local/bin:$PATH"
 
 
 [ -f ~/.fzf.bash ] && source ~/.fzf.bash
