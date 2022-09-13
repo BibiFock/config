@@ -1,0 +1,22 @@
+#!/usr/bin/env bash
+
+RED="\\033[31m"
+BOLD="\\e[1m"
+RESET="\\033[0m"
+GREEN="\\033[32m"
+
+function isOk {
+    [ $? -ne 0 ] && echo -e "$RED$1\n\n==> FAILED$RESET" && exit
+}
+
+PGCLI=${KYMDOM_PGCLI:=psql}
+NINJA_PWD=$KYMDOM_NINJA_PWD
+
+BRANCH_NAME=$1
+BRANCHE_SOURCE=${2:-"master"}
+
+echo Creating git branch from [$BRANCHE_SOURCE]
+
+git fetch origin
+git checkout origin/$BRANCHE_SOURCE
+git checkout -b $BRANCH_NAME

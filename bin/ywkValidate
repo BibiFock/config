@@ -1,0 +1,46 @@
+#!/bin/bash
+
+# FUNCTIONS_DEFINITION
+COLOR_RESET="\\033[0m"
+COLOR_YELLOW="\\033[33m"
+COLOR_GREEN="\\033[32m"
+COLOR_RED="\\033[31m"
+COLOR_MAGENTA="\\033[35m"
+COLOR_BOLD="\\e[1m"
+
+packagesDir=$(git show --name-only --oneline \
+	| tail -n +2 \
+	| sed 's/packages\/\([^\/]*\)\/.*$/\1/g' \
+	| sort | uniq)
+
+packages=$(yarn -s workspaces info|jq 'keys[]'|sed -e 's/"//g')
+
+for value in $packagesDir
+do
+	package=$([[ ${packages[*]} =~ "@kymdom/${value}" ]] && echo "@kymdom/${value}" || echo $value)
+	echo -e "$COLOR_YELLOW----------------------------------- [$package]$COLOR_RESET"
+	yarn workspace $package validate
+	[ $? -ne 0 ] && echo -e "$COLOR_RED\n----------------------------------- [$package]$COLOR_RESET" && break
+	impacted="$impacted $package"
+done;
+
+echo "=============================="
+echo
+echo "## Issues"
+commits=$(git log origin/master..HEAD --pretty=format:'%s' | grep -Eo "(#[0-9]+)"| uniq | sort | tr "\n" " ");
+for value in $commits
+do
+	echo " - fix $value"
+done
+
+echo
+echo "## Impacted packages"
+
+for value in $impacted
+do
+	echo " - \`${value}\`"
+done;
+echo
+echo "=============================="
+
+echo

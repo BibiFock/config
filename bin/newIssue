@@ -1,0 +1,36 @@
+#!/usr/bin/env bash
+
+RED="\\033[31m"
+BOLD="\\e[1m"
+RESET="\\033[0m"
+GREEN="\\033[32m"
+
+function isOk {
+    [ $? -ne 0 ] && echo -e "$RED$1\n\n==> FAILED$RESET" && exit
+}
+
+PGCLI=${KYMDOM_PGCLI:=psql}
+NINJA_PWD=$KYMDOM_NINJA_PWD
+
+BRANCH_NAME=$1
+BRANCHE_SOURCE=${2:-"master"}
+
+echo
+check-branch-name $BRANCH_NAME
+isOk "invalid branch name"
+
+echo -e "$GREEN==> valid branch name$RESET"
+echo
+
+echo -e $RED$BOLD
+echo "WARNING: you are about to create the $BRANCH_NAME database and branch!"
+echo -e $RESET
+
+
+newDb $1 $2
+isOk "Database creation"
+
+newBranch $1 "origin/$2"
+isOk "Branch creation"
+
+
