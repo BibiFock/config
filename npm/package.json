@@ -30,7 +30,7 @@
     "markdown-cli": "^1.6.0",
     "n": "^6.5.1",
     "nb.sh": "^6.7.4",
-    "pm2": "^4.5.0",
+    "pm2": "^5.2.0",
     "sharp-cli": "^1.15.0",
     "stylelint": "13.5.0",
     "stylelint-config-standard": "20.0.0",
