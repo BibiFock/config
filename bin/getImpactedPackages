@@ -1,0 +1,7 @@
+#!/bin/bash
+
+git diff --name-only --oneline origin/master \
+	| egrep "^packages/" \
+	| sed 's/packages\/\([^\/]*\)\/.*$/\1/g' \
+	| sort \
+	| uniq

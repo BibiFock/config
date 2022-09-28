@@ -27,10 +27,10 @@ echo "WARNING: you are about to create the $BRANCH_NAME database and branch!"
 echo -e $RESET
 
 
-newDb $1 $2
+newDb $BRANCH_NAME $BRANCHE_SOURCE
 isOk "Database creation"
 
-newBranch $1 "origin/$2"
+newBranch $BRANCH_NAME $BRANCHE_SOURCE
 isOk "Branch creation"
 
 

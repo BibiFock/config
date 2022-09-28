@@ -156,6 +156,16 @@ function ywkVal() {
     done
 }
 
+function ywkLintAll() {
+    for i in $(yarn -s workspaces info|jq 'keys[]'|sed -e 's/"//g')
+    do
+        echo -e "$COLOR_YELLOW----------------------------------- [$i]$COLOR_RESET"
+        ywk $i lint
+        [ $? -ne 0 ] && echo -e "$COLOR_RED\n----------------------------------- [$i]$COLOR_RESET" && break
+    done
+}
+
+
 function _Ywk() {
     # fill local variable with a list of completions
     local COMPLETES=$(yarn -s workspaces info|jq 'keys[]'|sed -e 's/"//g')
