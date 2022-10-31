@@ -1,0 +1,37 @@
+#!/bin/bash
+
+COLOR_RESET="\\033[0m"
+COLOR_YELLOW="\\033[33m"
+COLOR_GREEN="\\033[32m"
+COLOR_RED="\\033[31m"
+COLOR_MAGENTA="\\033[35m"
+COLOR_BOLD="\\e[1m"
+
+BRANCHE_SOURCE=${1:-"master"}
+
+git fetch
+
+isUpToDate=$(git merge-base --is-ancestor $(git log -1 --pretty="format:%h" origin/master) HEAD && echo "1")
+
+if [ "$isUpToDate" ]; then
+	echo
+	echo -e "$COLOR_GREEN \xE2\x9C\x94 current branch up to date with $COLOR_GREEN\"$BRANCHE_SOURCE\"$COLOR_RESET"
+	echo
+	exit;
+fi
+
+echo
+echo -e "\xE2\x9D\x8C${COLOR_RED} current branch not up to date with $COLOR_YELLOW\"$BRANCHE_SOURCE\""
+echo
+
+while true; do
+	read -p "Do you want to continue? " yn
+	case $yn in
+		[Yy]* ) break;;
+		[Nn]* ) exit 0;;
+		* ) echo "Please answer yes or no.";;
+	esac
+done
+
+
+echo -e $RESET

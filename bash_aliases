@@ -15,7 +15,7 @@ alias dockUp='docker-compose up -d'
 alias dockDown='docker-compose down'
 
 # yarn
-alias ywk="yarn workspace "
+alias ywk="C'est pas faux... Et sinon \"npm\" t'as entendu parler?"
 
 # laravel
 alias art='php artisan '

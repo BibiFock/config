@@ -1,0 +1,30 @@
+#!/bin/bash
+
+# FUNCTIONS_DEFINITION
+COLOR_RESET="\\033[0m"
+COLOR_YELLOW="\\033[33m"
+COLOR_GREEN="\\033[32m"
+COLOR_RED="\\033[31m"
+COLOR_MAGENTA="\\033[35m"
+COLOR_BOLD="\\e[1m"
+
+BRANCHE_SOURCE=${1:-"master"}
+
+
+prIsUpToDate $BRANCHE_SOURCE
+[ $? -ne 0 ] && echo -e " Bye bye " && exit;
+
+packagesDir=$(getImpactedPackages $BRANCHE_SOURCE)
+
+packages=$(getNPMWorkspaces)
+
+for value in $packagesDir
+do
+	package=$([[ ${packages[*]} =~ "@kymdom/${value}"( |$) ]] && echo "@kymdom/${value}" || echo $value)
+	echo -e "$COLOR_YELLOW----------------------------------- [$package]$COLOR_RESET"
+	npm -w $package run validate
+	[ $? -ne 0 ] && echo -e "$COLOR_RED\n----------------------------------- [$package]$COLOR_RESET" && exit
+	impacted="$impacted $package"
+done;
+
+prCreate $BRANCHE_SOURCE

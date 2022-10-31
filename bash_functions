@@ -147,20 +147,24 @@ gri() {
  git rebase -i $commit~1
 }
 
-function ywkVal() {
+function nwk() {
+  npm -w $1 run "${@:2}"
+}
+
+function nwkVal() {
     for i in $@
     do
         echo -e "$COLOR_YELLOW----------------------------------- [$i]$COLOR_RESET"
-        ywk $i validate
+        nwk $i validate
         [ $? -ne 0 ] && echo -e "$COLOR_RED\n----------------------------------- [$i]$COLOR_RESET" && break
     done
 }
 
-function ywkLintAll() {
+function nwkLintAll() {
     for i in $(yarn -s workspaces info|jq 'keys[]'|sed -e 's/"//g')
     do
         echo -e "$COLOR_YELLOW----------------------------------- [$i]$COLOR_RESET"
-        ywk $i lint
+        nwk $i lint
         [ $? -ne 0 ] && echo -e "$COLOR_RED\n----------------------------------- [$i]$COLOR_RESET" && break
     done
 }
@@ -176,10 +180,9 @@ function _Ywk() {
 }
 
 if [ -n "$BASH_VERSION" ]; then
-    complete -F _Ywk ywk
+    complete -F _Ywk nwk
 
-    complete -F _Ywk yarn workspace
+    complete -F _Ywk npm -w
 
-    complete -F _Ywk ywkVal
+    complete -F _Ywk nwkVal
 fi
-

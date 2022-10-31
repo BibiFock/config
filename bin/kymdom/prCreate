@@ -1,0 +1,19 @@
+#!/bin/bash
+
+BRANCHE_SOURCE=${1:-"master"}
+
+prIsUpToDate $BRANCHE_SOURCE
+[ $? -ne 0 ] && echo -e " Bye bye " && exit;
+
+PR_BODY=$(prDescGen $BRANCHE_SOURCE);
+echo "=============================="
+echo
+echo "$PR_BODY"
+echo
+echo "=============================="
+echo
+echo   $(git diff --name-only origin/$BRANCHE_SOURCE | wc -l) files changed
+echo
+echo "https://github.com/kymono/kymdom/compare/$(git branch --show-current)?expand=1&body=$(echo "$PR_BODY"|jq -sRr '@uri')"
+
+echo

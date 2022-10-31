@@ -1,0 +1,3 @@
+#!/bin/bash
+
+yarn -s workspaces info|jq 'keys[]'|sed -e 's/"//g'
