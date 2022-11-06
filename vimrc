@@ -212,7 +212,19 @@ Bundle 'sheerun/vim-polyglot'
 
 " try for async test
 Bundle 'dense-analysis/ale'
+  " Use the global executable with a special name for eslint.
+"let g:ale_typescriptreact_eslint_executable = 'eslint-nwk'
+"let g:ale_typescriptreact_eslint_use_global = 1
+"let g:ale_typescriptreact_eslint_options = '%s'
+call ale#linter#Define('typescript', {
+\   'name': 'eslint-nwk',
+\   'executable': '/Users/bbr/config/bin/kymdom/eslint-nwk',
+\   'cwd': function('ale#handlers#eslint#GetCwd'),
+\   'command': 'eslint-nwk %s',
+\   'callback': 'ale#handlers#eslint#HandleJSON',
+\})
 let g:ale_fixers = { 'typescriptreact': ['prettier', 'eslint'] }
+let g:ale_linters_ignore = { 'typescriptreact': ['eslint'] }
 let g:ale_echo_msg_format='%linter% %severity% (%code%): %s'
 let g:ale_loclist_msg_format='%linter% %severity% (%code%): %s'
 let g:ale_loclist_format='%linter% %severity% (%code%): %s'

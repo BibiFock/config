@@ -147,8 +147,12 @@ gri() {
  git rebase -i $commit~1
 }
 
-function nwk() {
-  npm -w $1 run "${@:2}"
+function nwk {
+  #packages=$(yarn -s workspaces info|jq 'keys[]'|sed -e 's/"//g')
+  #packages=$(ls ./packages)
+  #package=$([[ ${packages[*]} =~ "@kymdom/${1}"( |$) ]] && echo "@kymdom/${1}" || echo $value)
+
+  npm -w "@kymdom/${1}" run "${@:2}"
 }
 
 function nwkVal() {
@@ -169,6 +173,12 @@ function nwkLintAll() {
     done
 }
 
+function _Nwk {
+  local COMPLETES=$(ls $(npm root)/../packages/)
+
+  COMPREPLY=( $(compgen -W "$COMPLETES" -- ${COMP_WORDS[COMP_CWORD]}) )
+  return 0
+}
 
 function _Ywk() {
     # fill local variable with a list of completions
@@ -180,9 +190,9 @@ function _Ywk() {
 }
 
 if [ -n "$BASH_VERSION" ]; then
-    complete -F _Ywk nwk
+    complete -F _Nwk nwk
 
     complete -F _Ywk npm -w
 
-    complete -F _Ywk nwkVal
+    complete -F _Nwk nwkVal
 fi
