@@ -6,6 +6,30 @@ prIsUpToDate $BRANCHE_SOURCE
 [ $? -ne 0 ] && echo -e " Bye bye " && exit;
 
 PR_BODY=$(prDescGen $BRANCHE_SOURCE);
+
+commits=$(git log origin/$BRANCHE_SOURCE..HEAD --pretty=format:'%s')
+nbCommits=$(echo "$commits" | wc -l)
+
+if [ "$nbCommits" -gt "1" ]
+then
+    GIT_FZF_LOG_OPTS="
+    $GIT_FZF_DEFAULT_OPTS
+    --no-sort
+    --reverse
+    --tiebreak=index
+    --preview-window=\"down:30%\"
+    --preview=\"echo {2}|xargs git show --stat --color=always\"
+    "
+
+    echo -e $COLOR_YELLOW
+    read -p "Ready to choose the title ? " -n 1 -r
+    echo -e $RESET   # (optional) move to a new line
+    if [[ $REPLY =~ ^[Yy]$ ]]; then
+        message=$(echo "$commits"| FZF_DEFAULT_OPTS="$GIT_FZF_LOG_OPTS" fzf)
+    fi
+
+fi
+
 echo "=============================="
 echo
 echo "$PR_BODY"
@@ -14,6 +38,6 @@ echo "=============================="
 echo
 echo   $(git diff --name-only origin/$BRANCHE_SOURCE | wc -l) files changed
 echo
-echo "https://github.com/kymono/kymdom/compare/$(git branch --show-current)?expand=1&body=$(echo "$PR_BODY"|jq -sRr '@uri')"
+echo "https://github.com/kymono/kymdom/compare/$(git branch --show-current)?expand=1&body=$(echo "$PR_BODY"|jq -sRr '@uri')&title=$(echo "$message"|jq -sRr '@uri')"
 
 echo

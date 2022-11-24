@@ -8,6 +8,22 @@ COLOR_RED="\\033[31m"
 COLOR_MAGENTA="\\033[35m"
 COLOR_BOLD="\\e[1m"
 
+function confirmation {
+    echo -e $COLOR_YELLOW
+    read -p "${1:-Do It?} " -n 1 -r
+    echo -e $COLOR_RESET   # (optional) move to a new line
+    if ! [[ $REPLY =~ ^[Yy]$ ]]; then
+        echo -e "\n"
+        if type "fortune" &> /dev/null; then
+            echo -e $COLOR_MAGENTA"$(fortune ~/config/fortune/quotes)" $COLOR_RESET
+        else
+            echo -e $COLOR_MAGENTA"See you next time!!"$COLOR_RESET
+        fi
+        echo -e "\n"
+        exit
+    fi
+}
+
 BRANCHE_SOURCE=${1:-"master"}
 packagesDir=$(getImpactedPackages $BRANCHE_SOURCE)
 
@@ -19,11 +35,13 @@ do
 	impacted="$impacted $package"
 done;
 
+commits=$(git log origin/$BRANCHE_SOURCE..HEAD --pretty=format:'%s')
+
 echo "## Issues"
-commits=$(git log origin/$BRANCHE_SOURCE..HEAD --pretty=format:'%s' | grep -Eo "(#[0-9]+)"| uniq | sort | tr "\n" " ");
-for value in $commits
+issues=$(echo $commits | grep -Eo "(#[0-9]+)"| sort | uniq | tr "\n" " ");
+for issue in $issues
 do
-	echo " - fix $value"
+	echo " - fix $issue"
 done
 
 echo

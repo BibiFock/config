@@ -3,8 +3,4 @@
 
 BRANCHE_SOURCE=${1:-"master"}
 
-git diff --name-only --oneline origin/$BRANCHE_SOURCE \
-	| egrep "^packages/" \
-	| sed 's/packages\/\([^\/]*\)\/.*$/\1/g' \
-	| sort \
-	| uniq
+git diff --name-only --oneline origin/$BRANCHE_SOURCE | extractPackages

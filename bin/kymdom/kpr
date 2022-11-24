@@ -1,0 +1,19 @@
+#!/bin/bash
+
+PR_HEADER=''
+
+
+if [ $# -eq 0 ]; then
+    gh pr list --author "@me" -s open \
+        --json url,title,updatedAt,number,headRefName,reviewDecision,mergeStateStatus \
+        --template '{{range .}}{{tablerow (hyperlink .url (printf "#%v" .number | autocolor "yellow")) .headRefName .reviewDecision .mergeStateStatus}}{{end}}'
+    exit
+fi
+
+gh pr view $1 --json number,title,reviews,assignees,headRefName,reviewDecision,updatedAt,mergeStateStatus,mergeable \
+    --template '{{(timeago .updatedAt | autocolor "green")}} {{(printf "#%v" .number | autocolor "yellow")}} {{.title}}
+
+{{.headRefName}} {{.reviewDecision}} {{.mergeStateStatus}} {{.mergeable}}
+
+{{tablerow "REVIEWER" "STATE" "COMMENT" "SUBMITTED"}}{{range .reviews}}{{tablerow .author.login .state .body (timeago .submittedAt)}}{{end}}
+'

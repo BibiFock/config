@@ -9,6 +9,22 @@ COLOR_BOLD="\\e[1m"
 
 BRANCHE_SOURCE=${1:-"master"}
 
+function confirmation {
+    echo -e $COLOR_YELLOW
+    read -p "${1:-Do It?} " -n 1 -r
+    echo -e $COLOR_RESET   # (optional) move to a new line
+    if ! [[ $REPLY =~ ^[Yy]$ ]]; then
+        echo -e "\n"
+        if type "fortune" &> /dev/null; then
+            echo -e $COLOR_MAGENTA"$(fortune ~/config/fortune/quotes)" $COLOR_RESET
+        else
+            echo -e $COLOR_MAGENTA"See you next time!!"$COLOR_RESET
+        fi
+        echo -e "\n"
+        exit 1
+    fi
+}
+
 git fetch
 
 isUpToDate=$(git merge-base --is-ancestor $(git log -1 --pretty="format:%h" origin/master) HEAD && echo "1")
@@ -24,14 +40,6 @@ echo
 echo -e "\xE2\x9D\x8C${COLOR_RED} current branch not up to date with $COLOR_YELLOW\"$BRANCHE_SOURCE\""
 echo
 
-while true; do
-	read -p "Do you want to continue? " yn
-	case $yn in
-		[Yy]* ) break;;
-		[Nn]* ) exit 0;;
-		* ) echo "Please answer yes or no.";;
-	esac
-done
+confirmation "Do you want to continue ?"
 
-
-echo -e $RESET
+echo -e $COLOR_RESET

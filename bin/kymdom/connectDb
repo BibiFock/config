@@ -1,0 +1,15 @@
+#!/usr/bin/env bash
+
+PGCLI=pgcli
+NINJA_PWD=$KYMDOM_NINJA_PWD
+
+BRANCH_NAME=$(git rev-parse --abbrev-ref HEAD | sed -e 's,.*/\(.*\),\1,' | sed s/\\./-/g | sed s/_/-/g)
+
+DOCKER_PID=$(docker run -d -v $(pwd)/infra/gcp/cloud-sql-sa.json:/config -p 127.0.0.1:5432:5432 gcr.io/cloudsql-docker/gce-proxy:1.33.0-alpine /cloud_sql_proxy -instances=kymdom:europe-west1:kymdom=tcp:0.0.0.0:5432 -credential_file=/config)
+
+sleep 2
+
+pgcli postgres://ninja:$NINJA_PWD@127.0.0.1:5432/$BRANCH_NAME
+
+docker stop $DOCKER_PID 1>/dev/null
+docker rm $DOCKER_PID 1>/dev/null

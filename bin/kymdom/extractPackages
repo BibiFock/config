@@ -1,0 +1,6 @@
+#!/bin/bash
+
+cat - | egrep "^packages/" \
+	| sed 's/packages\/\([^\/]*\)\/.*$/\1/g' \
+	| sort \
+	| uniq

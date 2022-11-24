@@ -155,23 +155,31 @@ function nwk {
   npm -w "@kymdom/${1}" run "${@:2}"
 }
 
-function nwkVal() {
-    for i in $@
-    do
-        echo -e "$COLOR_YELLOW----------------------------------- [$i]$COLOR_RESET"
-        nwk $i validate
-        [ $? -ne 0 ] && echo -e "$COLOR_RED\n----------------------------------- [$i]$COLOR_RESET" && break
-    done
-}
+#function eslint-nwk {
+    #package=$(echo $1 | sed 's/packages\/\([^\/]*\)\/.*$/\1/g')
+    ##file=$(echo $1 | sed "s/packages\/${package}\/$//g")
+    ##echo $package $file
 
-function nwkLintAll() {
-    for i in $(yarn -s workspaces info|jq 'keys[]'|sed -e 's/"//g')
-    do
-        echo -e "$COLOR_YELLOW----------------------------------- [$i]$COLOR_RESET"
-        nwk $i lint
-        [ $? -ne 0 ] && echo -e "$COLOR_RED\n----------------------------------- [$i]$COLOR_RESET" && break
-    done
-}
+    #nwk $package run lint
+#}
+
+#function nwkVal() {
+    #for i in $@
+    #do
+        #echo -e "$COLOR_YELLOW----------------------------------- [$i]$COLOR_RESET"
+        #nwk $i validate
+        #[ $? -ne 0 ] && echo -e "$COLOR_RED\n----------------------------------- [$i]$COLOR_RESET" && break
+    #done
+#}
+
+#function nwkLintAll() {
+    #for i in $(yarn -s workspaces info|jq 'keys[]'|sed -e 's/"//g')
+    #do
+        #echo -e "$COLOR_YELLOW----------------------------------- [$i]$COLOR_RESET"
+        #nwk $i lint
+        #[ $? -ne 0 ] && echo -e "$COLOR_RED\n----------------------------------- [$i]$COLOR_RESET" && break
+    #done
+#}
 
 function _Nwk {
   local COMPLETES=$(ls $(npm root)/../packages/)
@@ -194,5 +202,5 @@ if [ -n "$BASH_VERSION" ]; then
 
     complete -F _Ywk npm -w
 
-    complete -F _Nwk nwkVal
+    #complete -F _Nwk nwkVal
 fi
