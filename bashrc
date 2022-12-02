@@ -141,3 +141,7 @@ export PATH="/Users/$USER/bin/kymdom:/Users/$USER/bin:/Users/$USER/config/npm/no
 export FZF_DEFAULT_COMMAND='rg --files --hidden --follow --glob "!.git/*"'
 
 export EDITOR=vim
+
+export PGDATA="/Users/$USER/Documents/dev/pgdata"
+
+eval "$(starship init bash)"

@@ -1,0 +1,36 @@
+format = """
+$all
+"""
+
+scan_timeout = 10
+
+# Disable the blank line at the start of the prompt
+add_newline = true
+
+[username]
+show_always = false
+format = "[$user]($style)::"
+
+[directory]
+style = "cyan"
+
+[git_branch]
+format = "[$branch $symbol(:$remote_branch)]($style)"
+style="bright-purple"
+
+[git_status]
+format='[$conflicted$renamed$modified$staged$deleted$stashed$untracked]($style) '
+style='purple bold'
+ahead = ">${count}"
+behind = "<${count}"
+diverged = "<>"
+staged = '+'
+untracked = '%'
+deleted= '-'
+modified= '*'
+
+[gcloud]
+disabled=true
+
+[nodejs]
+disabled=true
