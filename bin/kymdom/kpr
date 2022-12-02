@@ -1,9 +1,47 @@
 #!/bin/bash
 
+#gh api graphql -H 'Accept: application/vnd.github.merge-info-preview+json' -F owner=kymono -F name=kymdom -f query='
+#{
+  #viewer {
+  #pullRequests(first: 20, orderBy: { direction: DESC, field: UPDATED_AT }) {
+      #nodes {
+        #title
+        #number
+        #url
+        #state
+        #mergeStateStatus
+        #isDraft
+        #updatedAt
+      #}
+    #}
+  #}
+#}' \
+    #--template '
+        #{{- range .data.viewer.pullRequests.nodes -}}
+            #{{- if .isDraft -}}
+                #{{- .number -}}
+            #{{- else -}}
+                #{{- .number | color "cyan" -}}
+            #{{- end -}}
+        #{{- end -}}
+    #'
+
+#exit
+
 if [ $# -eq 0 ]; then
     gh pr list --author "@me" -s open \
-        --json url,title,updatedAt,number,headRefName,reviewDecision,mergeStateStatus,isDraft \
+        --json url,title,updatedAt,number,headRefName,reviewDecision,mergeStateStatus,isDraft,mergedAt \
         --template '{{tablerow "#ID" "BRANCH" "REVIEW" "STATUS" "DRAFT"}}{{range .}}{{tablerow (printf "#%v" .number | autocolor "yellow") .headRefName .reviewDecision .mergeStateStatus .isDraft}}{{end}}'
+
+        # --template '
+
+            #{{- tablerow "#ID" "BRANCH" -}}
+            #{{- range . -}}
+                #{{- tablerow -}}
+                #{{- (printf "#%v" .number | autocolor "yellow") -}}
+                #{{- .headRefName -}}
+            #{{- end -}}
+        #'
     exit
 fi
 

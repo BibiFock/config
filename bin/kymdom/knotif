@@ -1,0 +1,14 @@
+#!/bin/bash
+
+gh api -X GET notifications --cache=300s \
+    --template '
+    {{- range . -}}
+        {{- /* COMMENT: timefmt must use the reference time Mon Jan 2 15:04:05 MST 2006 to format a given time */ -}}
+        {{- printf "%s\t%s\t%s\t" (timefmt "02/Jan 15:04" .updated_at | color "gray+h") .subject.type .subject.title -}}
+        {{- printf "%s%s%s\t" (.repository.owner.login | color "cyan+h") ("/" | color "gray+h") (.repository.name | color "cyan+hb") -}}
+        {{- if .subject.url -}}{{- printf "%s\t" .subject.url -}}{{- end -}}
+        {{- if .unread -}}{{- printf "%s\n" ("●" | color "magenta") -}}
+            {{- /* COMMENT: Empty strings are colorized to keep the columns in line. */ -}}
+            {{- else -}}{{- printf "%s\n" (" " | color "magenta") -}}
+        {{- end -}}
+    {{- end -}}'

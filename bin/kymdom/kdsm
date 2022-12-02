@@ -1,0 +1,27 @@
+#!/bin/bash
+
+gh pr list --state all --search "updated:>$(date -v -2d +"%Y-%m-%d")" --author "@me" \
+    --json url,title,updatedAt,number,headRefName,reviewDecision,state,mergedAt,labels \
+    --template '
+    {{- range . -}}
+        {{- printf "%s\t" (timeago .updatedAt | color "gray+h") -}}
+        {{- if .mergedAt -}}
+            {{-  (printf "#%v" .number | autocolor "gray+h" | hyperlink .url) -}}
+        {{- else -}}
+            {{- if .mergeable -}}
+                {{-  (printf "#%v" .number | autocolor "green" | hyperlink .url) -}}
+            {{- else -}}
+                {{-  (printf "#%v" .number | hyperlink .url) -}}
+            {{- end -}}
+        {{- end -}}
+        {{- printf "\t%s\t%s\t%s\n" .state .title (.labels | pluck "name" | join "," | autocolor "yellow" ) -}}
+    {{- end -}}
+' \
+    $@
+
+#--template '
+    #{{-range .-}}
+        #{{-tablerow (timeago .updatedAt | autocolor "green") (printf "#%v" .number | autocolor "yellow" | hyperlink .url) .title .state-}}
+    #{{-end-}}
+#' \
+

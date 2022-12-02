@@ -25,6 +25,10 @@ function confirmation {
     fi
 }
 
+function isOk {
+    [ $? -ne 0 ] && echo -e "$RED$1\n\n==> FAILED$RESET" && exit 1
+}
+
 git fetch
 
 isUpToDate=$(git merge-base --is-ancestor $(git log -1 --pretty="format:%h" origin/master) HEAD && echo "1")
@@ -41,5 +45,8 @@ echo -e "\xE2\x9D\x8C${COLOR_RED} current branch not up to date with $COLOR_YELL
 echo
 
 confirmation "Do you want to continue ?"
+
+git rebase origin/$BRANCHE_SOURCE
+isOk "rebase"
 
 echo -e $COLOR_RESET
