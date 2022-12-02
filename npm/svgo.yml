@@ -1,0 +1,12 @@
+multipass: true
+
+plugins:
+  - prefixIds: false
+  - removeViewBox: false
+  - removeDimensions: true
+  - removeOffCanvasPaths: true
+  - cleanupListOfValues: true
+
+js2svg:
+  pretty: true
+  indent: '  '
