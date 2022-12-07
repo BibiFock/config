@@ -88,12 +88,13 @@ format = "[$user]($style)::"
 style = "cyan"
 
 [git_branch]
-format = "[$branch $symbol(:$remote_branch)]($style)"
+format = "[$symbol$branch(:$remote_branch)]($style)"
 symbol = ""
 style = "bright-purple"
+#lways_show_remote = true
 
 [git_status]
-format='[( \[$conflicted$renamed$modified$staged$deleted$stashed$untracked\])( $ahead_behind)]($style) '
+format='[(\[$conflicted$renamed$modified$staged$deleted$stashed$untracked\])( $ahead_behind)]($style) '
 style='purple bold'
 ahead = ">${count}"
 behind = "<${count}"
@@ -102,6 +103,9 @@ staged = '+'
 untracked = '%'
 deleted= '-'
 modified= '*'
+up_to_date= "="
+conflicted = "><"
+
 
 [gcloud]
 disabled=true
