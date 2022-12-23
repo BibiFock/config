@@ -223,12 +223,14 @@ call ale#linter#Define('typescript', {
 \   'command': 'eslint-nwk %s',
 \   'callback': 'ale#handlers#eslint#HandleJSON',
 \})
-let g:ale_fixers = { 'typescriptreact': ['prettier', 'eslint'] }
+
+let g:ale_fixers = { 'typescriptreact': ['prettier', 'eslint'], 'svelte': ['prettier', 'eslint'] }
 let g:ale_linters_ignore = { 'typescriptreact': ['eslint'], 'typescript': ['eslint']  }
 let g:ale_echo_msg_format='%linter% %severity% (%code%): %s'
 let g:ale_loclist_msg_format='%linter% %severity% (%code%): %s'
 let g:ale_loclist_format='%linter% %severity% (%code%): %s'
 let g:ale_lint_on_text_changed = 'never'
+let g:ale_fix_on_save = 0
 let g:ale_open_list = 0
 let g:ale_set_loclist = 0
 let g:ale_set_quickfix = 0
@@ -558,6 +560,11 @@ autocmd FileType typescript* nmap <buffer> <Leader>a :ALEGoToDefinition<CR>
 autocmd FileType typescript* nmap <buffer> <Leader>as :ALEGoToDefinition -split<CR>
 autocmd FileType typescript* nmap <buffer> <Leader>aa :ALEGoToDefinition -vsplit<CR>
 autocmd FileType typescript* nmap <buffer> <Leader>at :ALEGoToDefinition -tab<CR>
+
+autocmd FileType svelte nmap <buffer> <Leader>a :ALEGoToDefinition<CR>
+autocmd FileType svelte nmap <buffer> <Leader>as :ALEGoToDefinition -split<CR>
+autocmd FileType svelte nmap <buffer> <Leader>aa :ALEGoToDefinition -vsplit<CR>
+autocmd FileType svelte nmap <buffer> <Leader>at :ALEGoToDefinition -tab<CR>
 
 " try fix macos bug
 set re=0

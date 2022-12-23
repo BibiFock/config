@@ -30,9 +30,11 @@ snippet t_test
 	  });
 	});
 snippet t_comp
-	import { ReactElement } from 'react';
+	type $1Props = {
+		readonly ${2:prop}: string;
+	};
 
-	export const ${1:Component} = (${2}): ReactElement => (
+	export const ${1:Component} = ({ $2 }: $1Props) => (
 		<div />
 	);
 snippet t_sto

@@ -197,10 +197,18 @@ function _Ywk() {
     return 0
 }
 
+function _kci() {
+  # fill local variable with a list of completions
+  if [ $COMP_CWORD -eq 2 ]; then
+    local COMPLETES=$(echo build chore ci docs feat fix perf refactor revert style test)
+  fi
+}
+
 if [ -n "$BASH_VERSION" ]; then
     complete -F _Nwk nwk
 
     complete -F _Ywk npm -w
 
     #complete -F _Nwk nwkVal
+    complete -F _kci kci
 fi
