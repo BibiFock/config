@@ -44,7 +44,7 @@ echo
 echo -e "\xE2\x9D\x8C${COLOR_RED} current branch not up to date with $COLOR_YELLOW\"$BRANCHE_SOURCE\""
 echo
 
-confirmation "Do you want to continue ?"
+confirmation "Do you want to rebase ?"
 
 git rebase origin/$BRANCHE_SOURCE
 isOk "rebase"

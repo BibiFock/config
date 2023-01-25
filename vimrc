@@ -235,6 +235,7 @@ let g:ale_open_list = 0
 let g:ale_set_loclist = 0
 let g:ale_set_quickfix = 0
 let g:ale_completion_enabled = 1
+let g:ale_set_balloons = 1
 
 """"""""""""""""""""""""""""""""""""""""""""""
 " _EDITOR

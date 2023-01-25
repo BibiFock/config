@@ -2,8 +2,8 @@
 
 BRANCHE_SOURCE=${1:-"master"}
 
-prIsUpToDate $BRANCHE_SOURCE
-[ $? -ne 0 ] && echo -e " Bye bye " && exit;
+#prIsUpToDate $BRANCHE_SOURCE
+#[ $? -ne 0 ] && echo -e " Bye bye " && exit;
 
 PR_BODY=$(prDescGen $BRANCHE_SOURCE);
 

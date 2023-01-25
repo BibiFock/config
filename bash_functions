@@ -71,7 +71,7 @@ function DlYtList {
 
     START=${4:-1}
 
-    youtube-dl -x --audio-format "mp3" --add-metadata --restrict-filenames \
+    yt-dlp -x --audio-format "mp3" --add-metadata --restrict-filenames \
         -o "%(playlist_index)s_%(artist)s-%(title)s.%(ext)s" $1 --playlist-start $START
 
     count=$START
