@@ -132,3 +132,5 @@ export PATH="/home/$USER/bin:/home/$USER/config/npm/node_modules/.bin:/home/$USE
 [ -f ~/.fzf.bash ] && source ~/.fzf.bash
 
 export FZF_DEFAULT_COMMAND='rg --files --hidden --follow --glob "!.git/*"'
+
+eval "$(starship init bash)"

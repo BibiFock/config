@@ -1,0 +1,114 @@
+format = """
+$username\
+$hostname\
+$localip\
+$shlvl\
+$singularity\
+$kubernetes\
+$directory\
+$vcsh\
+$git_branch\
+$git_commit\
+$git_state\
+$git_metrics\
+$git_status\
+$hg_branch\
+$docker_context\
+$package\
+$c\
+$cmake\
+$cobol\
+$daml\
+$dart\
+$deno\
+$dotnet\
+$elixir\
+$elm\
+$erlang\
+$golang\
+$haskell\
+$helm\
+$java\
+$julia\
+$kotlin\
+$lua\
+$nim\
+$nodejs\
+$ocaml\
+$perl\
+$php\
+$pulumi\
+$purescript\
+$python\
+$raku\
+$rlang\
+$red\
+$ruby\
+$rust\
+$scala\
+$swift\
+$terraform\
+$vlang\
+$vagrant\
+$zig\
+$buf\
+$nix_shell\
+$conda\
+$meson\
+$spack\
+$memory_usage\
+$aws\
+$gcloud\
+$openstack\
+$azure\
+$env_var\
+$crystal\
+$custom\
+$sudo\
+$cmd_duration\
+$line_break\
+$jobs\
+$battery\
+$time\
+$status\
+$container\
+$shell\
+$character"""
+
+scan_timeout = 10
+
+# Disable the blank line at the start of the prompt
+add_newline = false
+
+[username]
+show_always = false
+format = "[$user]($style)::"
+
+[directory]
+style = "cyan"
+
+[git_branch]
+format = "[$symbol$branch(:$remote_branch)]($style)"
+symbol = ""
+style = "bright-purple"
+#lways_show_remote = true
+
+[git_status]
+format='[(\[$conflicted$renamed$modified$staged$deleted$stashed$untracked\])( $ahead_behind)]($style) '
+style='purple bold'
+ahead = ">${count}"
+behind = "<${count}"
+diverged = "<>"
+staged = '+'
+untracked = '%'
+deleted= '-'
+modified= '*'
+up_to_date= "="
+conflicted = "><"
+
+
+[gcloud]
+disabled=true
+
+[nodejs]
+disabled=true
