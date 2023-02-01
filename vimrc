@@ -538,5 +538,11 @@ nmap <leader>fo :r !fortune ~/config/fortune/quotes<Cr>
 " next error
 nmap <leader>e :lnext<Cr>
 
+" ALE shortcut
+nmap <buffer> <Leader>a :ALEGoToDefinition<CR>
+nmap <buffer> <Leader>as :ALEGoToDefinition -split<CR>
+nmap <buffer> <Leader>aa :ALEGoToDefinition -vsplit<CR>
+nmap <buffer> <Leader>at :ALEGoToDefinition -tab<CR>
+
 " typescript command
 autocmd FileType typescript* nmap <buffer> <Leader>q : <C-u>echo tsuquyomi#hint()<CR>
