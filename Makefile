@@ -112,6 +112,7 @@ create-fortune: ## create my fortune file
 install-starship: ## install starship
 	@$(call say_yellow,"[install starship]")
 	@curl -sS https://starship.rs/install.sh | sh
+	@ln -sf "$(shell pwd)"/starship.toml ~/.config/starship.toml
 
 install-yt-dlp: ## install yt-dlp
 	@$(call say_yellow,"[install yt-dlp]")
