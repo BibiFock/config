@@ -212,7 +212,15 @@ Bundle 'sheerun/vim-polyglot'
 
 " try for async test
 Bundle 'dense-analysis/ale'
-let g:ale_fixers = { 'typescriptreact': ['prettier', 'eslint'] }
+call ale#linter#Define('svelte', {
+\   'name': 'webbr-lint',
+\   'output_stream': 'both',
+\   'executable': function('ale#handlers#eslint#GetExecutable'),
+\   'cwd': function('ale#handlers#eslint#GetCwd'),
+\   'command': 'webbr-lint %s',
+\   'callback': 'ale#handlers#eslint#HandleJSON',
+\})
+let g:ale_fixers = { 'typescriptreact': ['prettier', 'eslint'], 'javascript': ['prettier', 'eslint'] }
 let g:ale_echo_msg_format='%linter% %severity% (%code%): %s'
 let g:ale_loclist_msg_format='%linter% %severity% (%code%): %s'
 let g:ale_loclist_format='%linter% %severity% (%code%): %s'
@@ -539,10 +547,10 @@ nmap <leader>fo :r !fortune ~/config/fortune/quotes<Cr>
 nmap <leader>e :lnext<Cr>
 
 " ALE shortcut
-nmap <buffer> <Leader>a :ALEGoToDefinition<CR>
-nmap <buffer> <Leader>as :ALEGoToDefinition -split<CR>
-nmap <buffer> <Leader>aa :ALEGoToDefinition -vsplit<CR>
-nmap <buffer> <Leader>at :ALEGoToDefinition -tab<CR>
+nmap <Leader>a :ALEGoToDefinition<CR>
+nmap <Leader>as :ALEGoToDefinition -split<CR>
+nmap <Leader>aa :ALEGoToDefinition -vsplit<CR>
+nmap <Leader>at :ALEGoToDefinition -tab<CR>
 
 " typescript command
 autocmd FileType typescript* nmap <buffer> <Leader>q : <C-u>echo tsuquyomi#hint()<CR>
