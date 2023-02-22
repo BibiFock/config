@@ -45,11 +45,12 @@ PACKAGES=$(git diff --name-only --cached \
 	| tr '\n' ',' \
 	| sed -e 's/,$//g'
 )
+PACKAGES_DETAILS=$([ ! -z "$PACKAGES" ] && echo "($PACKAGES)" || echo "");
 
 #BRANCH_NAME=$(git rev-parse --abbrev-ref HEAD | sed -e 's,.*/\(.*\),\1,' | sed s/\\./-/g | sed s/_/-/g)
 #ISSUE=$(echo $BRANCH_NAME | cut -d"-" -f 1)
 
 
-COMMIT_MESSAGE="$TYPE($PACKAGES): $MESSAGE"
+COMMIT_MESSAGE="$TYPE$PACKAGES_DETAILS: $MESSAGE"
 
 git commit -m "$COMMIT_MESSAGE"
