@@ -37,10 +37,19 @@ if [[ ! ${TYPES[*]} =~ "${TYPE}"( |$) ]]; then
 	exit 1
 fi
 
-BRANCH_NAME=$(git rev-parse --abbrev-ref HEAD | sed -e 's,.*/\(.*\),\1,' | sed s/\\./-/g | sed s/_/-/g)
-ISSUE=$(echo $BRANCH_NAME | cut -d"-" -f 1)
+PACKAGES=$(git diff --name-only --cached \
+    | egrep "^(packages|apps)/" \
+    | sed -e 's/\(packages\|apps\)\/\([^\/]*\)\/.*$/\2/g' \
+	| sort \
+	| uniq \
+	| tr '\n' ',' \
+	| sed -e 's/,$//g'
+)
+
+#BRANCH_NAME=$(git rev-parse --abbrev-ref HEAD | sed -e 's,.*/\(.*\),\1,' | sed s/\\./-/g | sed s/_/-/g)
+#ISSUE=$(echo $BRANCH_NAME | cut -d"-" -f 1)
 
 
-COMMIT_MESSAGE="$TYPE: #$ISSUE $MESSAGE"
+COMMIT_MESSAGE="$TYPE($PACKAGES): $MESSAGE"
 
 git commit -m "$COMMIT_MESSAGE"
