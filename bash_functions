@@ -61,7 +61,7 @@ function DlYtList {
     mkdir -p ./$2/
     cd ./$2/
 
-    youtube-dl -x --audio-format "mp3" --add-metadata --restrict-filenames \
+    yt-dlp -x --audio-format "mp3" --add-metadata --restrict-filenames \
         -o "%(playlist_index)s_%(artist)s-%(title)s.%(ext)s" $1
 
     count=1
@@ -81,6 +81,7 @@ function DlYtList {
 function DlRendevList {
     cPath=$(pwd)
     finalPath=~/Music/rendev-uke
+    mkdir -p $finalPath
 
     cd $finalPath
 

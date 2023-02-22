@@ -34,7 +34,7 @@ help:
 
 install-packages: ## install all need package for work
 	@$(call say_yellow, "[install all needed package]")
-	@sudo apt-get install git vim vim-gtk3 fortune terminator npm curl yt-dlp fonts-powerline
+	@sudo apt-get install git vim vim-gtk3 fortune terminator npm curl fonts-powerline
 
 load-bash: ## load my bash config
 	@$(call say_yellow,"[create bash links]")
@@ -43,7 +43,6 @@ load-bash: ## load my bash config
 	@ln -sf "$(shell pwd)"/bash_prompt ~/.bash_prompt
 	@ln -sf "$(shell pwd)"/bash_functions ~/.bash_functions
 	@ln -sf "$(shell pwd)"/inputrc ~/.inputrc
-	@ln -sf "$(shell pwd)"/starship.toml ~/.config/starship.toml
 	@. ~/.bashrc
 
 load-vim: ## load vim config
@@ -114,6 +113,10 @@ install-starship: ## install starship
 	@$(call say_yellow,"[install starship]")
 	@curl -sS https://starship.rs/install.sh | sh
 
+install-yt-dlp: ## install yt-dlp
+	@$(call say_yellow,"[install yt-dlp]")
+	@wget https://github.com/yt-dlp/yt-dlp/releases/latest/download/yt-dlp -O ./bin/yt-dlp
+	@chmod a+x ./bin/yt-dlp
 
 all: install-packages \
 	load-bash \
