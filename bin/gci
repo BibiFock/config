@@ -2,20 +2,21 @@
 
 COLOR_RESET="\\033[0m"
 COLOR_YELLOW="\\033[33m"
-COLOR_GREEN="\\033[32m"
+#COLOR_GREEN="\\033[32m"
 COLOR_RED="\\033[31m"
-COLOR_MAGENTA="\\033[35m"
+#COLOR_MAGENTA="\\033[35m"
 COLOR_BOLD="\\e[1m"
 
 if [ $# -eq 0 ]; then
 	echo
-	echo -e $COLOR_YELLOW"Please at list add a commit message ;)"$COLOR_RESET
+	echo -e "$COLOR_YELLOW Please at list add a commit message ;) $COLOR_RESET"
 	echo
 	exit 1
 fi
 
 MESSAGE=$1
 TYPE=${2:-"feat"}
+# shellcheck disable=SC2116
 TYPES=$(echo build chore ci docs feat fix perf refactor revert style test)
 
 if [[ ! ${TYPES[*]} =~ "${TYPE}"( |$) ]]; then
@@ -38,14 +39,14 @@ if [[ ! ${TYPES[*]} =~ "${TYPE}"( |$) ]]; then
 fi
 
 PACKAGES=$(git diff --name-only --cached \
-    | egrep "^(packages|apps)/" \
+    | grep -E "^(packages|apps)/" \
     | sed -e 's/\(packages\|apps\)\/\([^\/]*\)\/.*$/\2/g' \
 	| sort \
 	| uniq \
 	| tr '\n' ',' \
 	| sed -e 's/,$//g'
 )
-PACKAGES_DETAILS=$([ ! -z "$PACKAGES" ] && echo "($PACKAGES)" || echo "");
+PACKAGES_DETAILS=$([ -n "$PACKAGES" ] && echo "($PACKAGES)" || echo "");
 
 #BRANCH_NAME=$(git rev-parse --abbrev-ref HEAD | sed -e 's,.*/\(.*\),\1,' | sed s/\\./-/g | sed s/_/-/g)
 #ISSUE=$(echo $BRANCH_NAME | cut -d"-" -f 1)

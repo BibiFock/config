@@ -4,8 +4,8 @@
 #package=$(echo $1 | sed 's/.*\/\(packages\|apps\)\/\([^\/]*\)\/.*$/\2/g')
 file=$(echo $1 | sed "s/.*\/\(packages\|apps\)\/\([^\/]*\)\///g")
 
-echo $file
-echo $(pnpm root)/../
+#echo $file
+#echo $(pnpm root)/../
 cd $(pnpm root)/../
 
 ./node_modules/.bin/eslint -f json --resolve-plugins-relative-to . $file

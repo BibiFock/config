@@ -24,7 +24,7 @@ alias gitlist='ssh git@server-git'
 #makelibrary link
 
 # fuck you sudo
-alias fuck='sudo $(history -p !!)'
+#alias fuck='sudo $(history -p !!)'
 
 #fortune
 alias myfort='fortune ~/config/fortune/quotes'

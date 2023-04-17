@@ -82,3 +82,21 @@ snippet badge-rest
 	    }
 	  }
 	}
+snippet svelte_server
+	import { json } from '@sveltejs/kit';
+
+	import type { RequestHandler } from '@sveltejs/kit';
+
+	export const ${1:POST} = (async ({ request }) => {
+		const body = await request.json();
+
+		return json({ success: true });
+	}) satisfies RequestHandler;
+snippet svelte_page_server
+	import type { PageServerLoad } from './$types';
+
+	export const load = (async ({ params }) => {
+	  return {
+		$1
+	  };
+	}) satisfies PageServerLoad;

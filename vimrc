@@ -196,7 +196,7 @@ Bundle 'fatih/vim-go'
 
 Bundle 'prettier/vim-prettier'
 "autocmd InsertLeave *.js,*.jsx,*.mjs,*.ts,*.tsx,*.css,*.less,*.scss,*.json,*.graphql,*.md,*.vue,*.svelte,*.yaml,*.html PrettierAsync
-autocmd BufWritePre *.tsx,*.ts Prettier
+autocmd BufWritePre *.tsx,*.ts,*.svelte Prettier
 
 Bundle 'plasticboy/vim-markdown'
 let g:vim_markdown_folding_disabled = 1
@@ -220,7 +220,15 @@ call ale#linter#Define('svelte', {
 \   'command': 'webbr-lint %s',
 \   'callback': 'ale#handlers#eslint#HandleJSON',
 \})
-let g:ale_fixers = { 'typescriptreact': ['prettier', 'eslint'], 'javascript': ['prettier', 'eslint'] }
+call ale#linter#Define('typescript', {
+\   'name': 'webbr-lint',
+\   'output_stream': 'both',
+\   'executable': function('ale#handlers#eslint#GetExecutable'),
+\   'cwd': function('ale#handlers#eslint#GetCwd'),
+\   'command': 'webbr-lint %s',
+\   'callback': 'ale#handlers#eslint#HandleJSON',
+\})
+let g:ale_fixers = { 'typescriptreact': ['prettier', 'eslint'], 'javascript': ['prettier', 'eslint'], 'svelte': ['prettier'] }
 let g:ale_echo_msg_format='%linter% %severity% (%code%): %s'
 let g:ale_loclist_msg_format='%linter% %severity% (%code%): %s'
 let g:ale_loclist_format='%linter% %severity% (%code%): %s'

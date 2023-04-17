@@ -1,0 +1,3 @@
+snippet createDispatch
+	import { createEventDispatcher } from 'svelte';
+	const dispatch = createEventDispatcher<{${1:submit}: { ${2:props}: ${3:string} } }>();

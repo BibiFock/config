@@ -134,3 +134,9 @@ export PATH="/home/$USER/bin:/home/$USER/config/npm/node_modules/.bin:/home/$USE
 export FZF_DEFAULT_COMMAND='rg --files --hidden --follow --glob "!.git/*"'
 
 eval "$(starship init bash)"
+
+
+## Do I keep it or not
+
+[ -f ~/config/z/z.sh ] && source ~/config/z/z.sh
+eval $(thefuck --alias)
