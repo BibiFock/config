@@ -1,0 +1,9 @@
+#!/bin/bash
+
+for file in $(ls ./*.mp3)
+do
+    tmpFile=$(basename -s mp3 $file).tmp.mp3
+    ffmpeg -loglevel quiet -i $file -codec copy -metadata Genre="$2" -metadata Album="$1" "$tmpFile"
+
+    mv $tmpFile $file
+done
