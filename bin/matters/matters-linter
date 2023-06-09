@@ -1,0 +1,25 @@
+#!/usr/bin/env bash
+
+#workspace=$(echo $1 | sed 's/.*\/\(packages\|apps\)\/\([^\/]*\)\/.*$/\1/g')
+#package=$(echo $1 | sed 's/.*\/\(packages\|apps\)\/\([^\/]*\)\/.*$/\2/g')
+#dir=$(echo $1 | sed "s/.*\/\(back\|front\)\/.*/\1/g")
+
+filename="$1"
+rootPath=$(echo "$filename" | sed -E 's/(front|back\/custom-server).*//')
+
+eslintBin=$(cd "$rootPath" && yarn bin eslint);
+# Check if "front" or "back/custom-server" is present
+if [[ "$filename" == *"front"* ]]; then
+    dir="${rootPath}front/front"
+    eslint=""
+elif [[ "$filename" == *"back/custom-server"* ]]; then
+    dir="${rootPath}back/custom-server"
+else
+    exit
+fi
+
+#echo "cd $dir && $eslintBin -f json $1" >> ./last-call
+result=$(cd $dir && $eslintBin -f json $1)
+
+#echo $result >> ./last-call
+echo $result
