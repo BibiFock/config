@@ -114,6 +114,14 @@ install-starship: ## install starship
 	@curl -sS https://starship.rs/install.sh | sh
 	@ln -sf "$(shell pwd)"/starship.toml ~/.config/starship.toml
 
+install-ubuntumono-nerdfront: ## install nerd font ubuntu mono
+	@$(call say_yellow,"[install ubuntu mono nerd font]")
+	@mkdir ~/.fonts/
+	@wget https://github.com/ryanoasis/nerd-fonts/releases/download/v3.0.2/UbuntuMono.zip
+	@mv ./UbuntuMono.zip ~/.fonts/
+	@cd ~/.fonts/ && unzip UbuntuMono.zip && rm UbuntuMono.zip
+	@fc-cache -fv
+
 install-yt-dlp: ## install yt-dlp
 	@$(call say_yellow,"[install yt-dlp]")
 	@wget https://github.com/yt-dlp/yt-dlp/releases/latest/download/yt-dlp -O ./bin/yt-dlp
