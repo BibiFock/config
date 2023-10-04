@@ -15,12 +15,7 @@ if [ $# -eq 0 ]; then
 fi
 
 MESSAGE=$1
-BRANCH_NAME=$(git rev-parse --abbrev-ref HEAD)
-BRANCH_TYPE=$(echo "$BRANCH_NAME"|sed -e 's/^\([^/]*\).*/\1/g')
-TYPE=${2:-"$BRANCH_TYPE"}
-
-# shift 2
-# ARGS_REST=("$@")
+TYPE=${2:-"feat"}
 # shellcheck disable=SC2116
 TYPES=$(echo build chore ci docs feat fix perf refactor revert style test)
 
@@ -43,21 +38,20 @@ if [[ ! ${TYPES[*]} =~ "${TYPE}"( |$) ]]; then
 	exit 1
 fi
 
-#PACKAGES=$(git diff --name-only --cached \
-    #| grep -E "^(packages|apps)/" \
-    #| sed -e 's/\(packages\|apps\)\/\([^\/]*\)\/.*$/\2/g' \
-	#| sort \
-	#| uniq \
-	#| tr '\n' ',' \
-	#| sed -e 's/,$//g'
-#)
-PACKAGES=$(echo "$BRANCH_NAME"|sed -e 's/^.*\/\([^-]*-[^-]*\).*/\1/g')
+PACKAGES=$(git diff --name-only --cached \
+    | grep -E "^(packages|apps)/" \
+    | sed -e 's/\(packages\|apps\)\/\([^\/]*\)\/.*$/\2/g' \
+	| sort \
+	| uniq \
+	| tr '\n' ',' \
+	| sed -e 's/,$//g'
+)
 PACKAGES_DETAILS=$([ -n "$PACKAGES" ] && echo "($PACKAGES)" || echo "");
 
 #BRANCH_NAME=$(git rev-parse --abbrev-ref HEAD | sed -e 's,.*/\(.*\),\1,' | sed s/\\./-/g | sed s/_/-/g)
 #ISSUE=$(echo $BRANCH_NAME | cut -d"-" -f 1)
 
+
 COMMIT_MESSAGE="$TYPE$PACKAGES_DETAILS: $MESSAGE"
 
-# echo commit -m "$COMMIT_MESSAGE" ${ARGS_REST[@]}
 git commit -m "$COMMIT_MESSAGE"

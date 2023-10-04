@@ -1,0 +1,107 @@
+#!/bin/bash
+
+RESET="\\033[0m"
+YELLOW="\\033[33m"
+GREEN="\\033[32m"
+R_RED="\\033[31m"
+MAGENTA="\\033[35m"
+BOLD="\\e[1m"
+
+# Function to convert a string to kebab case
+to_kebab_case() {
+  # echo "$1" | tr '[:upper:]' '[:lower:]' | sed 's/ /-/g' | sed 's/[^a-zA-Z0-9-]//g'
+  # echo "$1" | tr '[:upper:]' '[:lower:]' | sed 's/ /-/g'
+  echo "$1" \
+     | sed 's/\(.\)\([A-Z]\)/\1-\2/g' \
+     | tr '[:upper:]' '[:lower:]'
+}
+
+# Function to recursively rename directories and files to kebab case
+rename_to_kebab_case() {
+  local dir="$1"
+  for item in "$dir"/*; do
+    if [ -d "$item" ]; then
+      local kebab_name=$(to_kebab_case "$(basename "$item")")
+      mv "$item" "$dir/$kebab_name"
+      rename_to_kebab_case "$dir/$kebab_name"
+    elif [ -f "$item" ]; then
+      local kebab_name=$(to_kebab_case "$(basename "$item")")
+      mv "$item" "$dir/$kebab_name"
+    fi
+  done
+}
+
+searchReg() {
+  echo $1 | sed 's/\//\\\//g' | sed 's/\./\\./g'
+}
+
+importName() {
+  echo $1| sed -E 's/.tsx?$//g' | sed 's/\/index$//g'
+}
+
+nextLocal() {
+  echo $1 | sed 's/^\.\///g' | sed 's/^[^/]*\//.\//'
+}
+
+PROJECT_PATH=${1:-"./front/src/"}
+SUB_PATH=${2:-"technical"}
+
+# Start renaming from the current directory
+# rename_to_kebab_case "."
+while true; do
+
+  foundName=$(find $PROJECT_PATH$SUB_PATH -type f -o -type d | \
+    grep -E '[A-Z]' | \
+    sort -r | \
+    head -n 1)
+
+  if [ ! -n "$foundName" ]; then
+    echo -e "$GREEN no more result job done $RESET"
+
+    break
+  fi
+
+  projectPath=$(searchReg $PROJECT_PATH)
+
+  fname=$(echo $foundName | sed -E "s/$projectPath//g")
+  # mv "$fname" "$ccase"
+
+  if [ ! -e "$PROJECT_PATH$fname" ]; then
+    echo -e "$YELLOW file $fname not found $RESET"
+    continue;
+  fi
+
+  kebabName=$(to_kebab_case "$fname")
+  kebabPath="$PROJECT_PATH${kebabName%/*}"
+
+  mkdir -p $kebabPath
+  mv $PROJECT_PATH$fname $PROJECT_PATH$kebabName
+  echo "${fname} => ${kebabName}"
+
+  searchName=$(importName $fname)
+  searchNameReg=$(searchReg $searchName)
+
+  newImport=$(importName $kebabName)
+  newImportReg=$(searchReg $newImport)
+
+  echo "replace import"
+  while true
+  do
+    if [ "$searchName" != "$newImport" ]; then
+      echo "${searchName} => ${newImport}"
+      rg -F "${searchName}" $PROJECT_PATH -l | xargs -I@ sed -I '' "s/$searchNameReg'/$newImportReg'/g" @
+    fi
+
+    searchName=$(nextLocal $searchName)
+    if [[ $searchName != *"/"* ]]; then
+      break;
+    fi
+    searchNameReg=$(searchReg $searchName)
+    newImport=$(nextLocal $newImport)
+    newImportReg=$(searchReg $newImport)
+  done
+  echo
+  echo
+done
+
+echo "All directories and files have been renamed to kebab case."

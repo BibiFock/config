@@ -10,10 +10,10 @@ rootPath=$(echo "$filename" | sed -E 's/(front|back\/custom-server).*//')
 eslintBin=$(cd "$rootPath" && yarn bin eslint);
 # Check if "front" or "back/custom-server" is present
 if [[ "$filename" == *"front"* ]]; then
-    dir="${rootPath}front/front"
+    dir="${rootPath}front/"
     eslint=""
 elif [[ "$filename" == *"back/custom-server"* ]]; then
-    dir="${rootPath}back/custom-server"
+    dir="${rootPath}back/custom-server/"
 else
     exit
 fi
