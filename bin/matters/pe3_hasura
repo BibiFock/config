@@ -1,0 +1,55 @@
+#!/usr/bin/env bash
+
+COLOR_RESET="\\033[0m"
+COLOR_YELLOW="\\033[33m"
+#COLOR_GREEN="\\033[32m"
+COLOR_RED="\\033[31m"
+#COLOR_MAGENTA="\\033[35m"
+COLOR_BOLD="\\e[1m"
+
+TYPE=$1
+# shift 2
+# ARGS_REST=("$@")
+# shellcheck disable=SC2116
+TYPES=$(echo prod test)
+
+if [ $# -eq 0 ] || [[ ! ${TYPES[*]} =~ "${TYPE}"( |$) ]]; then
+	echo
+	echo -e "$COLOR_YELLOW Please add choose an env $COLOR_RESET"
+	echo -e "	$TYPES"
+	echo
+	exit 1
+fi
+
+KUBECONFIG=~/Documents/dev/kubeconfig-pe3-test.yaml
+if [[ $TYPE == "prod" ]]; then
+	KUBECONFIG=~/Documents/dev/kubeconfig-pe3-prod.yaml
+
+	if [ $# -eq 1 ]; then
+		echo
+		echo -e "$COLOR_YELLOW Please add choose a namespace $COLOR_RESET"
+		KUBECONFIG=${KUBECONFIG} kubectl get namespaces
+		echo
+		exit 1
+	fi
+
+	if [ $# -eq 2 ]; then
+		echo
+		echo -e "$COLOR_YELLOW Please add hasura end point url ;) $COLOR_RESET"
+		echo
+		exit 1
+	fi
+	NAMESPACE=$2
+	ENDPOINT=$3
+else
+	NAMESPACE="pe3-test-test"
+	ENDPOINT="https://api-pe3.matters-test.tech"
+fi
+
+HASURA_SECRET=$(KUBECONFIG=${KUBECONFIG} kubectl get secrets -n ${NAMESPACE} terraform-generated-secrets-hasura -o jsonpath='{.data.HASURA_GRAPHQL_ADMIN_SECRET}' | base64 --decode)
+
+cd ~/Documents/dev/pe3/back/hasura && $(yarn bin hasura) console \
+	--console-port 9090 \
+	--endpoint ${ENDPOINT} \
+	--admin-secret ${HASURA_SECRET}
+

@@ -30,13 +30,17 @@ snippet t_test
 	  });
 	});
 snippet t_comp
-	type $1Props = {
-		readonly ${2:prop}: string;
+	import React from 'react';
+
+	interface $1Props {
+		${2:prop}: string;
 	};
 
-	export const ${1:Component} = ({ $2 }: $1Props) => (
+	export const ${1:Component}: React.FC<$1Props> = ({ $2 }) => (
 		<div />
 	);
+
+	export default $1;
 snippet t_sto
 	import React from 'react';
 	import { Story } from '@storybook/react';
@@ -69,7 +73,7 @@ snippet lodash
 	import { ${1:get} } from 'lodash';
 snippet i18
 	import { useTranslation } from 'react-i18next';
-snippet useTranslation
+snippet trans
 	const { t } = useTranslation(${1});
 snippet badge-rest
 	parameters: {
@@ -85,3 +89,9 @@ snippet t_schem
 	export const ${1:Object}Schema = ${2:z.};
 
 	export type $1 = z.infer<typeof $1Schema>;
+snippet querystate
+	if (loading || error || data === undefined) {
+		return <QueryStateDisplay loading={loading} error={error} />;
+	}
+snippet yup-mixed
+	yup.mixed<${1:Enum}>().oneOf(Object.values($1)),

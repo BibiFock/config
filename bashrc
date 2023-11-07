@@ -124,6 +124,9 @@ if [ -f $HOME/.bash_functions ]; then
   . $HOME/.bash_functions;
 fi
 
+if [ -f $HOME/config/nb-completion.bash ]; then
+  . $HOME/config/nb-completion.bash;
+fi
 #adding vi edition style to bashrc
 # set -o vi
 
@@ -133,7 +136,7 @@ fi
 #history shared between all term
 export PROMPT_COMMAND='history -a'
 
-export PATH="/Users/$USER/bin/kymdom:/Users/$USER/bin:/Users/$USER/config/npm/node_modules/.bin:/Users/$USER/.local/bin:$PATH"
+export PATH="/Users/$USER/bin:/Users/$USER/bin/matters:/Users/$USER/config/npm/node_modules/.bin:/Users/$USER/.local/bin:/opt/homebrew/bin:/usr/local/bin:$PATH"
 
 
 [ -f ~/.fzf.bash ] && source ~/.fzf.bash
@@ -142,6 +145,12 @@ export FZF_DEFAULT_COMMAND='rg --files --hidden --follow --glob "!.git/*"'
 
 export EDITOR=vim
 
-export PGDATA="/Users/$USER/Documents/dev/pgdata"
+#export PGDATA="/Users/$USER/Documents/dev/pgdata"
+
+ #export NVM_DIR="$HOME/.nvm"
+    #[ -s "$HOMEBREW_PREFIX/opt/nvm/nvm.sh" ] && \. "$HOMEBREW_PREFIX/opt/nvm/nvm.sh" # This loads nvm
+    #[ -s "$HOMEBREW_PREFIX/opt/nvm/etc/bash_completion.d/nvm" ] && \. "$HOMEBREW_PREFIX/opt/nvm/etc/bash_completion.d/nvm" # This loads nvm bash_completion#
+
+source ~/.git-completion.bash
 
 eval "$(starship init bash)"

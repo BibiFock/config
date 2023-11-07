@@ -1,5 +1,18 @@
 #!/bin/bash
 
+# TODO improve this with an helper perhaps
+PROJECT_PATH=${1:-"./front/src/"}
+SUB_PATH=${2:-"technical"}
+
+# ##################
+# ./scripts/kebabify.sh "<project path>" "<sub_path to rename>"
+#
+# so for apply it to "front/src/ui"
+#
+# ./scripts/kebabify.sh "./front/src/" "ui"
+# ##################
+
+
 RESET="\\033[0m"
 YELLOW="\\033[33m"
 GREEN="\\033[32m"
@@ -13,7 +26,8 @@ to_kebab_case() {
   # echo "$1" | tr '[:upper:]' '[:lower:]' | sed 's/ /-/g'
   echo "$1" \
      | sed 's/\(.\)\([A-Z]\)/\1-\2/g' \
-     | tr '[:upper:]' '[:lower:]'
+     | tr '[:upper:]' '[:lower:]' \
+     | sed 's/\/-/\//g'
 }
 
 # Function to recursively rename directories and files to kebab case
@@ -43,39 +57,48 @@ nextLocal() {
   echo $1 | sed 's/^\.\///g' | sed 's/^[^/]*\//.\//'
 }
 
-PROJECT_PATH=${1:-"./front/src/"}
-SUB_PATH=${2:-"technical"}
+projectPath=$(searchReg $PROJECT_PATH)
+subPath=$(searchReg $SUB_PATH)
 
 # Start renaming from the current directory
 # rename_to_kebab_case "."
 while true; do
 
-  foundName=$(find $PROJECT_PATH$SUB_PATH -type f -o -type d | \
+  # foundName=$(find $PROJECT_PATH$SUB_PATH -type f -o -type d | \
+  fname=$(find $PROJECT_PATH$SUB_PATH -type f -o -type d | \
+    sed -E "s/$projectPath$subPath//g" | \
     grep -E '[A-Z]' | \
     sort -r | \
     head -n 1)
 
-  if [ ! -n "$foundName" ]; then
+  # if [ ! -n "$foundName" ]; then
+  if [ ! -n "$fname" ]; then
     echo -e "$GREEN no more result job done $RESET"
 
     break
   fi
 
-  projectPath=$(searchReg $PROJECT_PATH)
+  # fname=$(echo $foundName | sed -E "s/$projectPath$subPath//g")
 
-  fname=$(echo $foundName | sed -E "s/$projectPath//g")
-  # mv "$fname" "$ccase"
-
-  if [ ! -e "$PROJECT_PATH$fname" ]; then
+  if [ ! -e "$PROJECT_PATH$SUB_PATH$fname" ]; then
     echo -e "$YELLOW file $fname not found $RESET"
     continue;
   fi
 
   kebabName=$(to_kebab_case "$fname")
-  kebabPath="$PROJECT_PATH${kebabName%/*}"
+  kebabPath="$PROJECT_PATH$SUB_PATH${kebabName%/*}"
+
+  if [ "$kebabName" == "$fname" ]; then
+    echo nothing to rename
+    continue;
+  fi
+
+  # echo kebabPath: $kebabPath
+  # echo kebabName: $kebabName
+  # exit
 
   mkdir -p $kebabPath
-  mv $PROJECT_PATH$fname $PROJECT_PATH$kebabName
+  mv $PROJECT_PATH$SUB_PATH$fname $PROJECT_PATH$SUB_PATH$kebabName
   echo "${fname} => ${kebabName}"
 
   searchName=$(importName $fname)

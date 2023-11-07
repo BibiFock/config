@@ -48,6 +48,7 @@ Bundle 'gmarik/vundle'
 
 " bracket matchers
 Bundle 'matchit.zip'
+let b:match_words = '<:>'
 
 " buffers explorer
 Bundle 'bufexplorer.zip'
@@ -56,6 +57,7 @@ Bundle 'Toggle'
 
 Bundle 'snipMate'
 Bundle 'preservim/nerdcommenter'
+let g:NERDSpaceDelims = 1
 
 "git tool for vim
 Bundle 'tpope/vim-fugitive'
@@ -189,14 +191,54 @@ function! g:committia_hooks.edit_open(info)
     imap <buffer><C-p> <Plug>(committia-scroll-diff-up-half)
 endfunction
 
+Bundle 'sheerun/vim-polyglot'
+
+Bundle 'prettier/vim-prettier'
+autocmd BufWritePre *.tsx,*.ts,*.svelte,*.sql Prettier
+
+" try for async test
+Bundle 'dense-analysis/ale'
+call ale#linter#Define('svelte', {
+\   'name': 'webbr-lint',
+\   'output_stream': 'both',
+\   'executable': function('ale#handlers#eslint#GetExecutable'),
+\   'cwd': function('ale#handlers#eslint#GetCwd'),
+\   'command': 'webbr-lint %s',
+\   'callback': 'ale#handlers#eslint#HandleJSON',
+\})
+  " Use the global executable with a special name for eslint.
+let g:ale_typescriptreact_eslint_executable = 'matters-linter'
+let g:ale_typescriptreact_eslint_use_global = 1
+let g:ale_typescriptreact_eslint_options = '%s'
+call ale#linter#Define('typescript', {
+\   'name': 'mattersLinter',
+\   'executable': '/Users/julien.bernardo/config/bin/matters/matters-linter',
+\   'cwd': function('ale#handlers#eslint#GetCwd'),
+\   'command': 'matters-linter %s',
+\   'callback': 'ale#handlers#eslint#HandleJSON',
+\})
+
+let g:ale_fixers = { 'typescriptreact': ['eslint'], 'svelte': ['eslint'], 'sql': ['pgformatter'] }
+let g:ale_linters_ignore = { 'typescriptreact': ['eslint'], 'typescript': ['eslint'], 'sql': ['sqlfluff']  }
+let g:ale_echo_msg_format='%linter% %severity% (%code%): %s'
+let g:ale_loclist_msg_format='%linter% %severity% (%code%): %s'
+let g:ale_loclist_format='%linter% %severity% (%code%): %s'
+let g:ale_lint_on_text_changed = 'never'
+let g:ale_sql_pgformatter_options = '--function-case 1 --keyword-case 2 --spaces 2 --wrap-limit 80 --wrap-after 0'
+let g:ale_fix_on_save = 1
+let g:ale_open_list = 0
+let g:ale_set_loclist = 0
+let g:ale_set_quickfix = 0
+let g:ale_completion_enabled = 1
+let g:ale_set_balloons = 1
+let g:ale_virtualtext_cursor = 'current'
+
 """"""""""""""""""""""""""""""""""""""""""""""
 " _BUNDLES_TEST
 """"""""""""""""""""""""""""""""""""""""""""""
-Bundle 'fatih/vim-go'
+" Bundle 'ap/vim-css-color'
 
-Bundle 'prettier/vim-prettier'
-""autocmd InsertLeave *.js,*.jsx,*.mjs,*.ts,*.tsx,*.css,*.less,*.scss,*.json,*.graphql,*.md,*.vue,*.svelte,*.yaml,*.html PrettierAsync
-autocmd BufWritePre *.tsx,*.ts Prettier
+Bundle 'fatih/vim-go'
 
 Bundle 'plasticboy/vim-markdown'
 let g:vim_markdown_folding_disabled = 1
@@ -206,36 +248,6 @@ Bundle 'burner/vim-svelte'
 Bundle 'leafOfTree/vim-svelte-plugin'
 let g:vim_svelte_plugin_load_full_syntax = 1
 let g:vim_svelte_plugin_use_typescript = 1
-
-"Bundle 'jason0x43/vim-js-indent'
-Bundle 'sheerun/vim-polyglot'
-
-" try for async test
-Bundle 'dense-analysis/ale'
-  " Use the global executable with a special name for eslint.
-"let g:ale_typescriptreact_eslint_executable = 'eslint-nwk'
-"let g:ale_typescriptreact_eslint_use_global = 1
-"let g:ale_typescriptreact_eslint_options = '%s'
-call ale#linter#Define('typescript', {
-\   'name': 'eslint-nwk',
-\   'executable': '/Users/bbr/config/bin/kymdom/eslint-nwk',
-\   'cwd': function('ale#handlers#eslint#GetCwd'),
-\   'command': 'eslint-nwk %s',
-\   'callback': 'ale#handlers#eslint#HandleJSON',
-\})
-
-let g:ale_fixers = { 'typescriptreact': ['prettier', 'eslint'], 'svelte': ['prettier', 'eslint'] }
-let g:ale_linters_ignore = { 'typescriptreact': ['eslint'], 'typescript': ['eslint']  }
-let g:ale_echo_msg_format='%linter% %severity% (%code%): %s'
-let g:ale_loclist_msg_format='%linter% %severity% (%code%): %s'
-let g:ale_loclist_format='%linter% %severity% (%code%): %s'
-let g:ale_lint_on_text_changed = 'never'
-let g:ale_fix_on_save = 0
-let g:ale_open_list = 0
-let g:ale_set_loclist = 0
-let g:ale_set_quickfix = 0
-let g:ale_completion_enabled = 1
-let g:ale_set_balloons = 1
 
 """"""""""""""""""""""""""""""""""""""""""""""
 " _EDITOR
@@ -288,6 +300,7 @@ au FileType javascript* setl softtabstop=2 shiftwidth=2
 au FileType typescript* setl softtabstop=2 shiftwidth=2
 au FileType svelte setl softtabstop=2 shiftwidth=2
 au FileType yaml setl softtabstop=2 shiftwidth=2
+au FileType sql setl softtabstop=2 shiftwidth=2
 
 " FONTS
 syntax on
@@ -557,15 +570,14 @@ nmap <leader>fo :r !fortune ~/config/fortune/quotes<Cr>
 nmap <leader>e :lnext<Cr>
 
 " typescript command
-autocmd FileType typescript* nmap <buffer> <Leader>a :ALEGoToDefinition<CR>
-autocmd FileType typescript* nmap <buffer> <Leader>as :ALEGoToDefinition -split<CR>
-autocmd FileType typescript* nmap <buffer> <Leader>aa :ALEGoToDefinition -vsplit<CR>
-autocmd FileType typescript* nmap <buffer> <Leader>at :ALEGoToDefinition -tab<CR>
+nmap <Leader>a :ALEGoToDefinition<CR>
+nmap <Leader>as :ALEGoToDefinition -split<CR>
+nmap <Leader>aa :ALEGoToDefinition -vsplit<CR>
+nmap <Leader>at :ALEGoToDefinition -tab<CR>
+nmap <Leader>i :ALEImport<CR>
+nmap <Leader>f :ALEFirst<CR>
+nmap <Leader>fn :ALENext<CR>
 
-autocmd FileType svelte nmap <buffer> <Leader>a :ALEGoToDefinition<CR>
-autocmd FileType svelte nmap <buffer> <Leader>as :ALEGoToDefinition -split<CR>
-autocmd FileType svelte nmap <buffer> <Leader>aa :ALEGoToDefinition -vsplit<CR>
-autocmd FileType svelte nmap <buffer> <Leader>at :ALEGoToDefinition -tab<CR>
 
 " try fix macos bug
 set re=0

@@ -147,6 +147,16 @@ gri() {
  git rebase -i $commit~1
 }
 
+gbi() {
+ commit=$(
+    glFzf |
+    FZF_DEFAULT_OPTS="$GIT_FZF_LOG_OPTS" fzf |
+    awk '{print $2}'
+ );
+
+ git bisect start $commit~1 HEAD
+}
+
 function nwk {
   #packages=$(yarn -s workspaces info|jq 'keys[]'|sed -e 's/"//g')
   #packages=$(ls ./packages)
@@ -212,3 +222,6 @@ if [ -n "$BASH_VERSION" ]; then
     #complete -F _Nwk nwkVal
     complete -F _kci kci
 fi
+
+complete -W "\`grep -oE '^[a-zA-Z0-9_.-]+:([^=]|$)' ?akefile | sed 's/[^a-zA-Z0-9_.-]*$//'\`" make
+complete -W "\`grep -oE '^[a-zA-Z0-9_.-]+:([^=]|$)' ?akefile | sed 's/[^a-zA-Z0-9_.-]*$//'\`" m

@@ -1,0 +1,14 @@
+snippet create-pk
+	CREATE UNIQUE INDEX "dataviz_${1:table}_pk" ON "dataviz"."$1" ("${2:id}");$3
+snippet create-fk
+	CREATE INDEX "dataviz_${1:table}_${2:}Id_fk" ON "dataviz"."$1" ("$2Id");$3
+snippet enum
+	CREATE TABLE "web_portal"."${1:table}${2:field}Enum" (
+		"value" TEXT NOT NULL,
+		PRIMARY KEY ("value") ,
+		UNIQUE ("value")
+	);
+	COMMENT ON TABLE "web_portal"."$1$2Enum" IS E'enum for $1.$2';
+
+	INSERT INTO "web_portal"."$1$2"("value")
+	VALUES ('');
