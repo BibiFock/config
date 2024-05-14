@@ -120,16 +120,6 @@ let g:ale_set_quickfix = 0
 let g:ale_completion_enabled = 1
 let g:ale_set_balloons = 1
 let g:ale_virtualtext_cursor = 'current'
-" Custom warning symbol and color for ALE
-let g:ale_sign_warning = '⚠'
-highlight ALEWarningSign ctermfg=15  ctermbg=166
-
-" Custom error symbol and color for ALE
-let g:ale_sign_error = '✖'
-highlight ALEErrorSign  ctermfg=15  ctermbg=166 guifg=blue
-highlight ALEVirtualTextError ctermfg=15  ctermbg=166 guifg=blue
-" highlight link ALEVirtualTextError Error
-
 
 call plug#end()
 
@@ -227,10 +217,24 @@ colorscheme xoria256
 highlight ColorColumn ctermbg=237
 
 "redef des msg de warning car trop discret par défaut
-hi WarningMsg ctermfg=15  ctermbg=166
-
+" hi WarningMsg ctermfg=15  ctermbg=166
 
 hi CursorLineNr ctermbg=237 guibg=#3a3a3a cterm=none gui=none
+highlight DiagnosticInfo ctermfg=242
+highlight DiagnosticError ctermfg=9
+
+sign define DiagnosticSignError text= texthl=DiagnosticSignError
+sign define DiagnosticSignWarn text= texthl=DiagnosticSignWarn
+sign define DiagnosticSignInfo text= texthl=DiagnosticSignInfo
+sign define DiagnosticSignHint text= texthl=DiagnosticSignHint
+
+lua << EOF
+vim.diagnostic.config({
+  virtual_text = {
+    prefix = '#',
+  },
+})
+EOF
 
 "coloration command ligne for each mode
 au InsertEnter * hi StatusLine term=reverse ctermbg=4
