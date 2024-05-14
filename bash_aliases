@@ -37,6 +37,9 @@ alias youtube-dl-mp3='yt-dlp -x --audio-format "mp3" --add-metadata -o "%(playli
 
 alias wget-list='count=1;for url in $(cat ./list.txt); do wget $url -O $(echo $count.$(basename $url) | sed -e "s/^[1-9]\\./0&/g") && ((count++)); done;'
 
+alias vim='echo PLEASE USE NVIM'
+alias nv='nvim'
+
 
 ## matters
 alias pe3_kube_config='KUBECONFIG=~/Documents/dev/kubeconfig-pe3-test.yaml kubectl get configmap -n pe3-test-test'
@@ -45,3 +48,5 @@ alias pe3_PROD_config='KUBECONFIG=~/Documents/dev/kubeconfig-pe3-prod.yaml kubec
 alias pe3_PROD_namespaces='KUBECONFIG=~/Documents/dev/kubeconfig-pe3-prod.yaml kubectl get namespaces'
 
 alias m='make'
+
+alias macosListenPort='lsof -i -P | grep LISTEN'

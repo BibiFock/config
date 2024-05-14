@@ -21,9 +21,9 @@ if [ $# -eq 0 ] || [[ ! ${TYPES[*]} =~ "${TYPE}"( |$) ]]; then
 	exit 1
 fi
 
-KUBECONFIG=~/Documents/dev/kubeconfig-pe3-test.yaml
+KUBECONFIG=${PE3_KUBECONFIG_TEST:-"kubeconfig-pe3-test.yaml"}
 if [[ $TYPE == "prod" ]]; then
-	KUBECONFIG=~/Documents/dev/kubeconfig-pe3-prod.yaml
+	KUBECONFIG=${PE3_KUBECONFIG_PROD:-"kubeconfig-pe3-prod.yaml"}
 
 	if [ $# -eq 1 ]; then
 		echo
@@ -33,14 +33,18 @@ if [[ $TYPE == "prod" ]]; then
 		exit 1
 	fi
 
-	if [ $# -eq 2 ]; then
+	NAMESPACE=$2
+
+	if [[ -n "${envs[$NAMESPACE]}" ]]; then
+		ENDPOINT="${envs[$NAMESPACE]}";
+	elif [ $# -eq 2 ]; then
 		echo
 		echo -e "$COLOR_YELLOW Please add hasura end point url ;) $COLOR_RESET"
 		echo
 		exit 1
+	else
+		ENDPOINT=$3
 	fi
-	NAMESPACE=$2
-	ENDPOINT=$3
 else
 	NAMESPACE="pe3-test-test"
 	ENDPOINT="https://api-pe3.matters-test.tech"
@@ -48,7 +52,7 @@ fi
 
 HASURA_SECRET=$(KUBECONFIG=${KUBECONFIG} kubectl get secrets -n ${NAMESPACE} terraform-generated-secrets-hasura -o jsonpath='{.data.HASURA_GRAPHQL_ADMIN_SECRET}' | base64 --decode)
 
-cd ~/Documents/dev/pe3/back/hasura && $(yarn bin hasura) console \
+cd back/hasura && $(yarn bin hasura) console \
 	--console-port 9090 \
 	--endpoint ${ENDPOINT} \
 	--admin-secret ${HASURA_SECRET}

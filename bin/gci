@@ -57,7 +57,11 @@ PACKAGES_DETAILS=$([ -n "$PACKAGES" ] && echo "($PACKAGES)" || echo "");
 #BRANCH_NAME=$(git rev-parse --abbrev-ref HEAD | sed -e 's,.*/\(.*\),\1,' | sed s/\\./-/g | sed s/_/-/g)
 #ISSUE=$(echo $BRANCH_NAME | cut -d"-" -f 1)
 
+
 COMMIT_MESSAGE="$TYPE$PACKAGES_DETAILS: $MESSAGE"
 
-# echo commit -m "$COMMIT_MESSAGE" ${ARGS_REST[@]}
-git commit -m "$COMMIT_MESSAGE"
+# we remove first args from all args
+shift 1
+shift 1
+git commit -m "$COMMIT_MESSAGE" "${@}"
+# git commit -m "$COMMIT_MESSAGE"

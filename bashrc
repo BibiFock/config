@@ -143,7 +143,8 @@ export PATH="/Users/$USER/bin:/Users/$USER/bin/matters:/Users/$USER/config/npm/n
 
 export FZF_DEFAULT_COMMAND='rg --files --hidden --follow --glob "!.git/*"'
 
-export EDITOR=vim
+export EDITOR=nvim
+export MYVIMRC=~/.config/nvim/init.vim
 
 #export PGDATA="/Users/$USER/Documents/dev/pgdata"
 

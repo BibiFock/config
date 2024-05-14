@@ -1,6 +1,6 @@
 [user]
 	name = Julien Bernardo
-	email = julien.bernardo@kymono.co
+	email = julien.bernardo@matters.tech
 
 [color]
     ui = auto
@@ -59,9 +59,13 @@
     rull = pull --rebase -p
     amend = commit --amend -m 
     pop = stash pop
+    pu= push -u
+    pun= push -u --no-verify
+    punf= push -u --no-verify -f
     ; wip = !"git commit -m \"$(echo \"--WIP-- \"$(curl -s http://whatthecommit.com/index.txt))\";"
     ; wip = !"git commit -m \"$(echo \"test(wip): --WIP-- \"$(fortune ~/config/fortune/quotes))\";"
     wip= !"git commit -m \"$(echo \"test(wip): \"$(fortune ~/config/fortune/quotes | cut -b1-50| tr '[:upper:]' '[:lower:]'))\" --no-verify;"
+    wipp=!"git add .;git wip; git push --no-verify -u;"
     #nb ci diff avec le master
     nbci = !"git rev-list --left-right --count ${1-master}..."
     #extra cmd
@@ -91,7 +95,7 @@
     spr = "!f() { git fetch -fu ${2:-$(git remote |grep ^upstream || echo origin)} refs/pull-requests/$1/from:pr/$1 && git checkout pr/$1; }; f"
 
     list-ci = "!git log $(git describe --tags --abbrev=0)..HEAD --pretty=format:'- %s (@%aN) '"
-    list-jira ="!sh -c 'git list-ci | grep -Eo \"(BQ1-[0-9]+)\"| uniq | sort | tr \"\n\" \" \";echo'"
+    list-jira ="!sh -c 'git list-ci | grep -Eo \"(PE3-[0-9]+)\"| uniq | sort'"
 
 [mergetool "fugitive"]
     cmd = vim -f -c \"Gdiff\" \"$MERGED\"

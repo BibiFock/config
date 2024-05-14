@@ -207,9 +207,17 @@ call ale#linter#Define('svelte', {
 \   'callback': 'ale#handlers#eslint#HandleJSON',
 \})
   " Use the global executable with a special name for eslint.
+let g:ale_typescriptreact_eslint_options = '%s'
 let g:ale_typescriptreact_eslint_executable = 'matters-linter'
 let g:ale_typescriptreact_eslint_use_global = 1
 let g:ale_typescriptreact_eslint_options = '%s'
+
+" function! MattersFixer(buffer) abort
+  " return {
+  " \   'command': 'matters-fixer %s'
+  " \}
+" endfunction
+" execute ale#fix#registry#Add('mattersFixer', 'MattersFixer', ['typescript', 'typescriptreact'], 'matters fixer for ts')
 call ale#linter#Define('typescript', {
 \   'name': 'mattersLinter',
 \   'executable': '/Users/julien.bernardo/config/bin/matters/matters-linter',
@@ -218,8 +226,9 @@ call ale#linter#Define('typescript', {
 \   'callback': 'ale#handlers#eslint#HandleJSON',
 \})
 
-let g:ale_fixers = { 'typescriptreact': ['eslint'], 'svelte': ['eslint'], 'sql': ['pgformatter'] }
+let g:ale_fixers = { 'typescriptreact': ['eslint'], 'typescript': ['eslint'], 'svelte': ['eslint'], 'sql': ['pgformatter'] }
 let g:ale_linters_ignore = { 'typescriptreact': ['eslint'], 'typescript': ['eslint'], 'sql': ['sqlfluff']  }
+" let g:ale_linters_ignore = { 'sql': ['sqlfluff']  }
 let g:ale_echo_msg_format='%linter% %severity% (%code%): %s'
 let g:ale_loclist_msg_format='%linter% %severity% (%code%): %s'
 let g:ale_loclist_format='%linter% %severity% (%code%): %s'

@@ -1,3 +1,6 @@
+snippet to-pe3
+	////////////////////////////////
+	// TODO ${1:PE3-2255}
 snippet todo
 	////////////////////////////////
 	// TODO ${1:delete before prod!!}
@@ -13,53 +16,73 @@ snippet import
 	import ${1:MyComponent} from 'ui/${2:atoms}/$1';
 snippet snap
 	expect(tree${1:.toJSON()}).toMatchSnapshot();
-snippet t_test
-	import React from 'react';
-
-	import render from '@ui/testing/render';
-
-	import ${1:Component} from './$1';
-
-	describe('[${2:dir}] $1', () => {
-	  const props = {};
-
-	  it('renders correctly', () => {
-	    const tree = render(<$1 {...props} />);
-
-	    expect(tree.toJSON()).toMatchSnapshot();
+snippet t-test
+	import { INestApplication } from '@nestjs/common';
+	import {
+	  HOOK_TIMEOUT,
+	  identityIdForRoleFundManager,
+	  setupHook,
+	  tearDownHook,
+	} from 'testing/helper/config';
+	import { makeSendQuery } from 'testing/helper/make-send-query';
+	
+	const query = '
+	  $1 $2($input: QueryInput) {
+	    result: $2(input: $input) {
+	    }
+	  }
+	';
+	
+	describe('${1:query} ${2:queryName}', () => {
+	  let app: INestApplication;
+	
+	  beforeAll(async () => {
+	    app = await setupHook();
+	  }, HOOK_TIMEOUT);
+	
+	  afterAll(async () => {
+	    await tearDownHook(app);
+	  }, HOOK_TIMEOUT);
+	
+	  it("should fail when user can't access to lpId", async () => {
+	    const sendQuery = await makeSendQuery({
+	      app,
+	      identityIdForRole: identityIdForRoleFundManager,
+	      query,
+	      variables: {
+	      }
+	    });
+	
+	    return sendQuery({
+	      headers: { lpHeaders: { lpIds: '{}', filteredLpIds: '{}' } },
+	    }).expect((res) => {
+	      expect(res.body.data).toBe(null);
+	      expect(res.body.errors[0].message).toBe('Forbidden resource');
+	    });
 	  });
 	});
-snippet t_comp
-	import React from 'react';
-
+snippet t-comp
 	interface $1Props {
 		${2:prop}: string;
 	};
 
-	export const ${1:Component}: React.FC<$1Props> = ({ $2 }) => (
+	export const ${1:Component} = ({ $2 }: $1Props) => (
 		<div />
 	);
+snippet t-sto
+	// eslint-disable-next-line import/no-extraneous-dependencies
+	import { ComponentStory, ComponentMeta } from '@storybook/react';
 
-	export default $1;
-snippet t_sto
-	import React from 'react';
-	import { Story } from '@storybook/react';
-
-	import ${1:Component}, { $1Props } from './$1';
+	import { ${1:Component} } from '.';
 
 	export default {
-	  title: '${2}/$1',
-	  component: $1
-	};
+	  component: $1,
+	} as ComponentMeta<typeof $1>;
 
-	const story: Story<$1Props> = (args) => <$1 {...args} />;
+	const Template: ComponentStory<typeof $1> = (args) => <$1 {...args} />;
 
-	export const Default = story.bind(null);
-snippet story.bind
-	export const ${1:StoryName} = story.bind(null);
-	$1.args = {
-	  ${2:args}: ${3:true}
-	};
+	export const ${2:Default} = Template.bind({});
+	$2.args = { ${2} };
 snippet classnames
 	import cls from 'classnames';
 snippet ts-ignore
@@ -78,9 +101,9 @@ snippet trans
 snippet badge-rest
 	parameters: {
 	  docs: {
-	    instamed: {
-	      badges: ['rest']
-	    }
+		instamed: {
+		  badges: ['rest']
+		}
 	  }
 	}
 snippet @kym
@@ -95,3 +118,7 @@ snippet querystate
 	}
 snippet yup-mixed
 	yup.mixed<${1:Enum}>().oneOf(Object.values($1)),
+snippet oContain
+	expect.objectContaining(${1:props})${2:;}
+snippet uuidv5
+	import { v5 as uuidv5 } from 'uuid';

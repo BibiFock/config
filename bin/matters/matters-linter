@@ -19,7 +19,7 @@ else
 fi
 
 #echo "cd $dir && $eslintBin -f json $1" >> ./last-call
-result=$(cd $dir && $eslintBin -f json $1)
+result=$(cd $dir && $eslintBin -f json $filename)
 
 #echo $result >> ./last-call
 echo $result
