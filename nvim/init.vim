@@ -48,34 +48,28 @@ Plug 'gcmt/wildfire.vim'
 
 Plug 'jlanzarotta/bufexplorer'
 
-" Bundle 'snipMate'
+Plug 'lukas-reineke/indent-blankline.nvim'
 
-"" TODO DELETE
-" "Bundle 'scrooloose/syntastic'
-" "let g:syntastic_check_on_open=1
-" "let g:syntastic_enable_signs=1
-" "let g:syntastic_auto_jump = 1
-" "let g:syntastic_loc_list_height = 5
-" "" Better :sign interface symbols
-" "let g:syntastic_error_symbol = '✗'
-" "let g:syntastic_warning_symbol = '!'
-" "" PHP
-" "" let g:syntastic_php_checkers = ['php', 'phpcs', 'phpmd']
-" "let g:syntastic_php_checkers = ['php', 'phpcs']
-" "let g:syntastic_php_phpcs_args='--standard=PSR2 -n'
-" "" Javascript
-" "let g:syntastic_javascript_checkers=['eslint']
-" "let g:syntastic_javascript_tsc_exe = '$(yarn bin)/eslint'
-" "let g:syntastic_javascript_eslint_exe = '$(yarn bin)/eslint'
-" "let g:syntastic_javascriptreact_checkers=['eslint', 'css/stylelint']
-" "" other files mapping
-" "let g:syntastic_filetype_map = { 'svelte': 'javascript', 'typescriptreact': 'typescript' }
-" "let g:syntastic_debug=0
-" "let g:syntastic_go_checkers = [ 'go' ]
-" "" aggregate all linters errors
-" "let g:syntastic_aggregate_errors = 1
+" Plug 'snipMate'
+" Track the engine.
+Plug 'SirVer/ultisnips'
 
-" Bundle 'nathanaelkane/vim-indent-guides'
+" Snippets are separated from the engine. Add this if you want them:
+Plug 'honza/vim-snippets'
+" Trigger configuration. You need to change this to something other than <tab> if you use one of the following:
+" - https://github.com/Valloric/YouCompleteMe
+" - https://github.com/nvim-lua/completion-nvim
+let g:UltiSnipsExpandTrigger="<tab>"
+let g:UltiSnipsJumpForwardTrigger="<c-b>"
+let g:UltiSnipsJumpBackwardTrigger="<c-z>"
+" If you want :UltiSnipsEdit to split your window.
+let g:UltiSnipsEditSplit="vertical"
+
+let g:UltiSnipsSnippetStorageDirectoryForUltiSnipsEdit=expand("~/config/nvim/snippets")
+let g:UltiSnipsSnippetDirectories=["UltiSnips", expand("~/config/nvim/snippets")]
+let g:UltiSnipsEnableSnipMate=1
+
+
 
 "bottom bar
 Plug 'vim-airline/vim-airline'
@@ -215,6 +209,8 @@ set background=dark
 set t_Co=256
 colorscheme xoria256
 highlight ColorColumn ctermbg=237
+" for ibl.config hilight
+highlight Whitespace ctermfg=242
 
 "redef des msg de warning car trop discret par défaut
 " hi WarningMsg ctermfg=15  ctermbg=166
@@ -227,14 +223,6 @@ sign define DiagnosticSignError text= texthl=DiagnosticSignError
 sign define DiagnosticSignWarn text= texthl=DiagnosticSignWarn
 sign define DiagnosticSignInfo text= texthl=DiagnosticSignInfo
 sign define DiagnosticSignHint text= texthl=DiagnosticSignHint
-
-lua << EOF
-vim.diagnostic.config({
-  virtual_text = {
-    prefix = '#',
-  },
-})
-EOF
 
 "coloration command ligne for each mode
 au InsertEnter * hi StatusLine term=reverse ctermbg=4
@@ -258,16 +246,17 @@ autocmd BufWinLeave * call clearmatches()
 """"""""""""""""""""""""""""""""""""""""""""""
 " Activer la sauvegarde
 set backup
-if isdirectory($HOME . '/.vim/backup') == 2
+" Backup dans ~/.vim/backup
+if filewritable("~/config/nvim/backup") == 2
   " Since the directory is writable,
   " we'll use it.
-  set backupdir=$HOME/.vim/backup
+  set backupdir=$HOME/config/nvim/backup
 else
   if has('unix') || has('win32unix')
     " If it's a UNIX-compatible system, we'll
     " create the directory and use it.
-    call mkdir($HOME . '/.vim/backup', 'p')
-    set backupdir=$HOME/.vim/backup
+    call mkdir($HOME . '/config/nvim/backup', 'p')
+    set backupdir=$HOME/config/nvim/backup
   endif
 endif
 
@@ -434,3 +423,24 @@ nmap <Leader>at :ALEGoToDefinition -tab<CR>
 nmap <Leader>i :ALEImport<CR>
 nmap <Leader>f :ALEFirst<CR>
 nmap <Leader>fn :ALENext<CR>
+
+lua << EOF
+vim.diagnostic.config({
+  virtual_text = {
+    prefix = '#',
+  },
+});
+
+local highlight = {
+    "Whitespace",
+}
+
+require("ibl").setup({
+  indent = { highlight = highlight, char = "╎" },
+  whitespace = {
+    highlight = highlight,
+    remove_blankline_trail = false,
+  },
+  scope = { enabled = false },
+})
+EOF
