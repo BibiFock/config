@@ -111,31 +111,31 @@ Plug 'sheerun/vim-polyglot'
 " autocmd BufWritePre *.tsx,*.ts,*.svelte,*.sql Prettier
 
 " try for async test
-Plug 'dense-analysis/ale'
-" Use the global executable with a special name for eslint.
-let g:ale_typescriptreact_eslint_options = '%s'
-" let g:ale_typescriptreact_eslint_executable = 'matters-linter'
-let g:ale_typescriptreact_eslint_use_global = 1
-let g:ale_typescriptreact_eslint_options = '%s'
+" Plug 'dense-analysis/ale'
+" " Use the global executable with a special name for eslint.
+" let g:ale_typescriptreact_eslint_options = '%s'
+" " let g:ale_typescriptreact_eslint_executable = 'matters-linter'
+" let g:ale_typescriptreact_eslint_use_global = 1
+" let g:ale_typescriptreact_eslint_options = '%s'
 
-let g:ale_fixers = { 'typescriptreact': ['eslint', 'prettier'], 'typescript': ['eslint', 'prettier'], 'svelte': ['eslint'], 'sql': ['pgformatter'] }
-let g:ale_linters_ignore = { 'typescriptreact': ['eslint'], 'typescript': ['eslint'], 'sql': ['sqlfluff']  }
-" let g:ale_linters_ignore = { 'sql': ['sqlfluff']  }
-let g:ale_echo_msg_format='%linter% %severity% (%code%): %s'
-let g:ale_loclist_msg_format='%linter% %severity% (%code%): %s'
-let g:ale_loclist_format='%linter% %severity% (%code%): %s'
-let g:ale_lint_on_text_changed = 'never'
-let g:ale_sql_pgformatter_options = '--function-case 1 --keyword-case 2 --spaces 2 --wrap-limit 80 --wrap-after 0'
-let g:ale_fix_on_save = 1
-let g:ale_open_list = 0
-let g:ale_set_loclist = 0
-let g:ale_set_quickfix = 0
-let g:ale_completion_enabled = 1
-let g:ale_set_balloons = 1
-let g:ale_virtualtext_cursor = 'current'
-" try lsp
-let g:ale_use_neovim_diagnostics_api = 1
-let g:ale_disable_lsp = 1
+" let g:ale_fixers = { 'typescriptreact': ['eslint', 'prettier'], 'typescript': ['eslint', 'prettier'], 'svelte': ['eslint'], 'sql': ['pgformatter'] }
+" let g:ale_linters_ignore = { 'typescriptreact': ['eslint'], 'typescript': ['eslint'], 'sql': ['sqlfluff']  }
+" " let g:ale_linters_ignore = { 'sql': ['sqlfluff']  }
+" let g:ale_echo_msg_format='%linter% %severity% (%code%): %s'
+" let g:ale_loclist_msg_format='%linter% %severity% (%code%): %s'
+" let g:ale_loclist_format='%linter% %severity% (%code%): %s'
+" let g:ale_lint_on_text_changed = 'never'
+" let g:ale_sql_pgformatter_options = '--function-case 1 --keyword-case 2 --spaces 2 --wrap-limit 80 --wrap-after 0'
+" let g:ale_fix_on_save = 1
+" let g:ale_open_list = 0
+" let g:ale_set_loclist = 0
+" let g:ale_set_quickfix = 0
+" let g:ale_completion_enabled = 1
+" let g:ale_set_balloons = 1
+" let g:ale_virtualtext_cursor = 'current'
+" " try lsp
+" let g:ale_use_neovim_diagnostics_api = 1
+" let g:ale_disable_lsp = 1
 
 " _PLUGINS_IN_TEST
 Plug 'neovim/nvim-lspconfig'
@@ -158,21 +158,21 @@ Plug 'luckasRanarison/tailwind-tools.nvim'
 
 call plug#end()
 
-call ale#linter#Define('svelte', {
-\   'name': 'webbr-lint',
-\   'output_stream': 'both',
-\   'executable': function('ale#handlers#eslint#GetExecutable'),
-\   'cwd': function('ale#handlers#eslint#GetCwd'),
-\   'command': 'webbr-lint %s',
-\   'callback': 'ale#handlers#eslint#HandleJSON',
-\})
-call ale#linter#Define('typescript', {
-\   'name': 'mattersLinter',
-\   'executable': '/Users/julien.bernardo/config/bin/matters/matters-linter',
-\   'cwd': function('ale#handlers#eslint#GetCwd'),
-\   'command': 'matters-linter %s',
-\   'callback': 'ale#handlers#eslint#HandleJSON',
-\})
+" call ale#linter#Define('svelte', {
+" \   'name': 'webbr-lint',
+" \   'output_stream': 'both',
+" \   'executable': function('ale#handlers#eslint#GetExecutable'),
+" \   'cwd': function('ale#handlers#eslint#GetCwd'),
+" \   'command': 'webbr-lint %s',
+" \   'callback': 'ale#handlers#eslint#HandleJSON',
+" \})
+" call ale#linter#Define('typescript', {
+" \   'name': 'mattersLinter',
+" \   'executable': '/Users/julien.bernardo/config/bin/matters/matters-linter',
+" \   'cwd': function('ale#handlers#eslint#GetCwd'),
+" \   'command': 'matters-linter %s',
+" \   'callback': 'ale#handlers#eslint#HandleJSON',
+" \})
 
 
 call airline#parts#define_accent('%{$USER}@', 'blue')
@@ -249,16 +249,17 @@ highlight ColorColumn ctermbg=237
 highlight Whitespace ctermfg=242
 
 "redef des msg de warning car trop discret par défaut
-" hi WarningMsg ctermfg=15  ctermbg=166
+hi WarningMsg ctermfg=15  ctermbg=166
 
 hi CursorLineNr ctermbg=237 guibg=#3a3a3a cterm=none gui=none
 highlight DiagnosticInfo ctermfg=242
 highlight DiagnosticError ctermfg=9
+highlight NormalFloat ctermbg=235
 
-sign define DiagnosticSignError text= texthl=DiagnosticSignError
-sign define DiagnosticSignWarn text= texthl=DiagnosticSignWarn
-sign define DiagnosticSignInfo text= texthl=DiagnosticSignInfo
-sign define DiagnosticSignHint text= texthl=DiagnosticSignHint
+sign define DiagnosticSignError text=  texthl=DiagnosticSignError
+sign define DiagnosticSignWarn text=   texthl=DiagnosticSignWarn
+sign define DiagnosticSignInfo text=   texthl=DiagnosticSignInfo
+sign define DiagnosticSignHint text=   texthl=DiagnosticSignHint
 
 "coloration command ligne for each mode
 au InsertEnter * hi StatusLine term=reverse ctermbg=4
@@ -471,14 +472,28 @@ nmap <Leader>pwd :echo expand('%:p')<Cr>
 
 nmap <leader>fo :r !fortune ~/config/fortune/quotes<Cr>
 
+function! OpenCurrentFileInNewTab()
+  " Get the current cursor position
+  let l:line = line('.')
+  let l:col = col('.')
+  
+  " Open a new tab with the same file
+  tabnew %
+  
+  " Restore the cursor position
+  execute l:line
+  call cursor(l:line, l:col)
+endfunction
 " " typescript command
 nmap <Leader>a :TSToolsGoToSourceDefinition<CR>
-nmap <Leader>as :TSToolsGoToSourceDefinition -split<CR>
-nmap <Leader>aa :TSToolsGoToSourceDefinition -vsplit<CR>
-nmap <Leader>at :tabedit %<CR>:TSToolsGoToSourceDefinition<CR>
+nmap <Leader>as :split<CR>:TSToolsGoToSourceDefinition<CR>
+nmap <Leader>at :call OpenCurrentFileInNewTab()<CR>:TSToolsGoToSourceDefinition<CR>
 nmap <Leader>i :TSToolsAddMissingImports<CR>
-nmap <Leader>f :ALEFirst<CR>
-nmap <Leader>fn :ALENext<CR>
+" nmap <Leader>f :ALEFirst<CR>
+" nmap <Leader>fn :ALENext<CR>
+
+nmap <leader>d :lua vim.diagnostic.open_float()<CR>
+nmap <leader>df :lua vim.lsp.buf.hover()<CR>
 
 
 lua << EOF
@@ -612,5 +627,7 @@ local function setup_lsp_diags()
     }
   )
 end
+
+require'lspconfig'.tsserver.setup{}
 
 EOF
