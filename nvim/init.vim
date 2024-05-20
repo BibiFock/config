@@ -1,6 +1,8 @@
 """""""""""""""""""""""""""""""""""""""""""""""
 "    INDEX
+"        _SYNTAX
 "        _PLUGINS
+"        _PLUGINS_IN_TEST
 "        _EDITOR
 "        _COLORSCHEME
 "        _BACKUP
@@ -12,6 +14,20 @@
 """"""""""""""""""""""""""""""""""""""""""""""
 
 """"""""""""""""""""""""""""""""""""""""""""""
+" _SYNTAX
+""""""""""""""""""""""""""""""""""""""""""""""
+au BufNewFile,BufRead *.less set filetype=less
+au BufNewFile,BufRead *.conf set filetype=dosini
+au BufNewFile,BufRead *.ts set filetype=typescript
+au BufNewFile,BufRead *.tsx set filetype=typescriptreact
+au BufNewFile,BufRead *.vue set filetype=vue
+au BufNewFile,BufRead *.go set filetype=go
+au BufNewFile,BufRead *.twig set filetype=html.twig
+au BufNewFile,BufRead *.styl set filetype=stylus
+au BufNewFile,BufRead *.gql set filetype=graphql
+au BufNewFile,BufRead *.svelte set filetype=svelte
+
+""""""""""""""""""""""""""""""""""""""""""""""
 " _PLUGINS
 """"""""""""""""""""""""""""""""""""""""""""""
 let data_dir = has('nvim') ? stdpath('data') . '/site' : '~/.vim'
@@ -20,7 +36,7 @@ if empty(glob(data_dir . '/autoload/plug.vim'))
   autocmd VimEnter * PlugInstall --sync | source $MYVIMRC
 endif
 
-call plug#begin()
+call plug#begin('~/config/nvim/bundle')
 
 " Post-update hook can be a lambda expression
 set rtp+=~/config/fzf
@@ -48,7 +64,7 @@ Plug 'gcmt/wildfire.vim'
 
 Plug 'jlanzarotta/bufexplorer'
 
-Plug 'lukas-reineke/indent-blankline.nvim'
+Plug 'lukas-reineke/indent-blankline.nvim', { 'tag': 'v3.5.4' }
 
 " Plug 'snipMate'
 " Track the engine.
@@ -70,17 +86,20 @@ let g:UltiSnipsSnippetDirectories=["UltiSnips", expand("~/config/nvim/snippets")
 let g:UltiSnipsEnableSnipMate=1
 
 
-
 "bottom bar
 Plug 'vim-airline/vim-airline'
+let g:airline#extensions#branch#enabled = 1
+let g:airline#extensions#syntastic#enabled = 1
+let g:airline_left_sep=''
+let g:airline_right_sep=''
 
 " "Bundle 'Quramy/tsuquyomi'
 " "let g:tsuquyomi_completion_detail = 1
 " "let g:tsuquyomi_disable_quickfix = 1
 " "autocmd InsertLeave,BufWritePost *.ts,*.tsx call tsuquyomi#asyncGeterr()
 " ""let g:syntastic_typescript_checkers = ['tsuquyomi', 'eslint'] " You shouldn't use 'tsc' checker.
-" "let g:syntastic_typescript_checkers = ['eslint'] " You shouldn't use 'tsc' checker.
-" "let g:syntastic_typescript_eslint_exe = '$(yarn bin)/eslint --parser-options=project:$(yarn bin)/../../tsconfig.json --rule "import/no-unused-modules: off"'
+"let g:syntastic_typescript_checkers = ['eslint'] " You shouldn't use 'tsc' checker.
+"let g:syntastic_typescript_eslint_exe = '$(yarn bin)/eslint --parser-options=project:$(yarn bin)/../../tsconfig.json --rule "import/no-unused-modules: off"'
 
 " " vim resizer
 Plug 'simeji/winresizer'
@@ -95,11 +114,11 @@ Plug 'sheerun/vim-polyglot'
 Plug 'dense-analysis/ale'
 " Use the global executable with a special name for eslint.
 let g:ale_typescriptreact_eslint_options = '%s'
-let g:ale_typescriptreact_eslint_executable = 'matters-linter'
+" let g:ale_typescriptreact_eslint_executable = 'matters-linter'
 let g:ale_typescriptreact_eslint_use_global = 1
 let g:ale_typescriptreact_eslint_options = '%s'
 
-let g:ale_fixers = { 'typescriptreact': ['eslint'], 'typescript': ['eslint'], 'svelte': ['eslint'], 'sql': ['pgformatter'] }
+let g:ale_fixers = { 'typescriptreact': ['eslint', 'prettier'], 'typescript': ['eslint', 'prettier'], 'svelte': ['eslint'], 'sql': ['pgformatter'] }
 let g:ale_linters_ignore = { 'typescriptreact': ['eslint'], 'typescript': ['eslint'], 'sql': ['sqlfluff']  }
 " let g:ale_linters_ignore = { 'sql': ['sqlfluff']  }
 let g:ale_echo_msg_format='%linter% %severity% (%code%): %s'
@@ -114,6 +133,28 @@ let g:ale_set_quickfix = 0
 let g:ale_completion_enabled = 1
 let g:ale_set_balloons = 1
 let g:ale_virtualtext_cursor = 'current'
+" try lsp
+let g:ale_use_neovim_diagnostics_api = 1
+let g:ale_disable_lsp = 1
+
+" _PLUGINS_IN_TEST
+Plug 'neovim/nvim-lspconfig'
+
+" Plug 'prabirshrestha/vim-lsp'
+" Plug 'rhysd/vim-lsp-ale'
+
+Plug 'nvim-lua/plenary.nvim'
+Plug 'pmizio/typescript-tools.nvim'
+
+Plug 'hrsh7th/cmp-nvim-lsp'
+Plug 'hrsh7th/cmp-buffer'
+Plug 'hrsh7th/cmp-path'
+Plug 'hrsh7th/cmp-cmdline'
+Plug 'hrsh7th/nvim-cmp'
+Plug 'onsails/lspkind.nvim'
+
+Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'}
+Plug 'luckasRanarison/tailwind-tools.nvim'
 
 call plug#end()
 
@@ -133,6 +174,9 @@ call ale#linter#Define('typescript', {
 \   'callback': 'ale#handlers#eslint#HandleJSON',
 \})
 
+
+call airline#parts#define_accent('%{$USER}@', 'blue')
+let g:airline_section_c = airline#section#create(['%{$USER}@','%{getcwd()}','/%f'])
 
 """"""""""""""""""""""""""""""""""""""""""""""
 " _EDITOR
@@ -156,14 +200,6 @@ let g:netrw_win=20
 
 "status line
 set laststatus=2
-
-" Tell vim to remember certain things when we exit
-"  '10  :  marks will be remembered for up to 10 previously edited files
-"  "11  :  will save up to 100 lines for each register
-"  :20  :  up to 20 lines of command-line history will be remembered
-"  %    :  saves and restores the buffer list
-"  n... :  where to save the viminfo files
-" set viminfo='10,\"11,:20,%,n~/.viminfo
 
 " SEARCH"
 set ignorecase      " ignorecase : ignore case when using a search pattern (noic|ic)
@@ -260,6 +296,26 @@ else
   endif
 endif
 
+
+" Tell vim to remember certain things when we exit
+"  '10  :  marks will be remembered for up to 10 previously edited files
+"  "11  :  will save up to 100 lines for each register
+"  :20  :  up to 20 lines of command-line history will be remembered
+"  %    :  saves and restores the buffer list
+"  n... :  where to save the viminfo files
+" set viminfo='10,\"11,:20,%,n~/.viminfo
+"
+" 1000: Maximum number of lines stored for each register.
+" <50: Maximum number of items stored in the command-line history.
+" s10: Maximum number of items stored in the search history.
+" h: Include help file marks in the shada file.
+set shada='10,\"11,:20,%
+
+" Automatically save all buffers when they are written
+autocmd BufWritePost * silent! wall
+
+" Reload all buffers on Neovim startup
+autocmd VimEnter * silent! bufdo e!
 
 """"""""""""""""""""""""""""""""""""""""""""""
 " _FUNCTIONS
@@ -416,13 +472,14 @@ nmap <Leader>pwd :echo expand('%:p')<Cr>
 nmap <leader>fo :r !fortune ~/config/fortune/quotes<Cr>
 
 " " typescript command
-nmap <Leader>a :ALEGoToDefinition<CR>
-nmap <Leader>as :ALEGoToDefinition -split<CR>
-nmap <Leader>aa :ALEGoToDefinition -vsplit<CR>
-nmap <Leader>at :ALEGoToDefinition -tab<CR>
-nmap <Leader>i :ALEImport<CR>
+nmap <Leader>a :TSToolsGoToSourceDefinition<CR>
+nmap <Leader>as :TSToolsGoToSourceDefinition -split<CR>
+nmap <Leader>aa :TSToolsGoToSourceDefinition -vsplit<CR>
+nmap <Leader>at :tabedit %<CR>:TSToolsGoToSourceDefinition<CR>
+nmap <Leader>i :TSToolsAddMissingImports<CR>
 nmap <Leader>f :ALEFirst<CR>
 nmap <Leader>fn :ALENext<CR>
+
 
 lua << EOF
 vim.diagnostic.config({
@@ -430,6 +487,7 @@ vim.diagnostic.config({
     prefix = '#',
   },
 });
+
 
 local highlight = {
     "Whitespace",
@@ -443,4 +501,116 @@ require("ibl").setup({
   },
   scope = { enabled = false },
 })
+
+---@type TailwindTools.Option
+require("tailwind-tools").setup({
+  document_color = {
+    enabled = true, -- can be toggled by commands
+    kind = "background", -- "inline" | "foreground" | "background"
+    inline_symbol = "󰝤 ", -- only used in inline mode
+    debounce = 200, -- in milliseconds, only applied in insert mode
+  },
+  conceal = {
+    enabled = false, -- can be toggled by commands
+    min_length = nil, -- only conceal classes exceeding the provided length
+    symbol = "󱏿", -- only a single character is allowed
+    highlight = { -- extmark highlight options, see :h 'highlight'
+      fg = "#38BDF8",
+    },
+  },
+  custom_filetypes = {} -- see the extension section to learn how it works
+})
+
+require("typescript-tools").setup({})
+-- Set up nvim-cmp.
+  local cmp = require'cmp'
+  local lspkind = require'lspkind'
+
+  cmp.setup({
+    formatting = {
+      format = lspkind.cmp_format({
+        before = require("tailwind-tools.cmp").lspkind_format
+      })
+    },
+    snippet = {
+      -- REQUIRED - you must specify a snippet engine
+      expand = function(args)
+        vim.fn["vsnip#anonymous"](args.body) -- For `vsnip` users.
+        -- require('luasnip').lsp_expand(args.body) -- For `luasnip` users.
+        -- require('snippy').expand_snippet(args.body) -- For `snippy` users.
+        -- vim.fn["UltiSnips#Anon"](args.body) -- For `ultisnips` users.
+        -- vim.snippet.expand(args.body) -- For native neovim snippets (Neovim v0.10+)
+      end,
+    },
+    window = {
+      -- completion = cmp.config.window.bordered(),
+      -- documentation = cmp.config.window.bordered(),
+    },
+    mapping = cmp.mapping.preset.insert({
+      ['<C-b>'] = cmp.mapping.scroll_docs(-4),
+      ['<C-f>'] = cmp.mapping.scroll_docs(4),
+      ['<C-Space>'] = cmp.mapping.complete(),
+      ['<C-e>'] = cmp.mapping.abort(),
+      ['<CR>'] = cmp.mapping.confirm({ select = true }), -- Accept currently selected item. Set `select` to `false` to only confirm explicitly selected items.
+    }),
+    sources = cmp.config.sources({
+      { name = 'nvim_lsp' },
+      { name = 'vsnip' }, -- For vsnip users.
+      -- { name = 'luasnip' }, -- For luasnip users.
+      -- { name = 'ultisnips' }, -- For ultisnips users.
+      -- { name = 'snippy' }, -- For snippy users.
+    }, {
+      { name = 'buffer' },
+    })
+  })
+
+  -- To use git you need to install the plugin petertriho/cmp-git and uncomment lines below
+  -- Set configuration for specific filetype.
+  --[[ cmp.setup.filetype('gitcommit', {
+    sources = cmp.config.sources({
+      { name = 'git' },
+    }, {
+      { name = 'buffer' },
+    })
+ })
+ require("cmp_git").setup() ]]-- 
+
+  -- Use buffer source for `/` and `?` (if you enabled `native_menu`, this won't work anymore).
+  cmp.setup.cmdline({ '/', '?' }, {
+    mapping = cmp.mapping.preset.cmdline(),
+    sources = {
+      { name = 'buffer' }
+    }
+  })
+
+  -- Use cmdline & path source for ':' (if you enabled `native_menu`, this won't work anymore).
+  cmp.setup.cmdline(':', {
+    mapping = cmp.mapping.preset.cmdline(),
+    sources = cmp.config.sources({
+      { name = 'path' }
+    }, {
+      { name = 'cmdline' }
+    }),
+    matching = { disallow_symbol_nonprefix_matching = false }
+  })
+
+  -- Set up lspconfig.
+  local capabilities = require('cmp_nvim_lsp').default_capabilities()
+  -- Replace <YOUR_LSP_SERVER> with each lsp server you've enabled.
+  require('lspconfig').clangd.setup {
+    capabilities = capabilities
+  }
+
+local function setup_lsp_diags()
+  vim.lsp.handlers["textDocument/publishDiagnostics"] = vim.lsp.with(
+    vim.lsp.diagnostic.on_publish_diagnostics,
+    {
+      virtual_text = false,
+      signs = true,
+      update_in_insert = false,
+      underline = true,
+    }
+  )
+end
+
 EOF

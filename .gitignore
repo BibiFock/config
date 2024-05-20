@@ -5,6 +5,10 @@ vim/swap/*
 fortune/quotes*
 node_modules
 
+
+nvim/backup/*
+nvim/bundle/*
+
 bin/composer
 bin/phpcs
 bin/php-cs-fixer

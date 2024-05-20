@@ -91,16 +91,16 @@ Bundle 'gcmt/wildfire.vim'
 "let g:syntastic_aggregate_errors = 1
 
 "javascript
-Bundle 'othree/javascript-libraries-syntax.vim'
-let g:used_javascript_libs = 'jquery'
-autocmd BufReadPre *.js let b:javascript_lib_use_jquery = 1
+" Bundle 'othree/javascript-libraries-syntax.vim'
+" let g:used_javascript_libs = 'jquery'
+" autocmd BufReadPre *.js let b:javascript_lib_use_jquery = 1
 
-Bundle 'jelera/vim-javascript-syntax'
-Bundle 'pangloss/vim-javascript'
-let g:javascript_enable_domhtmlcss=1
-Bundle 'nathanaelkane/vim-indent-guides'
+" Bundle 'jelera/vim-javascript-syntax'
+" Bundle 'pangloss/vim-javascript'
+" let g:javascript_enable_domhtmlcss=1
+" Bundle 'nathanaelkane/vim-indent-guides'
 
-Bundle 'styled-components/vim-styled-components'
+" Bundle 'styled-components/vim-styled-components'
 
 "bottom bar
 Bundle 'bling/vim-airline'
@@ -115,40 +115,40 @@ let g:airline_section_c = airline#section#create(['%{$USER}@','%{getcwd()}','/%f
 Bundle 'xoria256.vim'
 
 "php fixer
-Bundle 'php-cs-fixer'
-" If php-cs-fixer is in $PATH, you don't need to define line below
-let g:php_cs_fixer_path = "~/bin/php-cs-fixer.phar" " define the path to the
-" php-cs-fixer.phar
- let g:php_cs_fixer_level = "all"                  " which level ?
- let g:php_cs_fixer_config = "default"             " configuration
- let g:php_cs_fixer_php_path = "php"               " Path to PHP
-" If you want to define specific fixers:
-"let g:php_cs_fixer_fixers_list = "linefeed,short_tag,indentation"
- let g:php_cs_fixer_enable_default_mapping = 1     " Enable the mapping by
-" default (<leader>pc + d for dir or f for file)
-let g:php_cs_fixer_dry_run = 0                    " Call command with
-" dry-run option
-let g:php_cs_fixer_verbose = 0                    " Return the output of
-" command if 1, else an inline information.
+" Bundle 'php-cs-fixer'
+" " If php-cs-fixer is in $PATH, you don't need to define line below
+" let g:php_cs_fixer_path = "~/bin/php-cs-fixer.phar" " define the path to the
+" " php-cs-fixer.phar
+ " let g:php_cs_fixer_level = "all"                  " which level ?
+ " let g:php_cs_fixer_config = "default"             " configuration
+ " let g:php_cs_fixer_php_path = "php"               " Path to PHP
+" " If you want to define specific fixers:
+" "let g:php_cs_fixer_fixers_list = "linefeed,short_tag,indentation"
+ " let g:php_cs_fixer_enable_default_mapping = 1     " Enable the mapping by
+" " default (<leader>pc + d for dir or f for file)
+" let g:php_cs_fixer_dry_run = 0                    " Call command with
+" " dry-run option
+" let g:php_cs_fixer_verbose = 0                    " Return the output of
+" " command if 1, else an inline information.
 
-Bundle 'Shutnik/jshint2.vim'
-let jshint2_read = 1
-"Lint JavaScript files after saving it:
-let jshint2_save = 1
-"Do not automatically close orphaned error lists:
-let jshint2_close = 0
-"Skip lint confirmation for non JavaScript files:
-let jshint2_confirm = 0
-"Do not use colored messages:
-let jshint2_color = 0
-"Hide error codes in error list (if you don't use error ignoring or error codes
-"confuses you):
-let jshint2_error = 0
-"Set min and max height of error list:
-let jshint2_height = 3
-let jshint2_height = 12
+" Bundle 'Shutnik/jshint2.vim'
+" let jshint2_read = 1
+" "Lint JavaScript files after saving it:
+" let jshint2_save = 1
+" "Do not automatically close orphaned error lists:
+" let jshint2_close = 0
+" "Skip lint confirmation for non JavaScript files:
+" let jshint2_confirm = 0
+" "Do not use colored messages:
+" let jshint2_color = 0
+" "Hide error codes in error list (if you don't use error ignoring or error codes
+" "confuses you):
+" let jshint2_error = 0
+" "Set min and max height of error list:
+" let jshint2_height = 3
+" let jshint2_height = 12
 
-Bundle 'jparise/vim-graphql'
+" Bundle 'jparise/vim-graphql'
 
 Bundle 'mxw/vim-jsx'
 let g:jsx_ext_required = 0 " Allow JSX in normal JS files
@@ -193,8 +193,8 @@ endfunction
 
 Bundle 'sheerun/vim-polyglot'
 
-Bundle 'prettier/vim-prettier'
-autocmd BufWritePre *.tsx,*.ts,*.svelte,*.sql Prettier
+" Bundle 'prettier/vim-prettier'
+" autocmd BufWritePre *.tsx,*.ts,*.svelte,*.sql Prettier
 
 " try for async test
 Bundle 'dense-analysis/ale'
@@ -208,7 +208,7 @@ call ale#linter#Define('svelte', {
 \})
   " Use the global executable with a special name for eslint.
 let g:ale_typescriptreact_eslint_options = '%s'
-let g:ale_typescriptreact_eslint_executable = 'matters-linter'
+" let g:ale_typescriptreact_eslint_executable = 'matters-linter'
 let g:ale_typescriptreact_eslint_use_global = 1
 let g:ale_typescriptreact_eslint_options = '%s'
 
@@ -217,7 +217,7 @@ let g:ale_typescriptreact_eslint_options = '%s'
   " \   'command': 'matters-fixer %s'
   " \}
 " endfunction
-" execute ale#fix#registry#Add('mattersFixer', 'MattersFixer', ['typescript', 'typescriptreact'], 'matters fixer for ts')
+execute ale#fix#registry#Add('mattersFixer', 'MattersFixer', ['typescript', 'typescriptreact'], 'matters fixer for ts')
 call ale#linter#Define('typescript', {
 \   'name': 'mattersLinter',
 \   'executable': '/Users/julien.bernardo/config/bin/matters/matters-linter',
@@ -226,8 +226,8 @@ call ale#linter#Define('typescript', {
 \   'callback': 'ale#handlers#eslint#HandleJSON',
 \})
 
-let g:ale_fixers = { 'typescriptreact': ['eslint'], 'typescript': ['eslint'], 'svelte': ['eslint'], 'sql': ['pgformatter'] }
-let g:ale_linters_ignore = { 'typescriptreact': ['eslint'], 'typescript': ['eslint'], 'sql': ['sqlfluff']  }
+let g:ale_fixers = { 'typescriptreact': ['eslint', 'prettier'], 'typescript': ['eslint', 'prettier'], 'svelte': ['eslint', 'prettier'], 'sql': ['pgformatter'] }
+" let g:ale_linters_ignore = { 'typescriptreact': ['eslint'], 'typescript': ['eslint'], 'sql': ['sqlfluff']  }
 " let g:ale_linters_ignore = { 'sql': ['sqlfluff']  }
 let g:ale_echo_msg_format='%linter% %severity% (%code%): %s'
 let g:ale_loclist_msg_format='%linter% %severity% (%code%): %s'

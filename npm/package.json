@@ -25,6 +25,7 @@
   "devDependencies": {
     "@biomejs/biome": "1.5.2",
     "@nestjs/cli": "^9.4.2",
+    "@tailwindcss/language-server": "^0.0.16",
     "eslint": "^8.40.0",
     "knip": "^4.2.1",
     "prettier": "^2.8.8",
