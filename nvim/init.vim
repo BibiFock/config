@@ -497,6 +497,7 @@ nmap <Leader>i :TSToolsAddMissingImports<CR>
 nmap <leader>d :lua vim.diagnostic.open_float()<CR>
 nmap <leader>df :lua vim.lsp.buf.hover()<CR>
 
+nmap <leader>re :lua vim.lsp.buf.rename()<CR>
 
 lua << EOF
 vim.diagnostic.config({
