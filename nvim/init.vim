@@ -27,6 +27,8 @@ au BufNewFile,BufRead *.styl set filetype=stylus
 au BufNewFile,BufRead *.gql set filetype=graphql
 au BufNewFile,BufRead *.svelte set filetype=svelte
 
+autocmd BufRead,BufWritePost *.* LspStart
+
 """"""""""""""""""""""""""""""""""""""""""""""
 " _PLUGINS
 """"""""""""""""""""""""""""""""""""""""""""""
@@ -107,8 +109,8 @@ let g:winresizer_start_key = '<leader>r'
 
 Plug 'sheerun/vim-polyglot'
 
-" Bundle 'prettier/vim-prettier'
-" autocmd BufWritePre *.tsx,*.ts,*.svelte,*.sql Prettier
+Plug 'prettier/vim-prettier'
+autocmd BufWritePre *.tsx,*.ts,*.svelte,*.sql Prettier
 
 " try for async test
 " Plug 'dense-analysis/ale'
@@ -536,7 +538,6 @@ require("tailwind-tools").setup({
   custom_filetypes = {} -- see the extension section to learn how it works
 })
 
-require("typescript-tools").setup({})
 -- Set up nvim-cmp.
   local cmp = require'cmp'
   local lspkind = require'lspkind'
@@ -628,6 +629,12 @@ local function setup_lsp_diags()
   )
 end
 
-require'lspconfig'.tsserver.setup{}
+require("typescript-tools").setup({
+  autostart = false
+})
+
+require('lspconfig').tsserver.setup({
+  autostart = false
+})
 
 EOF
