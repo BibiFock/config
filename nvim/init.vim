@@ -647,10 +647,12 @@ require("ibl").setup({
 vim.api.nvim_create_autocmd('LspAttach', {
   callback = function(args)
     local opts = { buffer = args.buf }
-    vim.keymap.set('n', '<leader>d', vim.diagnostic.open_float, opts)
-    vim.keymap.set('n', '<leader>df', vim.lsp.buf.hover, opts)
-    vim.keymap.set('n', '<leader>rn', vim.lsp.buf.rename, opts)
-    vim.keymap.set('n', '<leader>re', vim.lsp.buf.references, opts)
+    local map = vim.keymap.set
+    map('n', '<leader>d', vim.diagnostic.open_float, opts)
+    map('n', '<leader>df', vim.lsp.buf.hover, opts)
+    map('n', '<leader>rn', vim.lsp.buf.rename, opts)
+    map('n', '<leader>re', vim.lsp.buf.references, opts)
+    map("n", '<leader>f', vim.diagnostic.goto_next, opts)
   end,
 })
 
