@@ -27,7 +27,7 @@ au BufNewFile,BufRead *.styl set filetype=stylus
 au BufNewFile,BufRead *.gql set filetype=graphql
 au BufNewFile,BufRead *.svelte set filetype=svelte
 
-autocmd BufRead,BufWritePost *.* LspStart
+" autocmd BufRead,BufWritePost *.* LspStart
 
 """"""""""""""""""""""""""""""""""""""""""""""
 " _PLUGINS
@@ -141,6 +141,7 @@ autocmd BufWritePre *.tsx,*.ts,*.svelte,*.sql Prettier
 
 " _PLUGINS_IN_TEST
 Plug 'neovim/nvim-lspconfig'
+" Plug 'VonHeikemen/lsp-zero.nvim'
 
 " Plug 'prabirshrestha/vim-lsp'
 " Plug 'rhysd/vim-lsp-ale'
@@ -494,10 +495,10 @@ nmap <Leader>i :TSToolsAddMissingImports<CR>
 " nmap <Leader>f :ALEFirst<CR>
 " nmap <Leader>fn :ALENext<CR>
 
-nmap <leader>d :lua vim.diagnostic.open_float()<CR>
-nmap <leader>df :lua vim.lsp.buf.hover()<CR>
+" nmap <leader>d :lua vim.diagnostic.open_float()<CR>
+" nmap <leader>df :lua vim.lsp.buf.hover()<CR>
 
-nmap <leader>re :lua vim.lsp.buf.rename()<CR>
+" nmap <leader>re :lua vim.lsp.buf.rename()<CR>
 
 lua << EOF
 vim.diagnostic.config({
@@ -506,38 +507,6 @@ vim.diagnostic.config({
   },
 });
 
-
-local highlight = {
-    "Whitespace",
-}
-
-require("ibl").setup({
-  indent = { highlight = highlight, char = "╎" },
-  whitespace = {
-    highlight = highlight,
-    remove_blankline_trail = false,
-  },
-  scope = { enabled = false },
-})
-
----@type TailwindTools.Option
-require("tailwind-tools").setup({
-  document_color = {
-    enabled = true, -- can be toggled by commands
-    kind = "background", -- "inline" | "foreground" | "background"
-    inline_symbol = "󰝤 ", -- only used in inline mode
-    debounce = 200, -- in milliseconds, only applied in insert mode
-  },
-  conceal = {
-    enabled = false, -- can be toggled by commands
-    min_length = nil, -- only conceal classes exceeding the provided length
-    symbol = "󱏿", -- only a single character is allowed
-    highlight = { -- extmark highlight options, see :h 'highlight'
-      fg = "#38BDF8",
-    },
-  },
-  custom_filetypes = {} -- see the extension section to learn how it works
-})
 
 -- Set up nvim-cmp.
   local cmp = require'cmp'
@@ -611,12 +580,12 @@ require("tailwind-tools").setup({
     matching = { disallow_symbol_nonprefix_matching = false }
   })
 
-  -- Set up lspconfig.
-  local capabilities = require('cmp_nvim_lsp').default_capabilities()
-  -- Replace <YOUR_LSP_SERVER> with each lsp server you've enabled.
-  require('lspconfig').clangd.setup {
-    capabilities = capabilities
-  }
+-- Set up lspconfig.
+local capabilities = require('cmp_nvim_lsp').default_capabilities()
+-- Replace <YOUR_LSP_SERVER> with each lsp server you've enabled.
+require('lspconfig').clangd.setup {
+  capabilities = capabilities
+}
 
 local function setup_lsp_diags()
   vim.lsp.handlers["textDocument/publishDiagnostics"] = vim.lsp.with(
@@ -629,13 +598,60 @@ local function setup_lsp_diags()
     }
   )
 end
+require('lspconfig').intelephense.setup({})
+
+
+---@type TailwindTools.Option
+require("tailwind-tools").setup({
+  document_color = {
+    enabled = true, -- can be toggled by commands
+    kind = "background", -- "inline" | "foreground" | "background"
+    inline_symbol = "󰝤 ", -- only used in inline mode
+    debounce = 200, -- in milliseconds, only applied in insert mode
+  },
+  conceal = {
+    enabled = false, -- can be toggled by commands
+    min_length = nil, -- only conceal classes exceeding the provided length
+    symbol = "󱏿", -- only a single character is allowed
+    highlight = { -- extmark highlight options, see :h 'highlight'
+      fg = "#38BDF8",
+    },
+  },
+  custom_filetypes = {} -- see the extension section to learn how it works
+})
+
 
 require("typescript-tools").setup({
-  autostart = false
+  autostart = true
 })
 
 require('lspconfig').tsserver.setup({
-  autostart = false
+  autostart = true
+})
+
+require'lspconfig'.svelte.setup{}
+
+local highlight = {
+    "Whitespace",
+}
+
+require("ibl").setup({
+  indent = { highlight = highlight, char = "╎" },
+  whitespace = {
+    highlight = highlight,
+    remove_blankline_trail = false,
+  },
+  scope = { enabled = false },
+})
+
+vim.api.nvim_create_autocmd('LspAttach', {
+  callback = function(args)
+    local opts = { buffer = args.buf }
+    vim.keymap.set('n', '<leader>d', vim.diagnostic.open_float, opts)
+    vim.keymap.set('n', '<leader>df', vim.lsp.buf.hover, opts)
+    vim.keymap.set('n', '<leader>rn', vim.lsp.buf.rename, opts)
+    vim.keymap.set('n', '<leader>re', vim.lsp.buf.references, opts)
+  end,
 })
 
 EOF
