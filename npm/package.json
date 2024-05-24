@@ -29,7 +29,8 @@
     "knip": "^4.2.1",
     "prettier": "^2.8.8",
     "shadcn-ui": "^0.8.0",
-    "svelte-language-server": "^0.16.9"
+    "svelte-language-server": "^0.16.9",
+    "vscode-langservers-extracted": "^4.10.0"
   },
   "packageManager": "yarn@3.5.1"
 }

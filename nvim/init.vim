@@ -16,19 +16,13 @@
 """"""""""""""""""""""""""""""""""""""""""""""
 " _SYNTAX
 """"""""""""""""""""""""""""""""""""""""""""""
-au BufNewFile,BufRead *.less set filetype=less
-au BufNewFile,BufRead *.conf set filetype=dosini
-au BufNewFile,BufRead *.ts set filetype=typescript
-au BufNewFile,BufRead *.tsx set filetype=typescriptreact
-au BufNewFile,BufRead *.vue set filetype=vue
-au BufNewFile,BufRead *.go set filetype=go
-au BufNewFile,BufRead *.twig set filetype=html.twig
-au BufNewFile,BufRead *.styl set filetype=stylus
-au BufNewFile,BufRead *.gql set filetype=graphql
-au BufNewFile,BufRead *.svelte set filetype=svelte
+filetype on              " filetype detection
+filetype plugin on
+filetype indent on
 
-" autocmd BufRead,BufWritePost *.* LspStart
-
+" fix to have file type
+" autocmd BufReadPost * silent! execute 'edit!'
+" autocmd BufEnter * silent! call s:reload_file()
 """"""""""""""""""""""""""""""""""""""""""""""
 " _PLUGINS
 """"""""""""""""""""""""""""""""""""""""""""""
@@ -40,14 +34,11 @@ endif
 
 call plug#begin('~/config/nvim/bundle')
 
-" Post-update hook can be a lambda expression
-set rtp+=~/config/fzf
-Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': { -> fzf#install() } }
-let g:fzf_commits_log_options = '--color=always --format="%C(green)%cd %C(red bold)%an%Creset %C(yellow)%h %C(white)%s %C(auto)%d" --graph --date-order --date=relative'
-
-
 " Colorscheme
 Plug 'vim-scripts/xoria256.vim'
+Plug 'EdenEast/nightfox.nvim'
+Plug 'rafamadriz/neon'
+Plug 'Mofiqul/vscode.nvim'
 
 Plug 'preservim/nerdcommenter'
 let g:NERDSpaceDelims = 1
@@ -159,6 +150,18 @@ Plug 'onsails/lspkind.nvim'
 Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'}
 Plug 'luckasRanarison/tailwind-tools.nvim'
 
+
+
+
+" Post-update hook can be a lambda expression
+" set rtp+=~/config/fzf
+" set rtp+=/opt/homebrew/opt/fzf
+Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': { -> fzf#install() } }
+" let g:fzf_commits_log_options = '--color=always --format="%C(green)%cd %C(red bold)%an%Creset %C(yellow)%h %C(white)%s %C(auto)%d" --graph --date-order --date=relative'
+Plug 'ibhagwan/fzf-lua', {'branch': 'main'}
+" optional for icon support
+Plug 'nvim-tree/nvim-web-devicons'
+
 call plug#end()
 
 " call ale#linter#Define('svelte', {
@@ -245,19 +248,25 @@ set synmaxcol=3200           " limit for line coloration
 " _COLORSCHEME
 """"""""""""""""""""""""""""""""""""""""""""""
 set background=dark
-set t_Co=256
-colorscheme xoria256
-highlight ColorColumn ctermbg=237
+" set t_Co=256
+colorscheme xoria256 " toujours aussi cool
+" colorscheme nightfox " pas mal pour du pastel
+" colorscheme carbonfox "pas mal
+let g:neon_style = "dark" " pas mal bien sombre
+colorscheme neon
+" colorscheme vscode " bien mais trop pastel
+
+hi ColorColumn ctermbg=237
 " for ibl.config hilight
-highlight Whitespace ctermfg=242
+hi Whitespace ctermfg=244
 
 "redef des msg de warning car trop discret par défaut
 hi WarningMsg ctermfg=15  ctermbg=166
 
 hi CursorLineNr ctermbg=237 guibg=#3a3a3a cterm=none gui=none
-highlight DiagnosticInfo ctermfg=242
-highlight DiagnosticError ctermfg=9
-highlight NormalFloat ctermbg=235
+hi DiagnosticInfo ctermfg=242
+hi DiagnosticError ctermfg=9
+hi NormalFloat ctermbg=235
 
 sign define DiagnosticSignError text=  texthl=DiagnosticSignError
 sign define DiagnosticSignWarn text=   texthl=DiagnosticSignWarn
@@ -319,7 +328,7 @@ set shada='10,\"11,:20,%
 autocmd BufWritePost * silent! wall
 
 " Reload all buffers on Neovim startup
-autocmd VimEnter * silent! bufdo e!
+" autocmd VimEnter * silent! bufdo e!
 
 """"""""""""""""""""""""""""""""""""""""""""""
 " _FUNCTIONS
@@ -353,7 +362,7 @@ function! GoTo(site, ...)
     if (a:0 > 0)
         exe 'Explore! '.str
     else
-        exe 'FZF '.str
+        exe ':FzfLua files cwd='.str
     endif
 endfunction
 
@@ -366,7 +375,7 @@ endfun
 " _COMMANDS
 """"""""""""""""""""""""""""""""""""""""""""""
 " automatically search in root project path
-command! ProjectFiles execute 'FZF' s:find_git_root()
+command! ProjectFiles execute 'FzfLua files cwd='.s:find_git_root()
 
 "Go function
 command! -nargs=+ -complete=customlist,GoToComplete Go call GoTo(<f-args>)
@@ -374,11 +383,14 @@ command! -nargs=+ -complete=customlist,GoToComplete Go call GoTo(<f-args>)
 "switch dir to current open file
 autocmd BufEnter * silent! lcd %:p:h
 
+set re=0
+
 """"""""""""""""""""""""""""""""""""""""""""""
 " _COMMANDS_QUICK_FILES
 """"""""""""""""""""""""""""""""""""""""""""""
 "use full file
 :command! Myconf tabe $MYVIMRC
+:command! Myoldconf tabe $HOME/.vimrc
 
 if isdirectory(expand("~/.vim/snippets/"))
   :command! Mysnipp tabe $HOME/.vim/snippets/
@@ -449,7 +461,7 @@ nnoremap <leader>c :so %<cr>
 nmap <leader>w :w!<cr>
 
 " fast buffers opening
-nmap <leader>oi :Buffers<cr>
+nmap <leader>oi :FzfLua buffers<cr>
 nmap <leader>io :ProjectFiles<cr>
 
 " Useful mappings for managing tabs
@@ -501,12 +513,6 @@ nmap <Leader>i :TSToolsAddMissingImports<CR>
 " nmap <leader>re :lua vim.lsp.buf.rename()<CR>
 
 lua << EOF
-vim.diagnostic.config({
-  virtual_text = {
-    prefix = '#',
-  },
-});
-
 
 -- Set up nvim-cmp.
   local cmp = require'cmp'
@@ -587,18 +593,7 @@ require('lspconfig').clangd.setup {
   capabilities = capabilities
 }
 
-local function setup_lsp_diags()
-  vim.lsp.handlers["textDocument/publishDiagnostics"] = vim.lsp.with(
-    vim.lsp.diagnostic.on_publish_diagnostics,
-    {
-      virtual_text = false,
-      signs = true,
-      update_in_insert = false,
-      underline = true,
-    }
-  )
-end
-require('lspconfig').intelephense.setup({})
+-- require('lspconfig').intelephense.setup({})
 
 
 ---@type TailwindTools.Option
@@ -626,7 +621,12 @@ require("typescript-tools").setup({
 })
 
 require('lspconfig').tsserver.setup({
-  autostart = true
+  autostart = true,
+  init_options = {
+    preferences = {
+      noErrorTruncation = true
+    }
+  }
 })
 
 require'lspconfig'.svelte.setup{}
@@ -645,9 +645,10 @@ require("ibl").setup({
 })
 
 vim.api.nvim_create_autocmd('LspAttach', {
-  callback = function(args)
-    local opts = { buffer = args.buf }
+  callback = function(event)
+    -- key binding
     local map = vim.keymap.set
+    local opts = { buffer = event.buf }
     map('n', '<leader>d', vim.diagnostic.open_float, opts)
     map('n', '<leader>df', vim.lsp.buf.hover, opts)
     map('n', '<leader>rn', vim.lsp.buf.rename, opts)
@@ -655,5 +656,64 @@ vim.api.nvim_create_autocmd('LspAttach', {
     map("n", '<leader>f', vim.diagnostic.goto_next, opts)
   end,
 })
+
+require('lspconfig').eslint.setup({
+  on_attach = function(client, bufnr)
+    vim.api.nvim_create_autocmd("BufWritePre", {
+      buffer = bufnr,
+      command = "EslintFixAll",
+    })
+  end,
+})
+
+-- disable diag in insert mode
+--vim.api.nvim_create_autocmd('ModeChanged', {
+--  pattern = {'n:i', 'v:s'},
+--  desc = 'Disable diagnostics in insert and select mode',
+--  callback = function(e) vim.diagnostic.disable(e.buf) end
+--})
+--
+--vim.api.nvim_create_autocmd('ModeChanged', {
+--  pattern = 'i:n',
+--  desc = 'Enable diagnostics when leaving insert mode',
+--  callback = function(e) vim.diagnostic.enable(e.buf) end
+--})
+
+--  vim.api.nvim_create_autocmd({"BufNew", "InsertEnter"}, {
+-- -- or vim.api.nvim_create_autocmd({"BufNew", "TextChanged", "TextChangedI", "TextChangedP", "TextChangedT"}, {
+--   callback = function(args)
+--     vim.diagnostic.disable(args.buf)
+--   end
+-- })
+-- 
+-- vim.api.nvim_create_autocmd({"BufWrite"}, {
+--   callback = function(args)
+--     vim.diagnostic.enable(args.buf)
+--   end
+-- })
+
+vim.diagnostic.config({
+  virtual_text = {
+    prefix = '#',
+  },
+});
+
+local function setup_lsp_diags()
+  vim.lsp.handlers["textDocument/publishDiagnostics"] = vim.lsp.with(
+    vim.lsp.diagnostic.on_publish_diagnostics,
+    {
+      show_diagnostic_autocmds = { 'InsertLeave', 'TextChanged' },
+      virtual_text = true,
+      signs = true,
+      update_in_insert = false,
+      underline = true,
+    }
+  )
+end
+
+setup_lsp_diags()
+
+-- require("fzf-lua").setup({ "fzf-vim" })
+require("fzf-lua").setup()
 
 EOF
