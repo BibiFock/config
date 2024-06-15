@@ -1,6 +1,7 @@
 """""""""""""""""""""""""""""""""""""""""""""""
 "    INDEX
 "        _PLUGINS
+"        _PLUGINS_IN_TEST
 "        _EDITOR
 "        _COLORSCHEME
 "        _BACKUP
@@ -20,16 +21,13 @@ if empty(glob(data_dir . '/autoload/plug.vim'))
   autocmd VimEnter * PlugInstall --sync | source $MYVIMRC
 endif
 
-call plug#begin()
-
-" Post-update hook can be a lambda expression
-set rtp+=~/config/fzf
-Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': { -> fzf#install() } }
-let g:fzf_commits_log_options = '--color=always --format="%C(green)%cd %C(red bold)%an%Creset %C(yellow)%h %C(white)%s %C(auto)%d" --graph --date-order --date=relative'
-
+call plug#begin('~/config/nvim/bundle')
 
 " Colorscheme
 Plug 'vim-scripts/xoria256.vim'
+Plug 'EdenEast/nightfox.nvim'
+Plug 'rafamadriz/neon'
+Plug 'Mofiqul/vscode.nvim'
 
 Plug 'preservim/nerdcommenter'
 let g:NERDSpaceDelims = 1
@@ -48,7 +46,7 @@ Plug 'gcmt/wildfire.vim'
 
 Plug 'jlanzarotta/bufexplorer'
 
-Plug 'lukas-reineke/indent-blankline.nvim'
+Plug 'lukas-reineke/indent-blankline.nvim', { 'tag': 'v3.5.4' }
 
 " Plug 'snipMate'
 " Track the engine.
@@ -69,8 +67,21 @@ let g:UltiSnipsSnippetStorageDirectoryForUltiSnipsEdit=expand("~/config/nvim/sni
 let g:UltiSnipsSnippetDirectories=["UltiSnips", expand("~/config/nvim/snippets")]
 let g:UltiSnipsEnableSnipMate=1
 
+
 "bottom bar
 Plug 'vim-airline/vim-airline'
+let g:airline#extensions#branch#enabled = 1
+let g:airline#extensions#syntastic#enabled = 1
+let g:airline_left_sep=''
+let g:airline_right_sep=''
+
+" "Bundle 'Quramy/tsuquyomi'
+" "let g:tsuquyomi_completion_detail = 1
+" "let g:tsuquyomi_disable_quickfix = 1
+" "autocmd InsertLeave,BufWritePost *.ts,*.tsx call tsuquyomi#asyncGeterr()
+" ""let g:syntastic_typescript_checkers = ['tsuquyomi', 'eslint'] " You shouldn't use 'tsc' checker.
+"let g:syntastic_typescript_checkers = ['eslint'] " You shouldn't use 'tsc' checker.
+"let g:syntastic_typescript_eslint_exe = '$(yarn bin)/eslint --parser-options=project:$(yarn bin)/../../tsconfig.json --rule "import/no-unused-modules: off"'
 
 " " vim resizer
 Plug 'simeji/winresizer'
@@ -78,12 +89,86 @@ let g:winresizer_start_key = '<leader>r'
 
 Plug 'sheerun/vim-polyglot'
 
-Plug 'nvim-lua/plenary.nvim'
+Plug 'prettier/vim-prettier'
+autocmd BufWritePre *.tsx,*.ts,*.svelte,*.sql Prettier
+
+" try for async test
+" Plug 'dense-analysis/ale'
+" " Use the global executable with a special name for eslint.
+" let g:ale_typescriptreact_eslint_options = '%s'
+" " let g:ale_typescriptreact_eslint_executable = 'matters-linter'
+" let g:ale_typescriptreact_eslint_use_global = 1
+" let g:ale_typescriptreact_eslint_options = '%s'
+
+" let g:ale_fixers = { 'typescriptreact': ['eslint', 'prettier'], 'typescript': ['eslint', 'prettier'], 'svelte': ['eslint'], 'sql': ['pgformatter'] }
+" let g:ale_linters_ignore = { 'typescriptreact': ['eslint'], 'typescript': ['eslint'], 'sql': ['sqlfluff']  }
+" " let g:ale_linters_ignore = { 'sql': ['sqlfluff']  }
+" let g:ale_echo_msg_format='%linter% %severity% (%code%): %s'
+" let g:ale_loclist_msg_format='%linter% %severity% (%code%): %s'
+" let g:ale_loclist_format='%linter% %severity% (%code%): %s'
+" let g:ale_lint_on_text_changed = 'never'
+" let g:ale_sql_pgformatter_options = '--function-case 1 --keyword-case 2 --spaces 2 --wrap-limit 80 --wrap-after 0'
+" let g:ale_fix_on_save = 1
+" let g:ale_open_list = 0
+" let g:ale_set_loclist = 0
+" let g:ale_set_quickfix = 0
+" let g:ale_completion_enabled = 1
+" let g:ale_set_balloons = 1
+" let g:ale_virtualtext_cursor = 'current'
+" " try lsp
+" let g:ale_use_neovim_diagnostics_api = 1
+" let g:ale_disable_lsp = 1
+
+" _PLUGINS_IN_TEST
 Plug 'neovim/nvim-lspconfig'
+" Plug 'VonHeikemen/lsp-zero.nvim'
+
+" Plug 'prabirshrestha/vim-lsp'
+" Plug 'rhysd/vim-lsp-ale'
+
+Plug 'nvim-lua/plenary.nvim'
 Plug 'pmizio/typescript-tools.nvim'
 
+Plug 'hrsh7th/cmp-nvim-lsp'
+Plug 'hrsh7th/cmp-buffer'
+Plug 'hrsh7th/cmp-path'
+Plug 'hrsh7th/cmp-cmdline'
+Plug 'hrsh7th/nvim-cmp'
+Plug 'onsails/lspkind.nvim'
+
+Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'}
+Plug 'luckasRanarison/tailwind-tools.nvim'
+
+" Post-update hook can be a lambda expression
+" set rtp+=~/config/fzf
+" set rtp+=/opt/homebrew/opt/fzf
+Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': { -> fzf#install() } }
+" let g:fzf_commits_log_options = '--color=always --format="%C(green)%cd %C(red bold)%an%Creset %C(yellow)%h %C(white)%s %C(auto)%d" --graph --date-order --date=relative'
+Plug 'ibhagwan/fzf-lua', {'branch': 'main'}
+" optional for icon support
+Plug 'nvim-tree/nvim-web-devicons'
 
 call plug#end()
+
+" call ale#linter#Define('svelte', {
+" \   'name': 'webbr-lint',
+" \   'output_stream': 'both',
+" \   'executable': function('ale#handlers#eslint#GetExecutable'),
+" \   'cwd': function('ale#handlers#eslint#GetCwd'),
+" \   'command': 'webbr-lint %s',
+" \   'callback': 'ale#handlers#eslint#HandleJSON',
+" \})
+" call ale#linter#Define('typescript', {
+" \   'name': 'mattersLinter',
+" \   'executable': '/Users/julien.bernardo/config/bin/matters/matters-linter',
+" \   'cwd': function('ale#handlers#eslint#GetCwd'),
+" \   'command': 'matters-linter %s',
+" \   'callback': 'ale#handlers#eslint#HandleJSON',
+" \})
+
+
+call airline#parts#define_accent('%{$USER}@', 'blue')
+let g:airline_section_c = airline#section#create(['%{$USER}@','%{getcwd()}','/%f'])
 
 """"""""""""""""""""""""""""""""""""""""""""""
 " _EDITOR
@@ -107,14 +192,6 @@ let g:netrw_win=20
 
 "status line
 set laststatus=2
-
-" Tell vim to remember certain things when we exit
-"  '10  :  marks will be remembered for up to 10 previously edited files
-"  "11  :  will save up to 100 lines for each register
-"  :20  :  up to 20 lines of command-line history will be remembered
-"  %    :  saves and restores the buffer list
-"  n... :  where to save the viminfo files
-" set viminfo='10,\"11,:20,%,n~/.viminfo
 
 " SEARCH"
 set ignorecase      " ignorecase : ignore case when using a search pattern (noic|ic)
@@ -157,23 +234,30 @@ set synmaxcol=3200           " limit for line coloration
 " _COLORSCHEME
 """"""""""""""""""""""""""""""""""""""""""""""
 set background=dark
-set t_Co=256
-colorscheme xoria256
-highlight ColorColumn ctermbg=237
+" set t_Co=256
+" colorscheme xoria256 " toujours aussi cool
+" colorscheme nightfox " pas mal pour du pastel
+" colorscheme carbonfox "pas mal
+let g:neon_style = "dark" " pas mal bien sombre
+colorscheme neon
+" colorscheme vscode " bien mais trop pastel
+
+hi ColorColumn ctermbg=237
 " for ibl.config hilight
-highlight Whitespace ctermfg=240
+hi Whitespace ctermfg=244
 
 "redef des msg de warning car trop discret par défaut
-" hi WarningMsg ctermfg=15  ctermbg=166
+hi WarningMsg ctermfg=15  ctermbg=166
 
 hi CursorLineNr ctermbg=237 guibg=#3a3a3a cterm=none gui=none
-highlight DiagnosticInfo ctermfg=242
-highlight DiagnosticError ctermfg=9
+hi DiagnosticInfo ctermfg=242
+hi DiagnosticError ctermfg=9
+hi NormalFloat ctermbg=235
 
-sign define DiagnosticSignError text= texthl=DiagnosticSignError
-sign define DiagnosticSignWarn text= texthl=DiagnosticSignWarn
-sign define DiagnosticSignInfo text= texthl=DiagnosticSignInfo
-sign define DiagnosticSignHint text= texthl=DiagnosticSignHint
+sign define DiagnosticSignError text=  texthl=DiagnosticSignError
+sign define DiagnosticSignWarn text=   texthl=DiagnosticSignWarn
+sign define DiagnosticSignInfo text=   texthl=DiagnosticSignInfo
+sign define DiagnosticSignHint text=   texthl=DiagnosticSignHint
 
 "coloration command ligne for each mode
 au InsertEnter * hi StatusLine term=reverse ctermbg=4
@@ -190,7 +274,6 @@ autocmd BufWinEnter * match ExtraWhitespace /\s\+$/
 autocmd InsertEnter * match ExtraWhitespace /\s\+\%#\@<!$/
 autocmd InsertLeave * match ExtraWhitespace /\s\+$/
 autocmd BufWinLeave * call clearmatches()
-
 
 """"""""""""""""""""""""""""""""""""""""""""""
 " _BACKUP
@@ -211,6 +294,26 @@ else
   endif
 endif
 
+
+" Tell vim to remember certain things when we exit
+"  '10  :  marks will be remembered for up to 10 previously edited files
+"  "11  :  will save up to 100 lines for each register
+"  :20  :  up to 20 lines of command-line history will be remembered
+"  %    :  saves and restores the buffer list
+"  n... :  where to save the viminfo files
+" set viminfo='10,\"11,:20,%,n~/.viminfo
+"
+" 1000: Maximum number of lines stored for each register.
+" <50: Maximum number of items stored in the command-line history.
+" s10: Maximum number of items stored in the search history.
+" h: Include help file marks in the shada file.
+set shada='10,\"11,:20,%
+
+" Automatically save all buffers when they are written
+autocmd BufWritePost * silent! wall
+
+" Reload all buffers on Neovim startup
+" autocmd VimEnter * silent! bufdo e!
 
 """"""""""""""""""""""""""""""""""""""""""""""
 " _FUNCTIONS
@@ -235,7 +338,7 @@ function! s:find_git_root()
 endfunction
 
 function! GoTo(site, ...)
-    let str = $HOME.'/dev/'.a:site.'/'
+    let str = $HOME.'/Documents/dev/'.a:site.'/'
     if !isdirectory(str)
         echoerr 'Directory not found: "'.str.'"'
         return
@@ -249,7 +352,7 @@ function! GoTo(site, ...)
 endfunction
 
 fun! GoToComplete(A,L,P)
-    let path = expand('~/dev/')
+    let path = expand('~/Documents/dev/')
     return split(substitute(globpath(path, a:A."*"), path, "", "g"), "\n")
 endfun
 
@@ -270,6 +373,7 @@ autocmd BufEnter * silent! lcd %:p:h
 """"""""""""""""""""""""""""""""""""""""""""""
 "use full file
 :command! Myconf tabe $MYVIMRC
+:command! Myoldconf tabe $HOME/.vimrc
 
 if isdirectory(expand("~/.vim/snippets/"))
   :command! Mysnipp tabe $HOME/.vim/snippets/
@@ -340,7 +444,7 @@ nnoremap <leader>c :so %<cr>
 nmap <leader>w :w!<cr>
 
 " fast buffers opening
-nmap <leader>oi :Buffers<cr>
+nmap <leader>oi :FzfLua buffers<cr>
 nmap <leader>io :ProjectFiles<cr>
 
 " Useful mappings for managing tabs
@@ -366,15 +470,233 @@ nmap <Leader>pwd :echo expand('%:p')<Cr>
 
 nmap <leader>fo :r !fortune ~/config/fortune/quotes<Cr>
 
+function! OpenCurrentFileInNewTab()
+  " Get the current cursor position
+  let l:line = line('.')
+  let l:col = col('.')
+  
+  " Open a new tab with the same file
+  tabnew %
+  
+  " Restore the cursor position
+  execute l:line
+  call cursor(l:line, l:col)
+endfunction
 " " typescript command
-nmap <Leader>a :ALEGoToDefinition<CR>
-nmap <Leader>as :ALEGoToDefinition -split<CR>
-nmap <Leader>aa :ALEGoToDefinition -vsplit<CR>
-nmap <Leader>at :ALEGoToDefinition -tab<CR>
-nmap <Leader>i :ALEImport<CR>
-nmap <Leader>f :ALEFirst<CR>
-nmap <Leader>fn :ALENext<CR>
+nmap <Leader>a :TSToolsGoToSourceDefinition<CR>
+nmap <Leader>as :split<CR>:TSToolsGoToSourceDefinition<CR>
+nmap <Leader>at :call OpenCurrentFileInNewTab()<CR>:TSToolsGoToSourceDefinition<CR>
+nmap <Leader>i :TSToolsAddMissingImports<CR>
+" nmap <Leader>f :ALEFirst<CR>
+" nmap <Leader>fn :ALENext<CR>
+
+" nmap <leader>d :lua vim.diagnostic.open_float()<CR>
+" nmap <leader>df :lua vim.lsp.buf.hover()<CR>
+
+" nmap <leader>re :lua vim.lsp.buf.rename()<CR>
 
 lua << EOF
-require("config")
+
+-- Set up nvim-cmp.
+  local cmp = require'cmp'
+  local lspkind = require'lspkind'
+
+  cmp.setup({
+    formatting = {
+      format = lspkind.cmp_format({
+        before = require("tailwind-tools.cmp").lspkind_format
+      })
+    },
+    snippet = {
+      -- REQUIRED - you must specify a snippet engine
+      expand = function(args)
+        vim.fn["vsnip#anonymous"](args.body) -- For `vsnip` users.
+        -- require('luasnip').lsp_expand(args.body) -- For `luasnip` users.
+        -- require('snippy').expand_snippet(args.body) -- For `snippy` users.
+        -- vim.fn["UltiSnips#Anon"](args.body) -- For `ultisnips` users.
+        -- vim.snippet.expand(args.body) -- For native neovim snippets (Neovim v0.10+)
+      end,
+    },
+    window = {
+      -- completion = cmp.config.window.bordered(),
+      -- documentation = cmp.config.window.bordered(),
+    },
+    mapping = cmp.mapping.preset.insert({
+      ['<C-b>'] = cmp.mapping.scroll_docs(-4),
+      ['<C-f>'] = cmp.mapping.scroll_docs(4),
+      ['<C-Space>'] = cmp.mapping.complete(),
+      ['<C-e>'] = cmp.mapping.abort(),
+      ['<CR>'] = cmp.mapping.confirm({ select = true }), -- Accept currently selected item. Set `select` to `false` to only confirm explicitly selected items.
+    }),
+    sources = cmp.config.sources({
+      { name = 'nvim_lsp' },
+      { name = 'vsnip' }, -- For vsnip users.
+      -- { name = 'luasnip' }, -- For luasnip users.
+      -- { name = 'ultisnips' }, -- For ultisnips users.
+      -- { name = 'snippy' }, -- For snippy users.
+    }, {
+      { name = 'buffer' },
+    })
+  })
+
+  -- To use git you need to install the plugin petertriho/cmp-git and uncomment lines below
+  -- Set configuration for specific filetype.
+  --[[ cmp.setup.filetype('gitcommit', {
+    sources = cmp.config.sources({
+      { name = 'git' },
+    }, {
+      { name = 'buffer' },
+    })
+ })
+ require("cmp_git").setup() ]]-- 
+
+  -- Use buffer source for `/` and `?` (if you enabled `native_menu`, this won't work anymore).
+  cmp.setup.cmdline({ '/', '?' }, {
+    mapping = cmp.mapping.preset.cmdline(),
+    sources = {
+      { name = 'buffer' }
+    }
+  })
+
+  -- Use cmdline & path source for ':' (if you enabled `native_menu`, this won't work anymore).
+  cmp.setup.cmdline(':', {
+    mapping = cmp.mapping.preset.cmdline(),
+    sources = cmp.config.sources({
+      { name = 'path' }
+    }, {
+      { name = 'cmdline' }
+    }),
+    matching = { disallow_symbol_nonprefix_matching = false }
+  })
+
+-- Set up lspconfig.
+local capabilities = require('cmp_nvim_lsp').default_capabilities()
+-- Replace <YOUR_LSP_SERVER> with each lsp server you've enabled.
+require('lspconfig').clangd.setup {
+  capabilities = capabilities
+}
+
+-- require('lspconfig').intelephense.setup({})
+
+
+---@type TailwindTools.Option
+require("tailwind-tools").setup({
+  document_color = {
+    enabled = true, -- can be toggled by commands
+    kind = "background", -- "inline" | "foreground" | "background"
+    inline_symbol = "󰝤 ", -- only used in inline mode
+    debounce = 200, -- in milliseconds, only applied in insert mode
+  },
+  conceal = {
+    enabled = false, -- can be toggled by commands
+    min_length = nil, -- only conceal classes exceeding the provided length
+    symbol = "󱏿", -- only a single character is allowed
+    highlight = { -- extmark highlight options, see :h 'highlight'
+      fg = "#38BDF8",
+    },
+  },
+  custom_filetypes = {} -- see the extension section to learn how it works
+})
+
+
+require("typescript-tools").setup({
+  autostart = true
+})
+
+require('lspconfig').tsserver.setup({
+  autostart = true,
+  init_options = {
+    preferences = {
+      noErrorTruncation = true
+    }
+  }
+})
+
+require'lspconfig'.svelte.setup{}
+
+local highlight = {
+    "Whitespace",
+}
+
+require("ibl").setup({
+  indent = { highlight = highlight, char = "╎" },
+  whitespace = {
+    highlight = highlight,
+    remove_blankline_trail = false,
+  },
+  scope = { enabled = false },
+})
+
+vim.api.nvim_create_autocmd('LspAttach', {
+  callback = function(event)
+    -- key binding
+    local map = vim.keymap.set
+    local opts = { buffer = event.buf }
+    map('n', '<leader>d', vim.diagnostic.open_float, opts)
+    map('n', '<leader>df', vim.lsp.buf.hover, opts)
+    map('n', '<leader>rn', vim.lsp.buf.rename, opts)
+    map('n', '<leader>re', vim.lsp.buf.references, opts)
+    map("n", '<leader>f', vim.diagnostic.goto_next, opts)
+  end,
+})
+
+require('lspconfig').eslint.setup({
+  on_attach = function(client, bufnr)
+    vim.api.nvim_create_autocmd("BufWritePre", {
+      buffer = bufnr,
+      command = "EslintFixAll",
+    })
+  end,
+})
+
+-- disable diag in insert mode
+--vim.api.nvim_create_autocmd('ModeChanged', {
+--  pattern = {'n:i', 'v:s'},
+--  desc = 'Disable diagnostics in insert and select mode',
+--  callback = function(e) vim.diagnostic.disable(e.buf) end
+--})
+--
+--vim.api.nvim_create_autocmd('ModeChanged', {
+--  pattern = 'i:n',
+--  desc = 'Enable diagnostics when leaving insert mode',
+--  callback = function(e) vim.diagnostic.enable(e.buf) end
+--})
+
+--  vim.api.nvim_create_autocmd({"BufNew", "InsertEnter"}, {
+-- -- or vim.api.nvim_create_autocmd({"BufNew", "TextChanged", "TextChangedI", "TextChangedP", "TextChangedT"}, {
+--   callback = function(args)
+--     vim.diagnostic.disable(args.buf)
+--   end
+-- })
+-- 
+-- vim.api.nvim_create_autocmd({"BufWrite"}, {
+--   callback = function(args)
+--     vim.diagnostic.enable(args.buf)
+--   end
+-- })
+
+vim.diagnostic.config({
+  virtual_text = {
+    prefix = '#',
+  },
+});
+
+local function setup_lsp_diags()
+  vim.lsp.handlers["textDocument/publishDiagnostics"] = vim.lsp.with(
+    vim.lsp.diagnostic.on_publish_diagnostics,
+    {
+      show_diagnostic_autocmds = { 'InsertLeave', 'TextChanged' },
+      virtual_text = true,
+      signs = true,
+      update_in_insert = false,
+      underline = true,
+    }
+  )
+end
+
+setup_lsp_diags()
+
+-- require("fzf-lua").setup({ "fzf-vim" })
+require("fzf-lua").setup()
+
 EOF

@@ -8,4 +8,5 @@ file=$(echo $1 | sed "s/.*\/\(packages\|apps\)\/\([^\/]*\)\///g")
 #echo $(pnpm root)/../
 cd $(pnpm root)/../
 
-./node_modules/.bin/eslint -f json --resolve-plugins-relative-to . $file
+#./node_modules/.bin/eslint -f json --resolve-plugins-relative-to . $file
+./node_modules/.bin/eslint -f json --resolve-plugins-relative-to . $file --quiet --report-unused-disable-directives

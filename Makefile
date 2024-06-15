@@ -51,6 +51,10 @@ load-vim: ## load vim config
 	@ln -sf "$(shell pwd)"/vim ~/.vim
 	@git clone https://github.com/gmarik/vundle.git ~/.vim/bundle/vundle
 
+load-nvim: ## load neo vim
+	@$(call say_yellow,"[create neovim config]")
+	@ln -sf "$(shell pwd)"/nvim ~/.config/
+
 vim-update: ## update all vim packages
 	@$(call say_yellow,"[update vim bundles]")
 	@vim -c VundleUpdate -c quitall

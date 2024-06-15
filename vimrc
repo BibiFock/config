@@ -228,7 +228,7 @@ call ale#linter#Define('typescript', {
 \   'command': 'webbr-lint %s',
 \   'callback': 'ale#handlers#eslint#HandleJSON',
 \})
-let g:ale_fixers = { 'typescriptreact': ['prettier', 'eslint'], 'javascript': ['prettier', 'eslint'], 'svelte': ['prettier'] }
+let g:ale_fixers = { 'typescript': ['prettier', 'eslint'], 'typescriptreact': ['prettier', 'eslint'], 'javascript': ['prettier', 'eslint'], 'svelte': ['prettier', 'eslint'] }
 let g:ale_echo_msg_format='%linter% %severity% (%code%): %s'
 let g:ale_loclist_msg_format='%linter% %severity% (%code%): %s'
 let g:ale_loclist_format='%linter% %severity% (%code%): %s'
@@ -236,6 +236,10 @@ let g:ale_lint_on_text_changed = 'never'
 let g:ale_open_list = 0
 let g:ale_set_loclist = 0
 let g:ale_set_quickfix = 0
+let g:ale_completion_enabled = 1
+let g:ale_set_balloons = 1
+let g:ale_virtualtext_cursor = 'current'
+let g:ale_fix_on_save = 1
 
 """"""""""""""""""""""""""""""""""""""""""""""
 " _EDITOR
@@ -559,6 +563,8 @@ nmap <Leader>a :ALEGoToDefinition<CR>
 nmap <Leader>as :ALEGoToDefinition -split<CR>
 nmap <Leader>aa :ALEGoToDefinition -vsplit<CR>
 nmap <Leader>at :ALEGoToDefinition -tab<CR>
+nmap <Leader>f :ALEFirst<CR>
+nmap <Leader>i :ALEImport<CR>
 
 " typescript command
 autocmd FileType typescript* nmap <buffer> <Leader>q : <C-u>echo tsuquyomi#hint()<CR>
