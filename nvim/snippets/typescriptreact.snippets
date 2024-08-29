@@ -1,6 +1,117 @@
+global !p
+def convertToCamelCase(name):
+  return name[0].lower() + name[1:]
+endglobal
 snippet uc
 'use client'
 endsnippet
 snippet es-dis
 // eslint-disable-next-line $1
+endsnippet
+snippet t-comp
+interface $1Props {
+}
+
+const ${1:Component} = ({}: $1Props) => {
+  return (
+		<div>
+		</div>
+	);
+}
+
+export default $1;
+endsnippet
+snippet t-form
+const t = useTranslations();
+const { action, form, fields, lastResult } = useConformForm({
+  schema: ${1:entitySchema}Schema,
+  action: ${2:actionFn}
+});
+
+return (
+  <FormProvider context={form.context}>
+    <form {...getFormProps(form)} action={action}>
+      <Form>
+        <Form.Header
+          title={t('${3:common}.title')}
+          subtitle={t('$3.subtitle')}
+        />
+
+        <Form.ActionsFooter
+          submitLabel={t('$3.submit')}
+          formId={form.id}
+          state={lastResult}
+          cancelLabel={t('$3.cancel')}
+          onCancel={onCancel}
+        />
+      </Form>
+    </form>
+  </FormProvider>
+);
+endsnippet
+snippet t-action
+'use server';
+
+import { parseWithZod } from '@conform-to/zod';
+
+import { IProfileService } from '@/domain/identity/services/profile';
+import container from '@/lib/config/inversify';
+import { adminErrorToUserStringError } from '@/lib/error/admin-error-to-user-string-error';
+import { ConformActionState } from '@/lib/form-action/type';
+import { ILoggerService } from '@/lib/logger/types';
+import { ServicesSymbols } from '@/lib/symbols';
+
+import { $1Schema } from './types';
+
+export const ${1:formName}Action = async (
+  _prevState: ConformActionState,
+  formData: FormData,
+): Promise<ConformActionState> => {
+  try {
+    await container
+      .get<IProfileService>(ServicesSymbols.profile)
+      .findValidOrThrow();
+
+    const submission = parseWithZod(formData, {
+      schema: $1Schema,
+    });
+
+    if (submission.status !== 'success') {
+      return submission.reply();
+    }
+
+    return {
+      status: 'error',
+      messageKey: 'TOOD implement the action',
+    };
+  } catch (error) {
+    const logger = container.get<ILoggerService>(ServicesSymbols.logger);
+    logger.error(error);
+    return {
+      status: 'error',
+      messageKey: adminErrorToUserStringError(error),
+    };
+  }
+
+  return { status: 'success' };
+};
+endsnippet
+snippet t-service
+import { Inject, Injectable, Logger } from '@nestjs/common';
+
+import { RepositoriesSymbol } from 'modules/data/data.constants';
+import { PrismaService } from 'modules/db/prisma.service';
+import { HistoryService } from 'modules/history/history.service';
+
+@Injectable()
+export class ${1:Entity}Service {
+  private readonly logger = new Logger($1Service.name);
+
+  constructor(
+    private readonly prisma: PrismaService,
+    private readonly historyService: HistoryService,
+    @Inject(RepositoriesSymbol.${2:`!p snip.rv = convertToCamelCase(t[1])`})
+    private readonly $2Repository: $1Repository,
+  ) {}
+}
 endsnippet

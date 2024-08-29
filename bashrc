@@ -136,7 +136,9 @@ fi
 #history shared between all term
 export PROMPT_COMMAND='history -a'
 
+# export PATH="/Users/$USER/bin:/Users/$USER/bin/matters:/Users/$USER/config/npm/node_modules/.bin:/Users/$USER/.local/bin:/opt/homebrew/bin:/usr/local/bin:$PATH:/Users/$USER/nvim-macos-x86_64/bin"
 export PATH="/Users/$USER/bin:/Users/$USER/bin/matters:/Users/$USER/config/npm/node_modules/.bin:/Users/$USER/.local/bin:/opt/homebrew/bin:/usr/local/bin:$PATH"
+
 
 
 [ -f ~/.fzf.bash ] && source ~/.fzf.bash

@@ -86,14 +86,6 @@ let g:airline#extensions#syntastic#enabled = 1
 let g:airline_left_sep=''
 let g:airline_right_sep=''
 
-" "Bundle 'Quramy/tsuquyomi'
-" "let g:tsuquyomi_completion_detail = 1
-" "let g:tsuquyomi_disable_quickfix = 1
-" "autocmd InsertLeave,BufWritePost *.ts,*.tsx call tsuquyomi#asyncGeterr()
-" ""let g:syntastic_typescript_checkers = ['tsuquyomi', 'eslint'] " You shouldn't use 'tsc' checker.
-"let g:syntastic_typescript_checkers = ['eslint'] " You shouldn't use 'tsc' checker.
-"let g:syntastic_typescript_eslint_exe = '$(yarn bin)/eslint --parser-options=project:$(yarn bin)/../../tsconfig.json --rule "import/no-unused-modules: off"'
-
 " " vim resizer
 Plug 'simeji/winresizer'
 let g:winresizer_start_key = '<leader>r'
@@ -101,41 +93,10 @@ let g:winresizer_start_key = '<leader>r'
 Plug 'sheerun/vim-polyglot'
 
 Plug 'prettier/vim-prettier'
-autocmd BufWritePre *.tsx,*.ts,*.svelte,*.sql Prettier
-
-" try for async test
-" Plug 'dense-analysis/ale'
-" " Use the global executable with a special name for eslint.
-" let g:ale_typescriptreact_eslint_options = '%s'
-" " let g:ale_typescriptreact_eslint_executable = 'matters-linter'
-" let g:ale_typescriptreact_eslint_use_global = 1
-" let g:ale_typescriptreact_eslint_options = '%s'
-
-" let g:ale_fixers = { 'typescriptreact': ['eslint', 'prettier'], 'typescript': ['eslint', 'prettier'], 'svelte': ['eslint'], 'sql': ['pgformatter'] }
-" let g:ale_linters_ignore = { 'typescriptreact': ['eslint'], 'typescript': ['eslint'], 'sql': ['sqlfluff']  }
-" " let g:ale_linters_ignore = { 'sql': ['sqlfluff']  }
-" let g:ale_echo_msg_format='%linter% %severity% (%code%): %s'
-" let g:ale_loclist_msg_format='%linter% %severity% (%code%): %s'
-" let g:ale_loclist_format='%linter% %severity% (%code%): %s'
-" let g:ale_lint_on_text_changed = 'never'
-" let g:ale_sql_pgformatter_options = '--function-case 1 --keyword-case 2 --spaces 2 --wrap-limit 80 --wrap-after 0'
-" let g:ale_fix_on_save = 1
-" let g:ale_open_list = 0
-" let g:ale_set_loclist = 0
-" let g:ale_set_quickfix = 0
-" let g:ale_completion_enabled = 1
-" let g:ale_set_balloons = 1
-" let g:ale_virtualtext_cursor = 'current'
-" " try lsp
-" let g:ale_use_neovim_diagnostics_api = 1
-" let g:ale_disable_lsp = 1
+autocmd BufWritePre *.tsx,*.ts,*.svelte Prettier
 
 " _PLUGINS_IN_TEST
 Plug 'neovim/nvim-lspconfig'
-" Plug 'VonHeikemen/lsp-zero.nvim'
-
-" Plug 'prabirshrestha/vim-lsp'
-" Plug 'rhysd/vim-lsp-ale'
 
 Plug 'nvim-lua/plenary.nvim'
 Plug 'pmizio/typescript-tools.nvim'
@@ -163,23 +124,6 @@ Plug 'ibhagwan/fzf-lua', {'branch': 'main'}
 Plug 'nvim-tree/nvim-web-devicons'
 
 call plug#end()
-
-" call ale#linter#Define('svelte', {
-" \   'name': 'webbr-lint',
-" \   'output_stream': 'both',
-" \   'executable': function('ale#handlers#eslint#GetExecutable'),
-" \   'cwd': function('ale#handlers#eslint#GetCwd'),
-" \   'command': 'webbr-lint %s',
-" \   'callback': 'ale#handlers#eslint#HandleJSON',
-" \})
-" call ale#linter#Define('typescript', {
-" \   'name': 'mattersLinter',
-" \   'executable': '/Users/julien.bernardo/config/bin/matters/matters-linter',
-" \   'cwd': function('ale#handlers#eslint#GetCwd'),
-" \   'command': 'matters-linter %s',
-" \   'callback': 'ale#handlers#eslint#HandleJSON',
-" \})
-
 
 call airline#parts#define_accent('%{$USER}@', 'blue')
 let g:airline_section_c = airline#section#create(['%{$USER}@','%{getcwd()}','/%f'])
@@ -249,16 +193,17 @@ set synmaxcol=3200           " limit for line coloration
 """"""""""""""""""""""""""""""""""""""""""""""
 set background=dark
 " set t_Co=256
-colorscheme xoria256 " toujours aussi cool
+" colorscheme xoria256 " toujours aussi cool
 " colorscheme nightfox " pas mal pour du pastel
 " colorscheme carbonfox "pas mal
-let g:neon_style = "dark" " pas mal bien sombre
-colorscheme neon
-" colorscheme vscode " bien mais trop pastel
+" let g:neon_style = "dark" " pas mal bien sombre
+" colorscheme neon
+colorscheme vscode " bien mais trop pastel
 
 hi ColorColumn ctermbg=237
 " for ibl.config hilight
 hi Whitespace ctermfg=244
+
 
 "redef des msg de warning car trop discret par défaut
 hi WarningMsg ctermfg=15  ctermbg=166
@@ -277,9 +222,10 @@ sign define DiagnosticSignHint text=   texthl=DiagnosticSignHint
 au InsertEnter * hi StatusLine term=reverse ctermbg=4
 au InsertLeave * hi StatusLine term=reverse ctermfg=15 ctermbg=8
 "tab coloration
-hi TabLineFill ctermfg=0 ctermbg=0
-hi TabLineSel ctermfg=15 ctermbg=8
-hi TabLine ctermfg=lightGray ctermbg=0
+" hi TabLineFill ctermfg=0 ctermbg=0
+" hi TabLineSel ctermfg=15 ctermbg=8
+hi TabLineSel cterm=bold gui=bold
+" hi TabLine ctermfg=lightGray ctermbg=0
 
 "show extra white space
 highlight ExtraWhitespace ctermbg=darkred guibg=darkred
@@ -370,6 +316,19 @@ fun! GoToComplete(A,L,P)
     let path = expand('~/Documents/dev/')
     return split(substitute(globpath(path, a:A."*"), path, "", "g"), "\n")
 endfun
+
+
+" Define a function to format with pg_format
+function! PgFormat()
+    silent! execute '%!pg_format --function-case 1 --keyword-case 2 --spaces 2 --wrap-limit 80 --wrap-after 0 --nogrouping'
+endfunction
+
+" Create an autocommand group
+augroup PgFormatOnSave
+    autocmd!
+    " Apply pg_format on save for SQL files
+    autocmd BufWritePost *.sql call PgFormat()
+augroup END
 
 """"""""""""""""""""""""""""""""""""""""""""""
 " _COMMANDS
@@ -504,16 +463,8 @@ nmap <Leader>a :TSToolsGoToSourceDefinition<CR>
 nmap <Leader>as :split<CR>:TSToolsGoToSourceDefinition<CR>
 nmap <Leader>at :call OpenCurrentFileInNewTab()<CR>:TSToolsGoToSourceDefinition<CR>
 nmap <Leader>i :TSToolsAddMissingImports<CR>
-" nmap <Leader>f :ALEFirst<CR>
-" nmap <Leader>fn :ALENext<CR>
-
-" nmap <leader>d :lua vim.diagnostic.open_float()<CR>
-" nmap <leader>df :lua vim.lsp.buf.hover()<CR>
-
-" nmap <leader>re :lua vim.lsp.buf.rename()<CR>
 
 lua << EOF
-
 -- Set up nvim-cmp.
   local cmp = require'cmp'
   local lspkind = require'lspkind'
@@ -620,16 +571,25 @@ require("typescript-tools").setup({
   autostart = true
 })
 
-require('lspconfig').tsserver.setup({
+local lspconfig =  require('lspconfig');
+lspconfig.tsserver.setup({
   autostart = true,
   init_options = {
     preferences = {
-      noErrorTruncation = true
+      noErrorTruncation = true,
+      importModuleSpecifierPreference = "relative",
     }
   }
 })
 
-require'lspconfig'.svelte.setup{}
+-- lspconfig.sqlls.setup({
+--   filetypes = { 'sql' },
+--   root_dir = function(_)
+--     return vim.loop.cwd()
+--   end,
+-- })
+
+lspconfig.svelte.setup{}
 
 local highlight = {
     "Whitespace",
@@ -695,6 +655,14 @@ require('lspconfig').eslint.setup({
 vim.diagnostic.config({
   virtual_text = {
     prefix = '#',
+    format = function(diagnostic)
+      -- Append rule name to the message if available
+      local rule = diagnostic.user_data and diagnostic.user_data.lsp and diagnostic.user_data.lsp.code
+      if rule then
+        return string.format('%s [%s]', diagnostic.message, rule)
+      end
+      return diagnostic.message
+    end
   },
 });
 
@@ -706,7 +674,7 @@ local function setup_lsp_diags()
       virtual_text = true,
       signs = true,
       update_in_insert = false,
-      underline = true,
+      underline = false,
     }
   )
 end

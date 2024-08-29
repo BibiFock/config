@@ -1,30 +1,43 @@
 [user]
-	name = Julien Bernardo
-	email = julien.bernardo@matters.tech
+    name = Julien Bernardo
+    email = julien.bernardo@matters.tech
 
 [color]
     ui = auto
 
-    [color "branch"]
-        current = yellow reverse
-        local = yellow
-        remote = green
-        upstream = cyan
-    [color "diff"]
-        meta = yellow bold
-        frag = magenta bold
-        old = red bold
-        new = green bold
-        whitespace = red reverse
-    [color "status"]
-        added = yellow
-        changed = green
-        untracked = cyan
+[color "branch"]
+    current = yellow reverse
+    local = yellow
+    remote = green
+    upstream = cyan
+[color "diff"]
+    meta = yellow bold
+    frag = magenta bold
+    old = red bold
+    new = green bold
+    whitespace = red reverse
+[color "status"]
+    added = yellow
+    changed = green
+    untracked = cyan
+
+[init]
+    defaultBranch = main
 
 [core]
     whitespace=fix,-indent-with-non-tab,trailing-space,cr-at-eol
     excludesfile = /home/bbr/.gitignore_global
     editor = vim
+[mergetool "fugitive"]
+    cmd = vim -f -c \"Gdiff\" \"$MERGED\"
+[merge]
+    tool = fugitive
+[push]
+    default = current
+[rerere]
+    enabled = true
+[credential]
+    helper = cache
 
 [pretty]
     log=format:"%C(green)%cd %C(red bold)%an%Creset %C(yellow)%h %C(white)%s %C(auto)%d"
@@ -97,13 +110,4 @@
     list-ci = "!git log $(git describe --tags --abbrev=0)..HEAD --pretty=format:'- %s (@%aN) '"
     list-jira ="!sh -c 'git list-ci | grep -Eo \"(PE3-[0-9]+)\"| uniq | sort'"
 
-[mergetool "fugitive"]
-    cmd = vim -f -c \"Gdiff\" \"$MERGED\"
-[merge]
-    tool = fugitive
-[push]
-    default = current
-[rerere]
-	enabled = true
-[credential]
-	helper = cache
+

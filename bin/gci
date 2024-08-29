@@ -51,7 +51,11 @@ fi
 	#| tr '\n' ',' \
 	#| sed -e 's/,$//g'
 #)
-PACKAGES=$(echo "$BRANCH_NAME"|sed -e 's/^.*\/\([^-]*-[^-]*\).*/\1/g')
+## TODO improve this reg exp
+PACKAGES=$(echo "$BRANCH_NAME" | \
+    sed -e 's/^.*\/\([^-]*-NO-REF*\).*/\1/g' | \
+    sed -e 's/^.*\/\([^-]*-[^-]*\).*/\1/g' \
+)
 PACKAGES_DETAILS=$([ -n "$PACKAGES" ] && echo "($PACKAGES)" || echo "");
 
 #BRANCH_NAME=$(git rev-parse --abbrev-ref HEAD | sed -e 's,.*/\(.*\),\1,' | sed s/\\./-/g | sed s/_/-/g)
