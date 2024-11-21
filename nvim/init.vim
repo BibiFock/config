@@ -125,6 +125,10 @@ Plug 'neovim/nvim-lspconfig'
 
 " Plug 'prabirshrestha/vim-lsp'
 " Plug 'rhysd/vim-lsp-ale'
+""" -- svelte test
+Plug 'othree/html5.vim'
+Plug 'pangloss/vim-javascript'
+Plug 'evanleck/vim-svelte', {'branch': 'main'}
 
 Plug 'nvim-lua/plenary.nvim'
 Plug 'pmizio/typescript-tools.nvim'
@@ -234,13 +238,13 @@ set synmaxcol=3200           " limit for line coloration
 " _COLORSCHEME
 """"""""""""""""""""""""""""""""""""""""""""""
 set background=dark
-" set t_Co=256
-" colorscheme xoria256 " toujours aussi cool
+set t_Co=256
+colorscheme xoria256 " toujours aussi cool
 " colorscheme nightfox " pas mal pour du pastel
 " colorscheme carbonfox "pas mal
-let g:neon_style = "dark" " pas mal bien sombre
-colorscheme neon
-" colorscheme vscode " bien mais trop pastel
+" let g:neon_style = "dark" " pas mal bien sombre
+" colorscheme neon
+colorscheme vscode " bien mais trop pastel
 
 hi ColorColumn ctermbg=237
 " for ibl.config hilight
@@ -599,20 +603,22 @@ require("tailwind-tools").setup({
 })
 
 
+require('lspconfig').ts_ls.setup({
+  autostart = true
+})
+
 require("typescript-tools").setup({
   autostart = true
 })
 
-require('lspconfig').tsserver.setup({
-  autostart = true,
-  init_options = {
-    preferences = {
-      noErrorTruncation = true
-    }
-  }
-})
 
-require'lspconfig'.svelte.setup{}
+local lsp_capabilities = vim.lsp.protocol.make_client_capabilities() --or whatever your setup requires
+lsp_capabilities.workspace.didChangeWatchedFiles = false
+-- whatever your other plugin requires, for example:
+-- lsp_capabilities.textDocument.completion = require('cmp_nvim_lsp').default_capabilities().textDocument.completion
+require'lspconfig'.svelte.setup{
+    capabilities = lsp_capabilities,
+}
 
 local highlight = {
     "Whitespace",

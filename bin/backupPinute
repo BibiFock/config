@@ -1,0 +1,50 @@
+#!/bin/bash
+
+RESET="\\033[0m"
+YELLOW="\\033[33m"
+GREEN="\\033[32m"
+#RED="\\033[31m"
+#MAGENTA="\\033[35m"
+
+function step {
+    echo -e "$YELLOW-------------------------------------------------------- [$1]$RESET"
+}
+
+date=$(date +'%Y%m%d')
+HOST=
+
+cd ~/Documents/backup
+rm -rf $date
+mkdir $date
+
+cd $date
+
+step "RENDEV PART"
+## rendev uke
+mkdir rendevuke/
+cd rendevuke
+
+scp -r $HOST:web/rendev/database.db ./
+scp -r $HOST:web/rendev/site/static/uploads ./
+
+step "COPY DONE"
+cd ../
+zip -r rendevuke-${date}.zip rendevuke
+
+step "ZIP DONE"
+
+## webbr
+step "WEBBR PART"
+mkdir webbr
+cd webbr
+
+scp -r $HOST:web/webbr/sites/apps/uku/static/uploads ./
+scp -r $HOST:web/webbr/databases ./
+
+step "COPY DONE"
+cd ../
+ls -l
+
+zip -r webbr-${date}.zip ./webbr
+
+step "ZIP DONE"
