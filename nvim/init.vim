@@ -11,6 +11,7 @@
 "        _COMMANDS_QUICK_FILES
 "        _SHORTCUTS
 "        _SHORTCUTS_LEADER
+"        _LUA_CONFIG
 """"""""""""""""""""""""""""""""""""""""""""""
 
 """"""""""""""""""""""""""""""""""""""""""""""
@@ -342,8 +343,6 @@ command! -nargs=+ -complete=customlist,GoToComplete Go call GoTo(<f-args>)
 "switch dir to current open file
 autocmd BufEnter * silent! lcd %:p:h
 
-set re=0
-
 """"""""""""""""""""""""""""""""""""""""""""""
 " _COMMANDS_QUICK_FILES
 """"""""""""""""""""""""""""""""""""""""""""""
@@ -402,6 +401,7 @@ map <C-k> <C-W>k
 map <C-h> <C-W>h
 map <C-l> <C-W>l"
 
+set re=0
 " Change Working Directory to that of the current file
 cmap cwd lcd %:p:h
 cmap cd. lcd %:p:h
@@ -463,6 +463,13 @@ nmap <Leader>a :TSToolsGoToSourceDefinition<CR>
 nmap <Leader>as :split<CR>:TSToolsGoToSourceDefinition<CR>
 nmap <Leader>at :call OpenCurrentFileInNewTab()<CR>:TSToolsGoToSourceDefinition<CR>
 nmap <Leader>i :TSToolsAddMissingImports<CR>
+
+"" clean all buffers
+nnoremap <leader>db :w <bar> %bd <bar> e# <bar> bd# <CR>
+
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+"  _LUA_CONFIG
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 
 lua << EOF
 -- Set up nvim-cmp.

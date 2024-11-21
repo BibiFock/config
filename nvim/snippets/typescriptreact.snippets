@@ -21,6 +21,17 @@ const ${1:Component} = ({}: $1Props) => {
 
 export default $1;
 endsnippet
+snippet t-load
+import Loader from '@/app/_components/loader';
+
+const ${1:Component}PageLoading = () => (
+	<$1PageSkeleton>
+    <Loader />
+	</$1PageSkeleton>
+);
+
+export default $1PageLoading;
+endsnippet
 snippet t-form
 const t = useTranslations();
 const { action, form, fields, lastResult } = useConformForm({
@@ -114,4 +125,113 @@ export class ${1:Entity}Service {
     private readonly $2Repository: $1Repository,
   ) {}
 }
+endsnippet
+snippet t-e2e
+import { describe, beforeAll, afterAll, it, expect } from 'bun:test';
+
+import { INestApplication } from '@nestjs/common';
+
+import {
+  ANTOR_ADMIN_USER_ID,
+  ANTOR_SUPER_ADMIN_USER_ID,
+  API_KEY_ADMIN,
+  API_KEY_SUPER_ADMIN,
+  FIRST_ORGANIZATION_ID,
+  NON_OWNER_ADMIN_USER_ID,
+  NON_OWNER_ORGANIZATION_ID,
+  ROCK_EN_SEINE_SERIES,
+} from 'test/constants';
+import { initTestApp } from 'test/init-test-app';
+import { sendRequest } from 'test/send-request';
+
+const getBaseUrl = ({
+  seriesId = ROCK_EN_SEINE_SERIES,
+}: { seriesId?: string } = {}) => \`/v1/${1:endpoint}\`;
+
+describe('/v1/$1 (${2:GET})', () => {
+  let app: INestApplication;
+
+  beforeAll(async () => {
+    app = await initTestApp();
+  });
+
+  afterAll(async () => {
+    await app.close();
+  });
+
+  describe('should failed when', () => {
+    it('no authorization header is set', async () => {
+      await sendRequest({
+        app,
+        url: getBaseUrl(),
+        expectedCode: 403,
+      }).expect({
+        message: 'Forbidden resource',
+        error: 'Forbidden',
+        statusCode: 403,
+      });
+    });
+
+    it('user not authorized', async () => {
+      await sendRequest({
+        app,
+        url: getBaseUrl(),
+        expectedCode: 403,
+        token: API_KEY_ADMIN,
+        organizationId: NON_OWNER_ORGANIZATION_ID,
+        userId: NON_OWNER_ADMIN_USER_ID,
+      }).expect({
+        message: 'Forbidden resource',
+        error: 'Forbidden',
+        statusCode: 403,
+      });
+    });
+
+    it('series not exist', async () => {
+      await sendRequest({
+        app,
+        url: getBaseUrl({ seriesId: '00000000-0000-0000-0000-000000000000' }),
+        expectedCode: 404,
+        token: API_KEY_ADMIN,
+        organizationId: NON_OWNER_ORGANIZATION_ID,
+        userId: NON_OWNER_ADMIN_USER_ID,
+      }).expect(404);
+    });
+  });
+
+  describe('should return all data', () => {
+    it('with admin', async () => {
+      const { body } = await sendRequest({
+        app,
+        url: getBaseUrl(),
+        expectedCode: 200,
+        token: API_KEY_ADMIN,
+        organizationId: FIRST_ORGANIZATION_ID,
+        userId: ANTOR_ADMIN_USER_ID,
+      });
+
+      expect(body).toEqual({
+        id: expect.any(String),
+        createdAt: expect.any(String),
+        updatedAt: expect.any(String),
+      });
+    });
+
+    it('with super admin', async () => {
+      const { body } = await sendRequest({
+        app,
+        url: getBaseUrl(),
+        expectedCode: 200,
+        token: API_KEY_SUPER_ADMIN,
+        userId: ANTOR_SUPER_ADMIN_USER_ID,
+      });
+
+      expect(body).toEqual({
+        id: expect.any(String),
+        createdAt: expect.any(String),
+        updatedAt: expect.any(String),
+      });
+    });
+  });
+});
 endsnippet

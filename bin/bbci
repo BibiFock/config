@@ -40,11 +40,12 @@ fi
 
 PACKAGES=$(git diff --name-only --cached \
     | grep -E "^(packages|apps)/" \
-    | sed -e 's/\(packages\|apps\)\/\([^\/]*\)\/.*$/\2/g' \
-	| sort \
-	| uniq \
-	| tr '\n' ',' \
-	| sed -e 's/,$//g'
+    | sed -e 's/\(apps\)\/\([^\/]*\)\/.*$/\2/g' \
+    | sed -e 's/\(packages\)\/\([^\/]*\)\/.*$/\2/g' \
+    | sort \
+    | uniq \
+    | tr '\n' ',' \
+    | sed -e 's/,$//g'
 )
 PACKAGES_DETAILS=$([ -n "$PACKAGES" ] && echo "($PACKAGES)" || echo "");
 
