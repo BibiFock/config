@@ -97,7 +97,7 @@
     # clear merged branch
     brclr="!sh -c 'git branch --merged | egrep -v \"(^\\*|master|HEAD )\" | xargs git branch -d'"
     # clear deleted branch
-    brdel="!f() { for branch in ${2:-$(git branch -vv | grep ': gone]' | awk '{print $1}')}; do git branch -D $branch; done;}; f"
+    brdel="!f() { for branch in ${2:-$(git branch -vv | grep \": \\(gone\\|disparue\\)]\" | awk '{print $1}')}; do git branch -D $branch; done;}; f"
     # full clean
     brclean="!f(){ git fetch --all -p; git brclr; git brdel;}; f"
 

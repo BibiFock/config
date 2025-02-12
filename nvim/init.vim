@@ -75,8 +75,8 @@ let g:UltiSnipsJumpBackwardTrigger="<c-z>"
 " If you want :UltiSnipsEdit to split your window.
 let g:UltiSnipsEditSplit="vertical"
 
-let g:UltiSnipsSnippetStorageDirectoryForUltiSnipsEdit=expand("~/config/nvim/snippets")
-let g:UltiSnipsSnippetDirectories=["UltiSnips", expand("~/config/nvim/snippets")]
+let g:UltiSnipsSnippetStorageDirectoryForUltiSnipsEdit=expand("$HOME/config/nvim/my-snippets")
+let g:UltiSnipsSnippetDirectories=["UltiSnips", expand("~/config/nvim/my-snippets")]
 let g:UltiSnipsEnableSnipMate=1
 
 
@@ -94,7 +94,7 @@ let g:winresizer_start_key = '<leader>r'
 Plug 'sheerun/vim-polyglot'
 
 Plug 'prettier/vim-prettier'
-autocmd BufWritePre *.tsx,*.ts,*.svelte Prettier
+" autocmd BufWritePre *.tsx,*.ts,*.svelte Prettier
 
 " _PLUGINS_IN_TEST
 Plug 'neovim/nvim-lspconfig'
@@ -416,6 +416,8 @@ let g:mapleader = " "
 " relaod config
 nnoremap <leader>c :so %<cr>
 
+nnoremap <leader>l :20Lexplore!<CR>
+
 " Fast saving
 nmap <leader>w :w!<cr>
 
@@ -579,7 +581,7 @@ require("typescript-tools").setup({
 })
 
 local lspconfig =  require('lspconfig');
-lspconfig.tsserver.setup({
+lspconfig.ts_ls.setup({
   autostart = true,
   init_options = {
     preferences = {
@@ -624,7 +626,7 @@ vim.api.nvim_create_autocmd('LspAttach', {
   end,
 })
 
-require('lspconfig').eslint.setup({
+lspconfig.eslint.setup({
   on_attach = function(client, bufnr)
     vim.api.nvim_create_autocmd("BufWritePre", {
       buffer = bufnr,
@@ -690,5 +692,85 @@ setup_lsp_diags()
 
 -- require("fzf-lua").setup({ "fzf-vim" })
 require("fzf-lua").setup()
+
+onSaveFormatter = 'prettier'
+onSaveFormatter = 'biome'
+
+if onSaveFormatter == 'biome' then
+  lspconfig.biome.setup({
+    on_attach = function(client, bufnr)
+      vim.api.nvim_create_autocmd("BufWritePre", {
+        buffer = bufnr,
+        callback = function()
+          vim.lsp.buf.format({
+            async = false,
+            filter = function(client) return client.name == "biome" end
+          })
+        end,
+      })
+    end
+  })
+else 
+  idPrettier = vim.api.nvim_create_autocmd('BufWritePre', {
+    pattern = { '*.tsx', '*.ts',  '*.svelte', '*.js', '*.jsx' }, 
+    command = 'Prettier'
+  })
+end
+
+-- Function to toggle between Biome and Prettier LSP
+function FormatterStates()
+  local clients = vim.lsp.get_active_clients({ name = 'biome' })
+
+  -- Loop through the active clients and find Biome
+  local biomeStatus = "🚫"
+  for _, client in ipairs(clients) do
+    biomeStatus = "✅"
+    break
+  end
+
+  local prettierStatus = "🚫"
+  -- Check Prettier status (assuming idPrettier indicates if it's set up or not)
+  if idPrettier then
+    prettierStatus = "✅"  -- Prettier is set up
+  end
+
+  print(string.format("Biome: %s | Prettier: %s", biomeStatus, prettierStatus))
+end
+
+-- function FormatterTogglePrettier()
+--   if idPrettier then
+--     vim.api.nvim_del_autocmd(idPrettier)
+--     idPrettier = nil
+--   else 
+--     idPrettier = vim.api.nvim_create_autocmd('BufWritePre', {
+--       pattern = { '*.tsx', '*.ts',  '*.svelte', '*.js', '*.jsx' },
+--       command = 'Prettier'
+--     })
+--   end
+-- end
+-- 
+-- function FormatterToggleBiome()
+--   local clients = vim.lsp.get_clients({ name = 'biome' })
+-- 
+--   -- Loop through the active clients and find Biome
+--   for _, client in ipairs(clients) do
+--     if client.name == "biome" then
+--       print(vim.inspect(client))
+--       print(vim.inspect(client.is_stopped()))
+--       if (client.is_stopped()) then
+--         -- Stop the Biome LSP client
+--         vim.lsp.start_client(client.id)
+--         print("✅ Biome is started")
+--       else
+--         -- Stop the Biome LSP client
+--         vim.lsp.stop_client(client.id)
+--         -- vim.lsp.stop_client(client.id)
+--         print("🚫 Biome is stopped")
+--       end
+--       break
+--     end
+--   end
+-- end
+
 
 EOF

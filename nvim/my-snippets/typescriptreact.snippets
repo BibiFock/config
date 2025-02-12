@@ -65,7 +65,7 @@ snippet t-action
 
 import { parseWithZod } from '@conform-to/zod';
 
-import { IProfileService } from '@/domain/identity/services/profile';
+import { ProfileService } from '@/domain/identity/services/profile';
 import container from '@/lib/config/inversify';
 import { adminErrorToUserStringError } from '@/lib/error/admin-error-to-user-string-error';
 import { ConformActionState } from '@/lib/form-action/type';
@@ -80,7 +80,7 @@ export const ${1:formName}Action = async (
 ): Promise<ConformActionState> => {
   try {
     await container
-      .get<IProfileService>(ServicesSymbols.profile)
+      .get<ProfileService>(ServicesSymbols.profile)
       .findValidOrThrow();
 
     const submission = parseWithZod(formData, {

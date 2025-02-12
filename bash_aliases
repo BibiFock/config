@@ -33,7 +33,8 @@ alias fuck='sudo $(history -p !!)'
 alias myfort='fortune ~/config/fortune/quotes'
 
 # youtube-dl
-alias youtube-dl-mp3='yt-dlp -x --audio-format "mp3" --add-metadata -o "%(playlist_index)s.%(artist)s-%(title)s.%(ext)s" --restrict-filenames '
+alias youtube-dl-mp3='yt-dlp -x --audio-format "mp3" --add-metadata -o "~/Music/%(playlist_index)s.%(artist)s-%(title)s.%(ext)s" --restrict-filenames '
+alias yt-dlp-upgrade='pip install --upgrade yt-dlp'
 
 alias wget-list='count=1;for url in $(cat ./list.txt); do wget $url -O $(echo $count.$(basename $url) | sed -e "s/^[1-9]\\./0&/g") && ((count++)); done;'
 
