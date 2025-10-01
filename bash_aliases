@@ -33,14 +33,13 @@ alias fuck='sudo $(history -p !!)'
 alias myfort='fortune ~/config/fortune/quotes'
 
 # youtube-dl
-alias youtube-dl-mp3='yt-dlp -x --audio-format "mp3" --add-metadata -o "~/Music/%(playlist_index)s.%(artist)s-%(title)s.%(ext)s" --restrict-filenames '
+alias youtube-dl-mp3='yt-dlp -x --audio-format "mp3" --audio-quality 0 --add-metadata -o "~/Music/%(playlist_index)s.%(artist)s-%(title)s.%(ext)s" --restrict-filenames '
 alias yt-dlp-upgrade='pip install --upgrade yt-dlp'
 
 alias wget-list='count=1;for url in $(cat ./list.txt); do wget $url -O $(echo $count.$(basename $url) | sed -e "s/^[1-9]\\./0&/g") && ((count++)); done;'
 
 alias vim='echo PLEASE USE NVIM'
 alias nv='nvim'
-
 
 ## matters
 alias pe3_kube_config='KUBECONFIG=~/Documents/dev/kubeconfig-pe3-test.yaml kubectl get configmap -n pe3-test-test'
@@ -51,3 +50,9 @@ alias pe3_PROD_namespaces='KUBECONFIG=~/Documents/dev/kubeconfig-pe3-prod.yaml k
 alias m='make'
 
 alias macosListenPort='lsof -i -P | grep LISTEN'
+
+alias j='rust-just'
+alias tw='timew'
+
+alias twr='cd $HOME/Documents/dev/time-tracking-gitlab && bun run daily-tracking --filter julien.bernardo.matters && cd -'
+alias cl='clockify-cli'

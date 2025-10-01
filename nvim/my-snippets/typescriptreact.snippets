@@ -8,6 +8,29 @@ endsnippet
 snippet es-dis
 // eslint-disable-next-line $1
 endsnippet
+snippet ts-error
+// @ts-expect-error: ${1:SubComponent is not a TS file}
+endsnippet
+snippet bi-i
+// biome-ignore $1: ${2:reason}
+endsnippet
+snippet t-story
+import type { Meta, StoryObj } from '@storybook/react';
+import { ${1:MyComponent} as Component } from './$1';
+
+const meta: Meta<typeof Component> = {
+  component: Component,
+  tags: ['deprecated'],
+};
+
+export default meta;
+
+type Story = StoryObj<typeof Component>;
+
+export const Default: Story = {
+  args: {},
+};
+endsnippet
 snippet t-comp
 interface $1Props {
 }

@@ -16,8 +16,10 @@ fi
 
 MESSAGE=$1
 BRANCH_NAME=$(git rev-parse --abbrev-ref HEAD)
-BRANCH_TYPE=$(echo "$BRANCH_NAME"|sed -e 's/^\([^/]*\).*/\1/g')
+TICKET=$(echo "$BRANCH_NAME" | grep -oE '^(NO-REF|CALS-[0-9]+)')
+BRANCH_TYPE=$(echo "$BRANCH_NAME"| awk -F'-' '{print $3}')
 TYPE=${2:-"$BRANCH_TYPE"}
+SCOPE=$(echo "$BRANCH_NAME" | awk -F'-' '{print $4}')
 
 # shift 2
 # ARGS_REST=("$@")
@@ -26,7 +28,7 @@ TYPES=$(echo build chore ci docs feat fix perf refactor revert style test)
 
 if [[ ! ${TYPES[*]} =~ "${TYPE}"( |$) ]]; then
 	echo
-	echo -e "$COLOR_RED \xE2\x9D\x8C ${COLOR_YELLOW}${COLOR_BOLD}Type${COLOR_RESET} must be one of:"
+	echo -e "$COLOR_RED \xE2\x9D\x8C ${COLOR_RESET}Type: ${COLOR_YELLOW}${COLOR_BOLD}${TYPE}${COLOR_RESET} is invalid, must be one of:"
     echo -e "    -$COLOR_BOLD$COLOR_YELLOW build${COLOR_RESET}: Changes that affect the build system or external dependencies (example scopes${COLOR_RESET}: gulp, broccoli, npm)"
 
     echo -e "    -$COLOR_BOLD$COLOR_YELLOW chore${COLOR_RESET}: Changes to the build process or auxiliary tools and libraries such as documentation generation ${COLOR_RESET}"
@@ -52,18 +54,39 @@ fi
 	#| sed -e 's/,$//g'
 #)
 ## TODO improve this reg exp
-PACKAGES=$(echo "$BRANCH_NAME" | \
-    sed -e 's/^.*\/\([^-]*-NO-REF*\).*/\1/g' | \
-    sed -e 's/^.*\/\(#[^-]*\).*/\1/g' | \
-    sed -e 's/^.*\/\([^-]*-[^-]*\).*/\1/g'
-)
-PACKAGES_DETAILS=$([ -n "$PACKAGES" ] && echo "($PACKAGES)" || echo "");
 
-#BRANCH_NAME=$(git rev-parse --abbrev-ref HEAD | sed -e 's,.*/\(.*\),\1,' | sed s/\\./-/g | sed s/_/-/g)
-#ISSUE=$(echo $BRANCH_NAME | cut -d"-" -f 1)
+SCOPES=$(echo admin agency arrangement auth cdc cms core deps ds eli fei forms messaging routing sdk translation ui)
+
+if [[ ! ${SCOPES[*]} =~ "${SCOPE}"( |$) ]]; then
+	echo
+	echo -e "$COLOR_RED \xE2\x9D\x8C ${COLOR_RESET}Scope: ${COLOR_YELLOW}${COLOR_BOLD}${SCOPE}${COLOR_RESET} is invalid, must be one of:"
+    echo -e "    -$COLOR_BOLD$COLOR_YELLOW admin${COLOR_RESET}"
+
+    echo -e "    -$COLOR_BOLD$COLOR_YELLOW agency${COLOR_RESET}"
+    echo -e "    -$COLOR_BOLD$COLOR_YELLOW arrangement${COLOR_RESET}"
+    echo -e "    -$COLOR_BOLD$COLOR_YELLOW auth${COLOR_RESET}"
+    echo -e "    -$COLOR_BOLD$COLOR_YELLOW cdc${COLOR_RESET}"
+    echo -e "    -$COLOR_BOLD$COLOR_YELLOW cms${COLOR_RESET}"
+    echo -e "    -$COLOR_BOLD$COLOR_YELLOW core${COLOR_RESET}"
+    echo -e "    -$COLOR_BOLD$COLOR_YELLOW deps${COLOR_RESET}"
+    echo -e "    -$COLOR_BOLD$COLOR_YELLOW ds${COLOR_RESET}"
+    echo -e "    -$COLOR_BOLD$COLOR_YELLOW eli${COLOR_RESET}"
+    echo -e "    -$COLOR_BOLD$COLOR_YELLOW fei${COLOR_RESET}"
+    echo -e "    -$COLOR_BOLD$COLOR_YELLOW forms${COLOR_RESET}"
+    echo -e "    -$COLOR_BOLD$COLOR_YELLOW messaging${COLOR_RESET}"
+    echo -e "    -$COLOR_BOLD$COLOR_YELLOW routing${COLOR_RESET}"
+    echo -e "    -$COLOR_BOLD$COLOR_YELLOW sdk${COLOR_RESET}"
+    echo -e "    -$COLOR_BOLD$COLOR_YELLOW translation${COLOR_RESET}"
+    echo -e "    -$COLOR_BOLD$COLOR_YELLOW ui${COLOR_RESET}"
+	echo
+	exit 1
+fi
 
 
-COMMIT_MESSAGE="$TYPE$PACKAGES_DETAILS: $MESSAGE"
+SCOPE_MESSAGE=$([ -n "$SCOPE" ] && echo "($SCOPE)" || echo "");
+
+
+COMMIT_MESSAGE="$TYPE$SCOPE_MESSAGE: $TICKET $MESSAGE"
 
 # we remove first args from all args
 shift 1

@@ -11,3 +11,12 @@ source ~/.git-completion.bash
 
 ## The next line enables shell command completion for gcloud.
 #if [ -f '/Users/bbr/Documents/google-cloud-sdk/completion.bash.inc' ]; then . '/Users/bbr/Documents/google-cloud-sdk/completion.bash.inc'; fi
+
+##
+# Your previous /Users/julien.bernardo/.bash_profile file was backed up as /Users/julien.bernardo/.bash_profile.macports-saved_2025-06-18_at_13:08:53
+##
+
+# MacPorts Installer addition on 2025-06-18_at_13:08:53: adding an appropriate PATH variable for use with MacPorts.
+export PATH="/opt/local/bin:/opt/local/sbin:$PATH"
+# Finished adapting your PATH environment variable for use with MacPorts.
+

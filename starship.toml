@@ -112,3 +112,11 @@ disabled=true
 
 [nodejs]
 disabled=true
+
+[custom.timewarrior]
+command = "/Users/julien.bernardo/bin/matters/tracking-status.sh"
+when=true
+symbol="󱎫 "
+# Le when est géré à l'intérieur du script lui-même
+style = "bold magenta"
+# require_repo=true

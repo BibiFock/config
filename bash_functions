@@ -71,7 +71,7 @@ function DlYtList {
 
     START=${4:-1}
 
-    yt-dlp -x --audio-format "mp3" --add-metadata --restrict-filenames \
+    yt-dlp -x --audio-format "mp3" --audio-quality 0 --add-metadata --restrict-filenames \
         -o "%(playlist_index)s_%(artist)s-%(title)s.%(ext)s" $1 --playlist-start $START
 
     count=$START
@@ -225,3 +225,121 @@ fi
 
 complete -W "\`grep -oE '^[a-zA-Z0-9_.-]+:([^=]|$)' ?akefile | sed 's/[^a-zA-Z0-9_.-]*$//'\`" make
 complete -W "\`grep -oE '^[a-zA-Z0-9_.-]+:([^=]|$)' ?akefile | sed 's/[^a-zA-Z0-9_.-]*$//'\`" m
+
+yr() {
+  local script
+
+  # Parse package.json for scripts and color the output
+  script=$(jq -r '
+    .scripts | to_entries | 
+    .[] | 
+    (.key | ltrimstr("_"))
+  ' package.json | uniq | sort |
+  fzf --ansi --preview 'echo $(jq ".scripts[\"$(echo {1})\"]" package.json)' --height=10 --border --layout=reverse --preview-window=wrap | cut -f1 | sed "s/\x1b\[[0-9;]*m//g" | cut -d ':' -f1)
+
+  # Run the selected script with yarn
+  if [[ -n "$script" ]]; then
+    echo "$script"
+  fi
+}
+
+function _rustJust() {
+# fill local variable with a list of completions
+    local COMPLETES=$(rust-just --summary)
+
+    # we put the completions into $COMPREPLY using compgen
+    COMPREPLY=( $(compgen -W "$COMPLETES" -- ${COMP_WORDS[COMP_CWORD]}) )
+    return 0
+}
+
+complete -F _rustJust rust-just
+complete -F _rustJust j
+
+
+_npm_scripts_completion() {
+  local cur
+  cur="${COMP_WORDS[COMP_CWORD]}"
+
+  COMPREPLY=($(jq -r '.scripts | keys[]' package.json | grep "^$cur" 2>/dev/null))
+}
+
+complete -F _npm_scripts_completion npm run
+complete -F _npm_scripts_completion yarn run
+complete -F _npm_scripts_completion pnpm run
+
+_kbr_completion() {
+    local cur prev opts
+
+    # Récupérer la saisie actuelle
+    cur="${COMP_WORDS[COMP_CWORD]}"
+    prev="${COMP_WORDS[COMP_CWORD-1]}"
+
+    # Définir les options en fonction du contexte
+    case "$prev" in
+        kbr)  opts="build chore ci docs feat fix perf refactor revert style test";;  # Premier argument
+        build|chore|ci|docs|feat|fix|perf|refactor|revert|style|test) opts="admin agency arrangement auth cdc cms core deps ds fei forms messaging routing sdk translation ui" ;;  # Deuxième argument
+        *) return ;;  # Ne rien proposer si ce n'est pas prévu
+    esac
+
+    # Générer les suggestions
+    COMPREPLY=( $(compgen -W "$opts" -- "$cur") )
+}
+
+# Associer la fonction d'autocomplétion à la commande `moncmd`
+complete -F _kbr_completion kbr
+
+function tws() {
+    local TAG=$1
+    if [[ "$TAG" == \#* ]]; then
+        timew start $TAG
+    else
+        timew start manual_$TAG
+    fi
+}
+
+function twd() {
+    local have_active_task=$(timew get dom.active)
+    if [[ "$have_active_task" == "1" ]]; then
+      local ACTIVE_TAG=$(timew get dom.active.json | jq -r '.tags[0]')
+    fi
+    timew stop :quiet
+    timew tag-total :today
+    if [ -n "$ACTIVE_TAG" ]; then
+        timew start $ACTIVE_TAG :quiet
+    fi
+
+    echo -e "total\t - $(timew summary :today | tail -n 2 | sed -E 's/^[[:space:]]+|[[:space:]]+$//g')"
+}
+
+function cls() {
+    local TAG=$1
+    local KIND=$2
+
+    if [[ -n "$KIND" ]]; then
+        TAG="${KIND}_#${TAG}"
+    fi
+
+    if [[ "$TAG" == \#* ]]; then
+        clockify-cli in -i=0 "" "$TAG" -q > /dev/null
+    else
+        clockify-cli in -i=0 "" "manual_$TAG" -q > /dev/null
+    fi
+}
+
+function clsr() {
+    cls revue_#$1
+}
+
+function clsrc() {
+    cls recipe_#$1
+}
+
+
+function clr() {
+    local TAG=$1
+    if [[ "$TAG" != \#* ]]; then
+        TAG="manul_$TAG"
+    fi
+
+    clockify-cli log -d "$TAG" -S --duration-float
+}

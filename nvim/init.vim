@@ -634,6 +634,20 @@ lspconfig.eslint.setup({
     })
   end,
 })
+--
+--lspconfig.biome.setup({
+--  on_attach = function(client, bufnr)
+--      vim.api.nvim_create_autocmd("BufWritePre", {
+--        buffer = bufnr,
+--        callback = function()
+--          vim.lsp.buf.format({
+--            async = false,
+--            filter = function(client) return client.name == "biome" end
+--          })
+--        end,
+--      })
+--  end
+--})
 
 -- disable diag in insert mode
 --vim.api.nvim_create_autocmd('ModeChanged', {
@@ -693,19 +707,17 @@ setup_lsp_diags()
 -- require("fzf-lua").setup({ "fzf-vim" })
 require("fzf-lua").setup()
 
-onSaveFormatter = 'prettier'
 onSaveFormatter = 'biome'
+onSaveFormatter = 'prettier'
 
 if onSaveFormatter == 'biome' then
   lspconfig.biome.setup({
+    single_file_support = true,
     on_attach = function(client, bufnr)
       vim.api.nvim_create_autocmd("BufWritePre", {
         buffer = bufnr,
         callback = function()
-          vim.lsp.buf.format({
-            async = false,
-            filter = function(client) return client.name == "biome" end
-          })
+          vim.lsp.buf.format({ async = false, filter = function(client) return client.name == "biome" end })
         end,
       })
     end

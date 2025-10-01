@@ -1,0 +1,85 @@
+#!/usr/bin/env bash
+
+COLOR_RESET="\\033[0m"
+COLOR_YELLOW="\\033[33m"
+#COLOR_GREEN="\\033[32m"
+COLOR_RED="\\033[31m"
+#COLOR_MAGENTA="\\033[35m"
+COLOR_BOLD="\\e[1m"
+
+
+if [ $# -lt 4 ]; then
+    echo
+    echo -e "$COLOR_YELLOW Please provide at least 4 arguments ;) $COLOR_RESET"
+    echo -e "$COLOR_YELLOW {TYPE} {SCOPE} {TICKET} {MESSAGE}  $COLOR_RESET"
+    echo
+    exit 1
+fi
+
+TYPE=$1
+SCOPE=$2
+TICKET=$(echo "$3" | grep -oE '(CALS-[0-9]+|NO-REF)')
+MESSAGE=$4
+
+BRANCH_NAME=$TICKET-$TYPE-$SCOPE--$MESSAGE
+
+
+if [[ "$TICKET" != "NO-REF" && ! "$TICKET" =~ ^CALS-[0-9]+$ ]]; then
+    echo "❌ Invalid ticket ref: $3 => $TICKET"
+    exit 1
+fi
+
+# shift 2
+# ARGS_REST=("$@")
+# shellcheck disable=SC2116
+TYPES=$(echo build chore ci docs feat fix perf refactor revert style test)
+
+if [[ ! ${TYPES[*]} =~ "${TYPE}"( |$) ]]; then
+	echo
+	echo -e "$COLOR_RED \xE2\x9D\x8C ${COLOR_YELLOW}${COLOR_BOLD}${TYPE}${COLOR_RESET} must be one of:"
+    echo -e "    -$COLOR_BOLD$COLOR_YELLOW build${COLOR_RESET}: Changes that affect the build system or external dependencies (example scopes${COLOR_RESET}: gulp, broccoli, npm)"
+
+    echo -e "    -$COLOR_BOLD$COLOR_YELLOW chore${COLOR_RESET}: Changes to the build process or auxiliary tools and libraries such as documentation generation ${COLOR_RESET}"
+    echo -e "    -$COLOR_BOLD$COLOR_YELLOW ci${COLOR_RESET}: Changes to our CI configuration files and scripts (example scopes${COLOR_RESET}: Travis, Circle, BrowserStack, SauceLabs)"
+    echo -e "    -$COLOR_BOLD$COLOR_YELLOW docs${COLOR_RESET}: Documentation only changes"
+    echo -e "    -$COLOR_BOLD$COLOR_YELLOW feat${COLOR_RESET}: A new feature"
+    echo -e "    -$COLOR_BOLD$COLOR_YELLOW fix${COLOR_RESET}: A bug fix"
+    echo -e "    -$COLOR_BOLD$COLOR_YELLOW perf${COLOR_RESET}: A code change that improves performance"
+    echo -e "    -$COLOR_BOLD$COLOR_YELLOW refactor${COLOR_RESET}: A code change that neither fixes a bug nor adds a feature"
+    echo -e "    -$COLOR_BOLD$COLOR_YELLOW revert${COLOR_RESET}: A code change that revert a change"
+    echo -e "    -$COLOR_BOLD$COLOR_YELLOW style${COLOR_RESET}: Changes that do not affect the meaning of the code (white-space, formatting, missing semi-colons, etc)"
+    echo -e "    -$COLOR_BOLD$COLOR_YELLOW test${COLOR_RESET}: Adding missing tests or correcting existing tests"
+	echo
+	exit 1
+fi
+
+SCOPES=$(echo admin agency arrangement auth cdc cms core deps ds eli fei forms messaging routing sdk translation ui)
+
+if [[ ! ${SCOPES[*]} =~ "${SCOPE}"( |$) ]]; then
+	echo
+	echo -e "$COLOR_RED \xE2\x9D\x8C ${COLOR_RESET}Scope: ${COLOR_YELLOW}${COLOR_BOLD}${SCOPE}${COLOR_RESET} is invalid, must be one of:"
+    echo -e "    -$COLOR_BOLD$COLOR_YELLOW admin${COLOR_RESET}"
+
+    echo -e "    -$COLOR_BOLD$COLOR_YELLOW agency${COLOR_RESET}"
+    echo -e "    -$COLOR_BOLD$COLOR_YELLOW arrangement${COLOR_RESET}"
+    echo -e "    -$COLOR_BOLD$COLOR_YELLOW auth${COLOR_RESET}"
+    echo -e "    -$COLOR_BOLD$COLOR_YELLOW cdc${COLOR_RESET}"
+    echo -e "    -$COLOR_BOLD$COLOR_YELLOW cms${COLOR_RESET}"
+    echo -e "    -$COLOR_BOLD$COLOR_YELLOW core${COLOR_RESET}"
+    echo -e "    -$COLOR_BOLD$COLOR_YELLOW deps${COLOR_RESET}"
+    echo -e "    -$COLOR_BOLD$COLOR_YELLOW ds${COLOR_RESET}"
+    echo -e "    -$COLOR_BOLD$COLOR_YELLOW eli${COLOR_RESET}"
+    echo -e "    -$COLOR_BOLD$COLOR_YELLOW fei${COLOR_RESET}"
+    echo -e "    -$COLOR_BOLD$COLOR_YELLOW forms${COLOR_RESET}"
+    echo -e "    -$COLOR_BOLD$COLOR_YELLOW messaging${COLOR_RESET}"
+    echo -e "    -$COLOR_BOLD$COLOR_YELLOW routing${COLOR_RESET}"
+    echo -e "    -$COLOR_BOLD$COLOR_YELLOW sdk${COLOR_RESET}"
+    echo -e "    -$COLOR_BOLD$COLOR_YELLOW translation${COLOR_RESET}"
+    echo -e "    -$COLOR_BOLD$COLOR_YELLOW ui${COLOR_RESET}"
+	echo
+	exit 1
+fi
+
+git fetch
+git checkout origin/main
+git checkout -b $BRANCH_NAME
