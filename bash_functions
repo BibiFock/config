@@ -245,7 +245,9 @@ yr() {
 
 function _rustJust() {
 # fill local variable with a list of completions
-    local COMPLETES=$(rust-just --summary)
+    local RECIPES=$(rust-just --summary)
+    local ALIASES=$(just --list | grep '\[alias:' | awk -F ' ' '{print $4}'| sed 's/\]$//g')
+    local COMPLETES=$(echo "${RECIPES} ${ALIASES}" | tr ' ' '\n' | sort | uniq)
 
     # we put the completions into $COMPREPLY using compgen
     COMPREPLY=( $(compgen -W "$COMPLETES" -- ${COMP_WORDS[COMP_CWORD]}) )
@@ -343,3 +345,28 @@ function clr() {
 
     clockify-cli log -d "$TAG" -S --duration-float
 }
+
+COMMANDS="run generate affected run-many affected:apps affected:libs affected:build affected:test affected:e2e affected:dep-graph print-affected affected:lint dep-graph format:check format:write workspace-lint workspace-schematic migrate report list"
+
+_nx_generate_schematics()
+{
+  echo "$(nnx workspace-schematic --list-schematics | fzf)"
+}
+
+_nx_autocomplete()
+{
+  case "${COMP_WORDS[1]}" in
+    run)
+      PROJECTS=$(jq -r '.projects | keys[]' ./workspace.json)
+      COMPREPLY=($(compgen -W "$PROJECTS" "${COMP_WORDS[2]}"))
+      ;;
+    workspace-schematic)
+      COMPREPLY=($(_nx_generate_schematics))
+      ;;
+    *)
+      COMPREPLY=($(compgen -W "$COMMANDS" "${COMP_WORDS[1]}"))
+      ;;
+  esac
+}
+
+complete -F _nx_autocomplete nnx

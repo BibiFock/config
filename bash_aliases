@@ -56,3 +56,6 @@ alias tw='timew'
 
 alias twr='cd $HOME/Documents/dev/time-tracking-gitlab && bun run daily-tracking --filter julien.bernardo.matters && cd -'
 alias cl='clockify-cli'
+alias nnx="npx nx"
+
+alias senorg="rg -g '!/apps/core-webapp/**' "

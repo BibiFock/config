@@ -97,7 +97,7 @@ Plug 'prettier/vim-prettier'
 " autocmd BufWritePre *.tsx,*.ts,*.svelte Prettier
 
 " _PLUGINS_IN_TEST
-Plug 'neovim/nvim-lspconfig'
+Plug 'neovim/nvim-lspconfig', { 'tag': 'v2.4.0' }
 
 Plug 'nvim-lua/plenary.nvim'
 Plug 'pmizio/typescript-tools.nvim'
@@ -708,12 +708,25 @@ setup_lsp_diags()
 require("fzf-lua").setup()
 
 onSaveFormatter = 'biome'
-onSaveFormatter = 'prettier'
+-- onSaveFormatter = 'prettier'
 
 if onSaveFormatter == 'biome' then
   lspconfig.biome.setup({
     single_file_support = true,
     on_attach = function(client, bufnr)
+      vim.api.nvim_create_autocmd("BufWritePre", {
+				group = vim.api.nvim_create_augroup("BiomeFixAll", { clear = true }),
+				callback = function()
+					vim.lsp.buf.code_action({
+						context = {
+							only = { "source.fixAll.biome" },
+							diagnostics = {},
+						},
+						apply = true,
+					})
+				end,
+			})
+
       vim.api.nvim_create_autocmd("BufWritePre", {
         buffer = bufnr,
         callback = function()
@@ -731,7 +744,7 @@ end
 
 -- Function to toggle between Biome and Prettier LSP
 function FormatterStates()
-  local clients = vim.lsp.get_active_clients({ name = 'biome' })
+  local clients = vim.lsp.get_clients({ name = 'biome' })
 
   -- Loop through the active clients and find Biome
   local biomeStatus = "🚫"
@@ -749,40 +762,40 @@ function FormatterStates()
   print(string.format("Biome: %s | Prettier: %s", biomeStatus, prettierStatus))
 end
 
--- function FormatterTogglePrettier()
---   if idPrettier then
---     vim.api.nvim_del_autocmd(idPrettier)
---     idPrettier = nil
---   else 
---     idPrettier = vim.api.nvim_create_autocmd('BufWritePre', {
---       pattern = { '*.tsx', '*.ts',  '*.svelte', '*.js', '*.jsx' },
---       command = 'Prettier'
---     })
---   end
--- end
--- 
--- function FormatterToggleBiome()
---   local clients = vim.lsp.get_clients({ name = 'biome' })
--- 
---   -- Loop through the active clients and find Biome
---   for _, client in ipairs(clients) do
---     if client.name == "biome" then
---       print(vim.inspect(client))
---       print(vim.inspect(client.is_stopped()))
---       if (client.is_stopped()) then
---         -- Stop the Biome LSP client
---         vim.lsp.start_client(client.id)
---         print("✅ Biome is started")
---       else
---         -- Stop the Biome LSP client
---         vim.lsp.stop_client(client.id)
---         -- vim.lsp.stop_client(client.id)
---         print("🚫 Biome is stopped")
---       end
---       break
---     end
---   end
--- end
+function FormatterTogglePrettier()
+  if idPrettier then
+    vim.api.nvim_del_autocmd(idPrettier)
+    idPrettier = nil
+  else 
+    idPrettier = vim.api.nvim_create_autocmd('BufWritePre', {
+      pattern = { '*.tsx', '*.ts',  '*.svelte', '*.js', '*.jsx' },
+      command = 'Prettier'
+    })
+  end
+end
+
+function FormatterToggleBiome()
+  local clients = vim.lsp.get_clients({ name = 'biome' })
+
+  -- Loop through the active clients and find Biome
+  for _, client in ipairs(clients) do
+    if client.name == "biome" then
+      print(vim.inspect(client))
+      print(vim.inspect(client.is_stopped()))
+      if (client.is_stopped()) then
+        -- Stop the Biome LSP client
+        vim.lsp.start_client(client.id)
+        print("✅ Biome is started")
+      else
+        -- Stop the Biome LSP client
+        vim.lsp.stop_client(client.id)
+        -- vim.lsp.stop_client(client.id)
+        print("🚫 Biome is stopped")
+      end
+      break
+    end
+  end
+end
 
 
 EOF
