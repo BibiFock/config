@@ -258,3 +258,21 @@ describe('/v1/$1 (${2:GET})', () => {
   });
 });
 endsnippet
+snippet se-test
+import { screen } from '@testing-library/react';
+import userEvent from '@testing-library/user-event';
+import { render } from 'src/shared/test-utils/render-with-theme';
+import { axe } from 'vitest-axe';
+import { ${1:Component} } from './index';
+
+describe('$1', () => {
+  const user = userEvent.setup();
+
+  it('renders correctly $2', async () => {
+    const { container } = render(<$1 />);
+
+    const results = await axe(container);
+    expect(results).toHaveNoViolations();
+  });
+});
+endsnippet

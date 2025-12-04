@@ -40,6 +40,9 @@ Plug 'vim-scripts/xoria256.vim'
 Plug 'EdenEast/nightfox.nvim'
 Plug 'rafamadriz/neon'
 Plug 'Mofiqul/vscode.nvim'
+" IA Agent
+" Plug 'https://gitlab.com/gitlab-org/editor-extensions/gitlab.vim.git'
+" Plug 'https://github.com/github/copilot.vim.git'
 
 Plug 'preservim/nerdcommenter'
 let g:NERDSpaceDelims = 1
@@ -586,7 +589,9 @@ lspconfig.ts_ls.setup({
   init_options = {
     preferences = {
       noErrorTruncation = true,
-      importModuleSpecifierPreference = "relative",
+      importModuleSpecifier = "shortest",
+      includePackageJsonAutoImports = "auto"
+   --   importModuleSpecifierPreference = "relative",
     }
   }
 })
@@ -797,5 +802,25 @@ function FormatterToggleBiome()
   end
 end
 
+--require('gitlab').setup({
+--  code_suggestions = {
+--    -- Désactive les suggestions fantômes (Ghost Text)
+----    ghost_text = {
+----      enabled = false, 
+----      stream = true,
+----      -- Conserve les raccourcis si vous voulez les activer plus tard
+----      toggle_enabled = "<C-h>",
+----      accept_suggestion = "<C-l>",
+----      clear_suggestions = "<C-k>",
+----    },
+----    -- Limite l'activation aux fichiers Ruby et Javascript (comme demandé)
+--    auto_filetypes = { 'javascript', 'typescript', 'typscriptreact' }, 
+--  },
+--  
+--  -- Désactive l'affichage de la statusline (statusline = { enabled = false })
+--  statusline = {
+--    enabled = true
+--  }
+--})
 
 EOF
