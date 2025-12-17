@@ -85,7 +85,8 @@ else
   TASK_NAME=$(trim "$(echo "$currentRunningTimeResponse" | jq -r '.data | .task.name')")
   TASK_NAME=" - $(truncate_text "$TASK_NAME" 15)"
   ACTIVE_TAG=$(echo "$currentRunningTimeResponse" | jq -r '.data | .task.custom_id')
-  CURRENT_TIME=$(echo "$currentRunningTimeResponse" | jq '.data | .task.duration')
+  CURRENT_TIME=$(echo "$currentRunningTimeResponse" | jq '.data | .duration')
+  CURRENT_TIME=$(( CURRENT_TIME < 0 ? -CURRENT_TIME : CURRENT_TIME))
 fi
 
 if [ -z "$ISSUE" ] && [ -z "$ACTIVE_TAG" ]; then
@@ -99,7 +100,9 @@ if [[ "$ISSUE" != "$ACTIVE_TAG" ]]; then
   if [[ "$ACTIVE_TAG" == "null" ]]; then
     ACTIVE_TAG="󱦠 "
   else
-    TAG=" 󰓼 (${BOLD}${YELLOW}${ACTIVE_TAG}${NC}$TASK_NAME)"
+    CURRENT_TIME=$(echo "scale=2; ${CURRENT_TIME} / 3600000" | bc -l | sed -e 's/\./H/')
+    TAG=" 󰓼 (${BOLD}${YELLOW}${ACTIVE_TAG}${NC}$TASK_NAME /${CURRENT_TIME})"
+    CURRENT_TIME=0
   fi
 else
   TAG=" 󰓼 ($ISSUE)"
@@ -123,22 +126,19 @@ fi
 
 # Fonction pour convertir les secondes en format Hh Mm
 format_duration() {
-  hours=$(($1 + 0))
-  minutes=$(($2 + 0))
-  output=""
-  if [ $hours -gt "0" ]; then
-    output="${hours}h"
-  fi
+  INPUT=$1
+  if [[ "$INPUT" == *"."* ]]; then
+    HOURS=${INPUT%.*}                  # Everything before the dot
+    MINUTES=$(echo "(${INPUT#*.} * 60) / 100" | bc)
 
-  if [ $minutes -gt "0" ]; then
-    output="$output${minutes}m"
+    echo $HOURS:$MINUTES
+  else
+    echo ${INPUT}h
   fi
-
-  echo $output
 }
 
 logged_formatted=$(echo "scale=2; ${TIME_SPENT} / 3600000 + ${CURRENT_TIME} / 3600000" | bc -l)
-
+DISPLAY_LOGGED=$(format_duration "$logged_formatted")
 
 if [[ -n "$ESTIMATE" ]] && [[ "$ESTIMATE" != "0" ]]; then
   ALMOST_BURNING_THRESHOLD=$(echo "$ESTIMATE * 0.8" | bc)
@@ -148,24 +148,27 @@ if [[ -n "$ESTIMATE" ]] && [[ "$ESTIMATE" != "0" ]]; then
   # logged_formatted > 0 && logged_formatted >= estimate
   if [ $(echo "$logged_formatted > 0 && $logged_formatted >= $ESTIMATE" | bc -l) -eq 1 ]; then
       # Formatage: 🔥${RED}Valeur🔥
-      logged_formatted="${BURNING}${RED}${BOLD}${logged_formatted}"
+      DISPLAY_LOGGED="${BURNING}${RED}${BOLD}${DISPLAY_LOGGED}"
   # Règle 2: isAlmostBurning
   # logged_formatted > estimate * 0.8
   elif [ $(echo "$logged_formatted >= $ALMOST_BURNING_THRESHOLD" | bc -l) -eq 1 ]; then
       # Formatage: ${YELLOW}Valeur
-      logged_formatted="${ALMOST_BURNING} ${YELLOW}${BOLD}${logged_formatted}"
+      DISPLAY_LOGGED="${ALMOST_BURNING} ${YELLOW}${BOLD}${DISPLAY_LOGGED}"
   fi
-  ESTIMATE=/${ESTIMATE}h
+  ESTIMATE=/${ESTIMATE}
 fi
+
+DISPLAY_ESTIMATE=$(format_duration "$ESTIMATE")
+DISPLAY_TIME_PART=$(echo -e "${DISPLAY_LOGGED}${NC}${DISPLAY_ESTIMATE}")
+DISPLAY=$(echo -e "   ${DISPLAY_TIME_PART}$TAG")
 
 # Affiche la chaîne finale pour Starship
 if [[ "$DEBUG_MODE" == "false" ]]; then
-  echo -e "   ${logged_formatted}h${NC}${ESTIMATE}$TAG" > $TIME_STATUS_FILE
+  echo -e $DISPLAY > $TIME_STATUS_FILE
 
   rm "$LOCK_FILE"
 else
-  echo -e "   ${logged_formatted}h${NC}${ESTIMATE}$TAG"
+  echo -e $DISPLAY
 fi
-
 
 exit 0

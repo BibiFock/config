@@ -276,3 +276,9 @@ describe('$1', () => {
   });
 });
 endsnippet
+snippet vimock
+vi.mock('${1:@senoee/design}', async (importOriginal) => ({
+  ...(await importOriginal()),
+  ${2:Component}: vi.fn().mockReturnValue(${3}}
+}));
+endsnippet
