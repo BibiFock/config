@@ -11,6 +11,12 @@ BOLD='\033[1m'
 
 DEBUG_MODE="false"
 
+trim() {
+  local var="$1"
+
+  echo "$var" | xargs
+}
+
 truncate_text() {
   # 1. Déclare les variables comme locales pour ne pas polluer l'environnement.
   local input_string="$1"
@@ -29,12 +35,6 @@ truncate_text() {
     # 4. Retourne la chaîne originale
     echo "$input_string"
   fi
-}
-
-trim() {
-  local var="$1"
-
-  echo "$var" | xargs
 }
 
 # Check for --debug argument
@@ -82,7 +82,7 @@ if [ $? -ne 0 ]; then
   CURRENT_TIME=0
   TASK_NAME=""
 else
-  TASK_NAME=$(trim "$(echo "$currentRunningTimeResponse" | jq -r '.data | .task.name')")
+  TASK_NAME=$(trim "$(echo "$currentRunningTimeResponse" | jq -r '.data | .task.name' | tr -d "'")")
   TASK_NAME=" - $(truncate_text "$TASK_NAME" 15)"
   ACTIVE_TAG=$(echo "$currentRunningTimeResponse" | jq -r '.data | .task.custom_id')
   CURRENT_TIME=$(echo "$currentRunningTimeResponse" | jq '.data | .duration')
