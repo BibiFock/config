@@ -100,7 +100,7 @@ if [[ "$ISSUE" != "$ACTIVE_TAG" ]]; then
   if [[ "$ACTIVE_TAG" == "null" ]]; then
     ACTIVE_TAG="󱦠 "
   else
-    CURRENT_TIME=$(echo "scale=2; ${CURRENT_TIME} / 3600000" | bc -l | sed -e 's/\./H/')
+    CURRENT_TIME=$(echo "scale=2; ${CURRENT_TIME} / 3600000" | bc -l | sed -e 's/\./H/' | sed -e 's/^H/00H/')
     TAG=" 󰓼 (${BOLD}${YELLOW}${ACTIVE_TAG}${NC}$TASK_NAME /${CURRENT_TIME})"
     CURRENT_TIME=0
   fi

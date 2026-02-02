@@ -587,11 +587,25 @@ local lspconfig =  require('lspconfig');
 lspconfig.ts_ls.setup({
   autostart = true,
   init_options = {
+    typescript = {
+      preferences = {
+        -- Force l'utilisation des chemins définis dans baseUrl/paths
+        importModuleSpecifierPreference = 'non-relative',
+        -- Optionnel : aide à choisir le chemin le plus court si plusieurs alias existent
+        importModuleSpecifierEnding = 'minimal',
+      },
+    },
+    javascript = {
+      preferences = {
+        importModuleSpecifierPreference = 'non-relative',
+      },
+    },
     preferences = {
       noErrorTruncation = true,
       importModuleSpecifier = "shortest",
-      includePackageJsonAutoImports = "auto"
-   --   importModuleSpecifierPreference = "relative",
+      importModuleSpecifierPreference = "non-relative",
+      includePackageJsonAutoImports = "auto",
+      importModuleSpecifierEnding = 'minimal'
     }
   }
 })

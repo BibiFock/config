@@ -75,10 +75,10 @@
     pu= push -u
     pun= push -u --no-verify
     punf= push -u --no-verify -f
-    ; wip = !"git commit -m \"$(echo \"--WIP-- \"$(curl -s http://whatthecommit.com/index.txt))\";"
+    wip = !"git commit -m \"$(echo \"--WIP-- \"$(curl -s http://whatthecommit.com/index.txt))\";"
     ; wip = !"git commit -m \"$(echo \"test(wip): --WIP-- \"$(fortune ~/config/fortune/quotes))\";"
-    wip= !"git commit -m \"$(echo \"test(wip): \"$(fortune ~/config/fortune/quotes | cut -b1-50| tr '[:upper:]' '[:lower:]'))\" --no-verify;"
-    wipp=!"git add .;git wip; git push --no-verify -u;"
+    wif= !"git commit -m \"$(echo \"test(wip): \"$(fortune ~/config/fortune/quotes | cut -b1-50| tr '[:upper:]' '[:lower:]'))\" --no-verify;"
+    wifp=!"git add .;git wip; git push --no-verify -u;"
     #nb ci diff avec le master
     nbci = !"git rev-list --left-right --count ${1-master}..."
     #extra cmd
