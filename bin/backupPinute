@@ -24,7 +24,12 @@ step "RENDEV PART"
 mkdir rendevuke/
 cd rendevuke
 
-scp -r $HOST:web/rendev/database.db ./
+ssh $HOST "cd web/rendev/site && pnpm db:backup ../backup.db"
+
+scp -r $HOST:web/rendev/backup.db ./database.db
+
+ssh $HOST "cd web/rendev && rm backup.db"
+exit
 scp -r $HOST:web/rendev/site/static/uploads ./
 
 step "COPY DONE"
